@@ -6,10 +6,11 @@
   ...
 }:
 {
-  imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-  ];
+  hw =
+    let
+      p = "/etc/nixos/hardware-configuration.nix";
+    in
+    if lib.pathExists p then import p else { };
 
   nix.settings = {
     substituters = [ "https://hyprland.cachix.org" ];
