@@ -82,7 +82,7 @@ in {
   fonts.fontconfig.enable = true;
   programs.waybar.enable = true;
 
-  home.file.".config/waybar".source = ./dotfiles/waybar;
+  home.file.".config/waybar".source = ./hypr/waybar;
 
   home.file.".config/hypr/hyprpaper.conf".text = ''
     preload = ${./hypr/background.jpg}
