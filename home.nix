@@ -1,16 +1,43 @@
-{ pkgs, inputs, system, ... }:
+{
+  pkgs,
+  inputs,
+  system,
+  ...
+}:
 with pkgs;
 let
-  devTools = [ cargo neovim tmux git ];
+  devTools = [
+    cargo
+    tmux
+    git
+  ];
 
-  devPackages = [ gnumake gcc pkg-config ];
+  devPackages = [
+    gnumake
+    gcc
+    pkg-config
+    cmake
+  ];
 
-  gamingPackages = [ discord prismlauncher ];
+  gamingPackages = [
+    discord
+    prismlauncher
+  ];
 
   mediaPackages = [ spotify ];
 
+  fileManager = [
+    xfce.thunar
+    xfce.tumbler # core thumbnail daemon
+    ffmpegthumbnailer # video thumbnailer
+    papirus-icon-theme # example high-quality icon theme
+  ];
+
   systemTools = [
-    ripgrep
+    texlive.combined.scheme-full
+    zathura
+    geeqie
+    unzip
     playerctl
     easyeffects
     atool
@@ -18,18 +45,19 @@ let
     evtest
     grim
     slurp
-    xfce.thunar
+    swaynotificationcenter
   ];
 
   linuxEnvironment = [
-    libsForQt5.qt5ct
-    qt6ct
-    libsForQt5.qtstyleplugin-kvantum
-    kdePackages.breeze-icons
+    home-manager
+    brightnessctl
+
+    hyprlock
     wofi
     waybar
     hyprpaper
     dconf
+    networkmanagerapplet
   ];
 
   fonts = [ nerd-fonts.jetbrains-mono ];
@@ -39,7 +67,7 @@ let
   cursorPackage = phinger-cursors;
 
   # `nix-prefetch-git https://github.com/Rush/wayland-push-to-talk-fix.git`
-  waylandPushToTalkFix = stdenv.mkDerivation rec {
+  waylandPushToTalkFix = stdenv.mkDerivation {
     pname = "wayland-push-to-talk-fix";
     version = "unstable";
 
@@ -50,8 +78,14 @@ let
       sha256 = "11zbqz9zznzncf84jrvd5hl2iig6i1cpx6pwv02x2dg706ns0535";
     };
 
-    nativeBuildInputs = [ pkg-config xorg.libX11 ];
-    buildInputs = [ libevdev pkgs.xdotool ];
+    nativeBuildInputs = [
+      pkg-config
+      xorg.libX11
+    ];
+    buildInputs = [
+      libevdev
+      pkgs.xdotool
+    ];
     installPhase = ''
       # Create the directory structure under $out
       mkdir -p $out/bin $out/share/applications
@@ -61,58 +95,29 @@ let
     '';
   };
 
-in {
-  home.packages = devTools ++ devPackages ++ gamingPackages ++ mediaPackages
-    ++ systemTools ++ linuxEnvironment ++ fonts ++ [ waylandPushToTalkFix ];
+in
+{
+  home.packages =
+    devTools
+    ++ devPackages
+    ++ gamingPackages
+    ++ mediaPackages
+    ++ systemTools
+    ++ linuxEnvironment
+    ++ fonts
+    ++ fileManager
+    ++ [ waylandPushToTalkFix ];
 
   imports = [ ./autostart.nix ];
 
   fonts.fontconfig.enable = true;
+  programs.waybar.enable = true;
 
-  programs.waybar = {
-    enable = true;
-
-    settings = {
-      mainBar = {
-        layer = "top";
-        position = "top";
-        modules-left = [ "hyprland/workspaces" ];
-        modules-center = [ "clock" ];
-        # modules-right = [ "pulseaudio" "battery" "network" ];
-        clock = { format = "{:%a %d %b %I:%M %p}"; };
-
-        # --- hyprland/workspaces config starts here ---
-        "hyprland/workspaces" = {
-          format = "{icon}";
-          "format-icons" = {
-            urgent = "";
-            active = ""; # focused workspace on current monitor
-            visible = ""; # focused workspace on other monitors
-            default = "";
-            empty = "";
-            # empty = ""; # persistent (created by this plugin)
-          };
-          "all-outputs" = false; # recommended
-        };
-        # --- hyprland/workspaces config ends here ---
-      };
-    };
-
-    style = ''
-      * {
-        font-family: "JetBrainsMono Nerd Font", monospace;
-        font-size: 16px;
-      }
-      window#waybar {
-        background-color: rgba(30, 30, 30, 0.95);
-        color: white;
-      }
-    '';
-  };
+  home.file.".config/waybar".source = ./dotfiles/waybar;
 
   home.file.".config/hypr/hyprpaper.conf".text = ''
-    preload = /etc/nixos/home-manager/hypr/background.jpg
-    wallpaper = ,/etc/nixos/home-manager/hypr/background.jpg
+    preload = ${./hypr/background.jpg}
+    wallpaper = ,${./hypr/background.jpg}
   '';
 
   home.pointerCursor = {
@@ -129,34 +134,36 @@ in {
   };
 
   gtk = {
+    enable = true;
+    gtk3.extraConfig = {
+      "gtk-application-prefer-dark-theme" = true;
+    };
+    gtk4.extraConfig = {
+      "gtk-application-prefer-dark-theme" = true;
+    };
 
     cursorTheme = {
       name = cursorName;
       package = cursorPackage;
       size = cursorSize;
     };
-
-    enable = true;
-    gtk3.extraConfig = { "gtk-application-prefer-dark-theme" = true; };
-    gtk4.extraConfig = { "gtk-application-prefer-dark-theme" = true; };
   };
 
   home.sessionVariables = {
     QT_QPA_PLATFORMTHEME = "qt6ct";
-    QT_STYLE_OVERRIDE = "kvantum";
   };
 
   dconf.settings = {
-    "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; };
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
   };
 
   #Kitty
-  xdg.configFile."kitty/themes/gruvbox-material-dark-soft.conf".source =
-    builtins.fetchurl {
-      url =
-        "https://raw.githubusercontent.com/kovidgoyal/kitty-themes/refs/heads/master/themes/GruvboxMaterialDarkSoft.conf";
-      sha256 = "04azpbiv3vkqm0af0nl6ij9i0j2i95ij1rxxr2bb2cr3hh78x8yh";
-    };
+  xdg.configFile."kitty/themes/gruvbox-material-dark-soft.conf".source = builtins.fetchurl {
+    url = "https://raw.githubusercontent.com/kovidgoyal/kitty-themes/refs/heads/master/themes/GruvboxMaterialDarkSoft.conf";
+    sha256 = "04azpbiv3vkqm0af0nl6ij9i0j2i95ij1rxxr2bb2cr3hh78x8yh";
+  };
   programs.kitty = lib.mkForce {
     enable = true;
     font = {
@@ -171,10 +178,14 @@ in {
   #Zsh
   programs.starship = {
     enable = true;
-    settings = builtins.fromTOML (builtins.readFile (builtins.fetchurl {
-      url = "https://starship.rs/presets/toml/nerd-font-symbols.toml";
-      sha256 = "sha256:05yvqiycb580mnym7q8lvk1wcvpq7rc4jjqb829z3s82wcb9cmbr";
-    }));
+    settings = builtins.fromTOML (
+      builtins.readFile (
+        builtins.fetchurl {
+          url = "https://starship.rs/presets/toml/nerd-font-symbols.toml";
+          sha256 = "sha256:05yvqiycb580mnym7q8lvk1wcvpq7rc4jjqb829z3s82wcb9cmbr";
+        }
+      )
+    );
   };
   programs.zsh = {
     enable = true;
@@ -203,8 +214,7 @@ in {
 
   # Hyprland
   wayland.windowManager.hyprland = {
-    package =
-      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     portalPackage =
       inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     plugins = [
@@ -220,7 +230,7 @@ in {
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true; # Fixes common issues with GTK 3 apps
-    config = rec {
+    config = {
       modifier = "Mod4";
       terminal = "kitty";
     };

@@ -1,14 +1,28 @@
 # Help is available in the configuration.nix(5) man page and in the NixOS manual (accessible by running ‘nixos-help’).
-{ config, pkgs, lib, ... }: {
-  imports = [ # Include the results of the hardware scan.
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
 
   nix.settings = {
     substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys =
-      [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
   };
+
+  #Bluetooth
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
+
+  # For file manager
+  services.gvfs.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -32,7 +46,10 @@
   };
 
   # Enable flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -65,7 +82,12 @@
   users.users.lloyd = {
     isNormalUser = true;
     description = "Lloyd Williams";
-    extraGroups = [ "networkmanager" "wheel" "input" "plugdev" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "input"
+      "plugdev"
+    ];
     shell = pkgs.zsh;
     packages = with pkgs; [ ];
   };
@@ -73,12 +95,9 @@
   # Steam
   programs.steam = {
     enable = true;
-    remotePlay.openFirewall =
-      true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall =
-      true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall =
-      true; # Open ports in the firewall for Steam Local Network Game Transfers
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
 
   # For sway
@@ -90,6 +109,7 @@
     xwayland
     wl-clipboard
     networkmanagerapplet
+    tmux
     vim
     wget
     kitty
@@ -114,11 +134,26 @@
 
   # Set display manager
   services = {
-    xserver = { enable = true; };
-    displayManager.sddm.enable = true;
+    xserver = {
+      enable = true;
+    };
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
   };
 
-  programs.hyprland.enable = true;
+  # Enable hyprland for display manager
+  programs.hyprland = {
+    enable = true;
+  };
+
+  # Enable hyprlock
+  security = {
+    pam.services.hyprlock = { };
+  };
+
+  # Enable some other useful programs
   programs.zsh.enable = true;
   programs.firefox.enable = true;
 
@@ -126,6 +161,7 @@
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
+    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
   };
 
   # Setup Nvidia drivers
