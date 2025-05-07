@@ -5,12 +5,17 @@
   lib,
   ...
 }:
-{
+let
   hw =
     let
       p = "/etc/nixos/hardware-configuration.nix";
     in
     if lib.pathExists p then import p else { };
+in
+{
+  imports = [
+    hw
+  ];
 
   nix.settings = {
     substituters = [ "https://hyprland.cachix.org" ];
