@@ -5,7 +5,7 @@ It is neccessary to include `hardware-configuration.nix` to build the os. Either
 ```bash
 sudo nixos-generate-config && sudo cp /etc/nixos/hardware-configuration.nix .
 ```
-from the main lix folder to generate a new one if it doesn't already exist and move it to the source directory.
+to generate a new one if it doesn't already exist and move it to the source directory.
 ### monitors
 If you are using a multi-monitor setup, you may want to configure your monitor layout in hyprland. To do so, create a `monitors.nix` file in `/hypr` and include your monitor configurations in an array. For example, the file could contain
 ```nix
