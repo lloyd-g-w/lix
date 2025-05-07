@@ -3,7 +3,7 @@
 ### hardware configuration
 It is neccessary to include `hardware-configuration.nix` to build the os. To do so, feel to free to run
 ```bash
-sudo nixos-generate-config --root / && sudo cp /etc/nixos/hardware-configuration.nix .
+sudo nixos-generate-config && sudo cp /etc/nixos/hardware-configuration.nix .
 ```
 from the main lix folder.
 ### monitors
