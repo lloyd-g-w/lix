@@ -1,4 +1,4 @@
-# lix | my personal nixos config
+# lix | nixos config
 ## building
 ### hardware configuration
 It is neccessary to include `hardware-configuration.nix` to build the os. Either move it yourself or run
