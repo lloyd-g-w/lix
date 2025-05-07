@@ -1,28 +1,11 @@
-{
-  pkgs,
-  inputs,
-  system,
-  ...
-}:
+{ pkgs, inputs, system, ... }:
 with pkgs;
 let
-  devTools = [
-    cargo
-    tmux
-    git
-  ];
+  devTools = [ cargo tmux git ];
 
-  devPackages = [
-    gnumake
-    gcc
-    pkg-config
-    cmake
-  ];
+  devPackages = [ gnumake gcc pkg-config cmake ];
 
-  gamingPackages = [
-    discord
-    prismlauncher
-  ];
+  gamingPackages = [ discord prismlauncher ];
 
   mediaPackages = [ spotify ];
 
@@ -78,14 +61,8 @@ let
       sha256 = "11zbqz9zznzncf84jrvd5hl2iig6i1cpx6pwv02x2dg706ns0535";
     };
 
-    nativeBuildInputs = [
-      pkg-config
-      xorg.libX11
-    ];
-    buildInputs = [
-      libevdev
-      pkgs.xdotool
-    ];
+    nativeBuildInputs = [ pkg-config xorg.libX11 ];
+    buildInputs = [ libevdev pkgs.xdotool ];
     installPhase = ''
       # Create the directory structure under $out
       mkdir -p $out/bin $out/share/applications
@@ -95,17 +72,9 @@ let
     '';
   };
 
-in
-{
-  home.packages =
-    devTools
-    ++ devPackages
-    ++ gamingPackages
-    ++ mediaPackages
-    ++ systemTools
-    ++ linuxEnvironment
-    ++ fonts
-    ++ fileManager
+in {
+  home.packages = devTools ++ devPackages ++ gamingPackages ++ mediaPackages
+    ++ systemTools ++ linuxEnvironment ++ fonts ++ fileManager
     ++ [ waylandPushToTalkFix ];
 
   imports = [ ./autostart.nix ];
@@ -135,12 +104,8 @@ in
 
   gtk = {
     enable = true;
-    gtk3.extraConfig = {
-      "gtk-application-prefer-dark-theme" = true;
-    };
-    gtk4.extraConfig = {
-      "gtk-application-prefer-dark-theme" = true;
-    };
+    gtk3.extraConfig = { "gtk-application-prefer-dark-theme" = true; };
+    gtk4.extraConfig = { "gtk-application-prefer-dark-theme" = true; };
 
     cursorTheme = {
       name = cursorName;
@@ -149,21 +114,19 @@ in
     };
   };
 
-  home.sessionVariables = {
-    QT_QPA_PLATFORMTHEME = "qt6ct";
-  };
+  home.sessionVariables = { QT_QPA_PLATFORMTHEME = "qt6ct"; };
 
   dconf.settings = {
-    "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
-    };
+    "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; };
   };
 
   #Kitty
-  xdg.configFile."kitty/themes/gruvbox-material-dark-soft.conf".source = builtins.fetchurl {
-    url = "https://raw.githubusercontent.com/kovidgoyal/kitty-themes/refs/heads/master/themes/GruvboxMaterialDarkSoft.conf";
-    sha256 = "04azpbiv3vkqm0af0nl6ij9i0j2i95ij1rxxr2bb2cr3hh78x8yh";
-  };
+  xdg.configFile."kitty/themes/gruvbox-material-dark-soft.conf".source =
+    builtins.fetchurl {
+      url =
+        "https://raw.githubusercontent.com/kovidgoyal/kitty-themes/refs/heads/master/themes/GruvboxMaterialDarkSoft.conf";
+      sha256 = "04azpbiv3vkqm0af0nl6ij9i0j2i95ij1rxxr2bb2cr3hh78x8yh";
+    };
   programs.kitty = lib.mkForce {
     enable = true;
     font = {
@@ -178,14 +141,10 @@ in
   #Zsh
   programs.starship = {
     enable = true;
-    settings = builtins.fromTOML (
-      builtins.readFile (
-        builtins.fetchurl {
-          url = "https://starship.rs/presets/toml/nerd-font-symbols.toml";
-          sha256 = "sha256:05yvqiycb580mnym7q8lvk1wcvpq7rc4jjqb829z3s82wcb9cmbr";
-        }
-      )
-    );
+    settings = builtins.fromTOML (builtins.readFile (builtins.fetchurl {
+      url = "https://starship.rs/presets/toml/nerd-font-symbols.toml";
+      sha256 = "sha256:05yvqiycb580mnym7q8lvk1wcvpq7rc4jjqb829z3s82wcb9cmbr";
+    }));
   };
   programs.zsh = {
     enable = true;
@@ -214,7 +173,8 @@ in
 
   # Hyprland
   wayland.windowManager.hyprland = {
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    package =
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     portalPackage =
       inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     plugins = [
@@ -223,7 +183,7 @@ in
 
     systemd.enableXdgAutostart = true;
     enable = true;
-    settings = import ./hypr/hyprland.conf;
+    settings = import ./hypr/hyprland.nix;
   };
 
   # Sway

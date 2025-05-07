@@ -5,21 +5,19 @@
   "$fileManager" = "thunar";
   "$browser" = "firefox";
 
-  bindm = [
-    "$mod, mouse:272, movewindow"
-    "$mod, mouse:273, resizewindow"
-  ];
+  bindm = [ "$mod, mouse:272, movewindow" "$mod, mouse:273, resizewindow" ];
 
-  exec-once = [
-    "hyprpaper"
-    "waybar"
-  ];
+  exec-once = [ "hyprpaper" "waybar" ];
+
+  monitor = let
+    monitorsFile = ./monitors.nix;
+    isMonitorsFile = builtins.pathExists monitorsFile;
+    monitors = if isMonitorsFile then import monitorsFile else [ ];
+  in monitors;
 
   animation = [ "global, 0" ];
 
-  misc = {
-    disable_hyprland_logo = true;
-  };
+  misc = { disable_hyprland_logo = true; };
 
   plugin.split-monitor-workspaces = {
     count = 6;
@@ -42,45 +40,36 @@
     gaps_out = 0;
   };
 
-  bind =
-    [
-      "$mod, RETURN, exec, $terminal"
-      "$mod, Q, killactive,"
-      "$mod, F, fullscreen,"
-      "$mod, M, exit,"
-      "$mod, E, exec, $browser"
-      "$mod, V, togglefloating,"
-      "$mod, D, exec, $menu"
+  bind = [
+    "$mod, RETURN, exec, $terminal"
+    "$mod, Q, killactive,"
+    "$mod, F, fullscreen,"
+    "$mod, M, exit,"
+    "$mod, E, exec, $browser"
+    "$mod, V, togglefloating,"
+    "$mod, D, exec, $menu"
 
-      # Suspend and lock on Mod+Shift+S
-      "$mod SHIFT,S,exec, sh -c 'systemctl suspend && hyprlock --immediate'"
+    # Suspend and lock on Mod+Shift+S
+    "$mod SHIFT,S,exec, sh -c 'systemctl suspend && hyprlock --immediate'"
 
-      "$mod,H,movefocus,l"
-      "$mod,J,movefocus,d"
-      "$mod,K,movefocus,u"
-      "$mod,L,movefocus,r"
+    "$mod,H,movefocus,l"
+    "$mod,J,movefocus,d"
+    "$mod,K,movefocus,u"
+    "$mod,L,movefocus,r"
 
-      "$mod SHIFT,H,swapwindow,l"
-      "$mod SHIFT,J,swapwindow,d"
-      "$mod SHIFT,K,swapwindow,u"
-      "$mod SHIFT,L,swapwindow,r"
-    ]
-    ++ (
-      # workspaces
-      # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
-      builtins.concatLists (
-        builtins.genList (
-          i:
-          let
-            ws = i + 1;
-          in
-          [
-            "$mod, code:1${toString i}, split-workspace, ${toString ws}"
-            "$mod SHIFT, code:1${toString i}, split-movetoworkspace, ${toString ws}"
-          ]
-        ) 6
-      )
-    );
+    "$mod SHIFT,H,swapwindow,l"
+    "$mod SHIFT,J,swapwindow,d"
+    "$mod SHIFT,K,swapwindow,u"
+    "$mod SHIFT,L,swapwindow,r"
+  ] ++ (
+    # workspaces
+    # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+    builtins.concatLists (builtins.genList (i:
+      let ws = i + 1;
+      in [
+        "$mod, code:1${toString i}, split-workspace, ${toString ws}"
+        "$mod SHIFT, code:1${toString i}, split-movetoworkspace, ${toString ws}"
+      ]) 6));
   bindel = [
     ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
     ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
