@@ -1,7 +1,7 @@
 # lix | nixos config
 ## building
 ### hardware configuration
-It is neccessary to include `hardware-configuration.nix` to build the os. Either move it yourself or run
+It is necessary to include `hardware-configuration.nix` to build the os. Either move it yourself or run
 ```bash
 sudo nixos-generate-config && sudo cp /etc/nixos/hardware-configuration.nix .
 ```
