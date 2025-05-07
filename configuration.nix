@@ -5,16 +5,10 @@
   lib,
   ...
 }:
-let
-  hw =
-    let
-      p = "/etc/nixos/hardware-configuration.nix";
-    in
-    if lib.pathExists p then import p else { };
-in
 {
   imports = [
-    hw
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
   ];
 
   nix.settings = {
