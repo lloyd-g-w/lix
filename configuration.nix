@@ -96,10 +96,11 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    swaylock
+    xss-lock
     xwayland
     wl-clipboard
     networkmanagerapplet
-    tmux
     vim
     wget
     kitty
@@ -137,8 +138,10 @@
   # Enable hyprland for display manager
   programs.hyprland = { enable = true; };
 
-  # Enable hyprlock
-  security = { pam.services.hyprlock = { }; };
+  # Swaylock
+  programs.xss-lock.enable = true;
+  programs.xss-lock.lockerCommand = "${pkgs.swaylock}/bin/swaylock";
+  security.pam.services.swaylock = { };
 
   # Enable some other useful programs
   programs.zsh.enable = true;

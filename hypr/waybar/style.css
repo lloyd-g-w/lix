@@ -18,9 +18,19 @@ tooltip {
     background:grey;
     color: white;
 }
-#clock:hover, #custom-pacman:hover, #custom-notification:hover,#bluetooth:hover,#network:hover,#battery:hover, #cpu:hover,#memory:hover,#temperature:hover{
+#clock:hover, #custom-pacman:hover, #custom-notification:hover,#bluetooth:hover,#network:hover,#battery:hover, #cpu:hover,#memory:hover,#temperature:hover, #pulseaudio:hover, #custom-poweroff:hover{
     transition: all .3s ease;
     color:#858585;
+}
+#custom-poweroff{
+    padding: 0px 10px;
+    transition: all .3s ease;
+    color:white;
+}
+#pulseaudio {
+    padding: 0px 5px;
+    transition: all .3s ease;
+    color:white;
 }
 #custom-notification {
     padding: 0px 5px;

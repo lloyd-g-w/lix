@@ -7,7 +7,7 @@
 
   bindm = [ "$mod, mouse:272, movewindow" "$mod, mouse:273, resizewindow" ];
 
-  exec-once = [ "hyprpaper" "waybar" "playerctld daemon"];
+  exec-once = [ "hyprpaper" "waybar" "playerctld daemon" ];
 
   monitor = let
     monitorsFile = ./monitors.nix;
@@ -50,7 +50,7 @@
     "$mod, D, exec, $menu"
 
     # Suspend and lock on Mod+Shift+S
-    "$mod SHIFT,S,exec, sh -c 'systemctl suspend && hyprlock --immediate'"
+    "$mod SHIFT,S,exec, sh -c 'systemctl suspend && swaylock -l -c 3C3836"
 
     "$mod,H,movefocus,l"
     "$mod,J,movefocus,d"

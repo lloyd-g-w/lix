@@ -1,7 +1,7 @@
 { pkgs, inputs, system, ... }:
 with pkgs;
 let
-  devTools = [ cargo tmux git ];
+  devTools = [ cargo git ];
 
   devPackages = [ gnumake gcc pkg-config cmake ];
 
@@ -35,7 +35,7 @@ let
   linuxEnvironment = [
     home-manager
     brightnessctl
-    hyprlock
+    swaylock
     wofi
     waybar
     hyprpaper
@@ -77,6 +77,45 @@ in {
     ++ [ waylandPushToTalkFix ];
 
   imports = [ ./autostart.nix ];
+
+  programs.tmux = {
+    enable = true;
+
+    # aggressiveResize = true; -- Disabled to be iTerm-friendly
+    baseIndex = 1;
+    # Stop tmux+escape craziness.
+    escapeTime = 0;
+    # Force tmux to use /tmp for sockets (WSL2 compat)
+    secureSocket = false;
+
+    plugins = with pkgs; [
+      tmuxPlugins.better-mouse-mode
+      tmuxPlugins.gruvbox
+      tmuxPlugins.sensible
+      tmuxPlugins.vim-tmux-navigator
+    ];
+
+    keyMode = "vi";
+    shortcut = "b";
+
+    extraConfig = ''
+      bind-key h select-pane -L
+      bind-key j select-pane -D
+      bind-key k select-pane -U
+      bind-key l select-pane -R
+
+      set -sg escape-time 50
+      set -g default-terminal "screen-256color"
+      set -as terminal-features ",xterm-256color:RGB"
+
+      # Set new panes to open in current directory
+      bind c new-window -c "#{pane_current_path}"
+      bind '"' split-window -c "#{pane_current_path}"
+      bind % split-window -h -c "#{pane_current_path}"
+
+      set -g @tmux-gruvbox 'dark' # or 'light', 'dark-transparent', 'light-transparent'
+    '';
+  };
 
   fonts.fontconfig.enable = true;
   programs.waybar.enable = true;
