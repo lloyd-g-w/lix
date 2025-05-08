@@ -7,7 +7,7 @@
 
   bindm = [ "$mod, mouse:272, movewindow" "$mod, mouse:273, resizewindow" ];
 
-  exec-once = [ "hyprpaper" "waybar" ];
+  exec-once = [ "hyprpaper" "waybar" "playerctld daemon"];
 
   monitor = let
     monitorsFile = ./monitors.nix;

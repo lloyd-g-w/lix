@@ -1,11 +1,5 @@
 # Help is available in the configuration.nix(5) man page and in the NixOS manual (accessible by running ‘nixos-help’).
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-{
+{ config, pkgs, lib, ... }: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -13,7 +7,8 @@
 
   nix.settings = {
     substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+    trusted-public-keys =
+      [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
   };
 
   #Bluetooth
@@ -46,10 +41,7 @@
   };
 
   # Enable flakes
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -82,12 +74,7 @@
   users.users.lloyd = {
     isNormalUser = true;
     description = "Lloyd Williams";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "input"
-      "plugdev"
-    ];
+    extraGroups = [ "networkmanager" "wheel" "input" "plugdev" ];
     shell = pkgs.zsh;
     packages = with pkgs; [ ];
   };
@@ -95,9 +82,12 @@
   # Steam
   programs.steam = {
     enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+    remotePlay.openFirewall =
+      true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall =
+      true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall =
+      true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
 
   # For sway
@@ -130,13 +120,14 @@
   services.udev.extraRules = ''
     # match the keyd virtual keyboard by its exact name
     SUBSYSTEM=="input", KERNEL=="event*", ATTRS{name}=="keyd virtual keyboard", SYMLINK+="input/keyd-kbd"
+
+    # XP-Pen 9″ PenTablet
+    SUBSYSTEM=="usb", ATTR{idVendor}=="28bd", ATTR{idProduct}=="0918", MODE="0666", GROUP="input"
   '';
 
   # Set display manager
   services = {
-    xserver = {
-      enable = true;
-    };
+    xserver = { enable = true; };
     displayManager.sddm = {
       enable = true;
       wayland.enable = true;
@@ -144,14 +135,10 @@
   };
 
   # Enable hyprland for display manager
-  programs.hyprland = {
-    enable = true;
-  };
+  programs.hyprland = { enable = true; };
 
   # Enable hyprlock
-  security = {
-    pam.services.hyprlock = { };
-  };
+  security = { pam.services.hyprlock = { }; };
 
   # Enable some other useful programs
   programs.zsh.enable = true;

@@ -7,7 +7,7 @@ let
 
   gamingPackages = [ discord prismlauncher ];
 
-  mediaPackages = [ spotify ];
+  mediaPackages = [ spotify xournalpp ];
 
   fileManager = [
     xfce.thunar
@@ -17,6 +17,7 @@ let
   ];
 
   systemTools = [
+    scrcpy
     texlive.combined.scheme-full
     zathura
     geeqie
@@ -34,7 +35,6 @@ let
   linuxEnvironment = [
     home-manager
     brightnessctl
-
     hyprlock
     wofi
     waybar
@@ -71,7 +71,6 @@ let
       cp push-to-talk $out/bin/push-to-talk
     '';
   };
-
 in {
   home.packages = devTools ++ devPackages ++ gamingPackages ++ mediaPackages
     ++ systemTools ++ linuxEnvironment ++ fonts ++ fileManager

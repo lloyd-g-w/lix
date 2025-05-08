@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   xdg.autostart.enable = true;
 
   home.file = {
