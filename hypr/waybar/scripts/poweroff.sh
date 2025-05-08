@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-case $(wofi -d -L 7 -l 3 -W 100 -x -75 -y 0 \
+case $(wofi -d -L 7 -l 3 -W 100 -x -50 -y 0 \
     -D dynamic_lines=true << EOF | sed 's/^ *//'
     Shutdown
     Reboot
