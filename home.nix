@@ -17,6 +17,7 @@ let
   ];
 
   systemTools = [
+    btop
     scrcpy
     texlive.combined.scheme-full
     zathura
