@@ -40,7 +40,8 @@
     gaps_out = 0;
   };
 
-  bind = [
+  bind = let screenshotScript = ./scripts/screenshot.sh;
+  in [
     "$mod, RETURN, exec, $terminal"
     "$mod, Q, killactive,"
     "$mod, F, fullscreen,"
@@ -49,8 +50,8 @@
     "$mod, V, togglefloating,"
     "$mod, D, exec, $menu"
 
-    # Suspend and lock on Mod+Shift+S
-    "$mod SHIFT,S,exec, sh -c 'systemctl suspend && swaylock -l -c 3C3836"
+    # Screenshot
+    "$mod SHIFT, S, exec, ${screenshotScript}"
 
     "$mod,H,movefocus,l"
     "$mod,J,movefocus,d"
