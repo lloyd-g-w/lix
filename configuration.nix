@@ -16,6 +16,14 @@
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
 
+  # Printing
+  services.printing.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
   # For file manager
   services.gvfs.enable = true;
 
