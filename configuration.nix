@@ -86,7 +86,7 @@
     description = "Lloyd Williams";
     extraGroups = [ "networkmanager" "wheel" "input" "plugdev" ];
     shell = pkgs.zsh;
-    packages = with pkgs; [ ];
+    packages = with pkgs; [ jdk17 ];
   };
 
   # Steam

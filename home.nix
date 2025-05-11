@@ -3,7 +3,7 @@ with pkgs;
 let
   devTools = [ cargo git ];
 
-  devPackages = [ gnumake gcc pkg-config cmake ];
+  devPackages = [ gnumake gcc pkg-config cmake jdk21 ];
 
   gamingPackages = [ discord prismlauncher ];
 
