@@ -11,7 +11,7 @@
       [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
   };
 
-  #Bluetooth
+  # Bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
@@ -23,6 +23,8 @@
     nssmdns4 = true;
     openFirewall = true;
   };
+
+  networking.firewall.allowedTCPPorts = [ 1701 ];
 
   # For file manager
   services.gvfs.enable = true;

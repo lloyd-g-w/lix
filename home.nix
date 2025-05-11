@@ -18,6 +18,7 @@ let
 
   systemTools = [
     btop
+    weylus
     scrcpy
     texlive.combined.scheme-full
     zathura
