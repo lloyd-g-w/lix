@@ -2,7 +2,7 @@
   "$mod" = "SUPER";
   "$terminal" = "kitty";
   "$menu" = "wofi --show drun";
-  "$fileManager" = "thunar";
+  "$fileManager" = "nautilus";
   "$browser" = "firefox";
 
   bindm = [ "$mod, mouse:272, movewindow" "$mod, mouse:273, resizewindow" ];

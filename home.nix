@@ -10,10 +10,8 @@ let
   mediaPackages = [ spotify xournalpp ];
 
   fileManager = [
-    xfce.thunar
-    xfce.tumbler # core thumbnail daemon
+    nautilus
     ffmpegthumbnailer # video thumbnailer
-    papirus-icon-theme # example high-quality icon theme
   ];
 
   systemTools = [
@@ -147,6 +145,16 @@ in {
     enable = true;
     gtk3.extraConfig = { "gtk-application-prefer-dark-theme" = true; };
     gtk4.extraConfig = { "gtk-application-prefer-dark-theme" = true; };
+
+    theme = {
+      package = pkgs.adw-gtk3;
+      name = "adw-gtk3-dark";
+    };
+
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
 
     cursorTheme = {
       name = cursorName;
