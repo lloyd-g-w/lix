@@ -10,7 +10,8 @@ let
   mediaPackages = [ spotify xournalpp ];
 
   fileManager = [
-    nautilus
+    xfce.thunar
+    xfce.tumbler # core thumbnail daemon
     ffmpegthumbnailer # video thumbnailer
   ];
 
