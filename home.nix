@@ -3,7 +3,7 @@ with pkgs;
 let
   devTools = [ cargo git ];
 
-  devPackages = [ gnumake gcc pkg-config cmake jdk21 ];
+  devPackages = [ gnumake gcc pkg-config cmake jdk21 gradle nodejs_24 ];
 
   gamingPackages = [ discord prismlauncher ];
 
@@ -36,6 +36,7 @@ let
 
   linuxEnvironment = [
     home-manager
+    hyprsunset
     brightnessctl
     swaylock
     wofi
