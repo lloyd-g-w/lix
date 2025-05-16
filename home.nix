@@ -16,6 +16,7 @@ let
   ];
 
   systemTools = [
+    openvpn
     btop
     weylus
     scrcpy
