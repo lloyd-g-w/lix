@@ -1,7 +1,8 @@
 {
   "$mod" = "SUPER";
   "$terminal" = "kitty";
-  "$menu" = "wofi --show drun";
+  "$menu" = "anyrun";
+  # "$menu" = "wofi --show drun";
   "$fileManager" = "thunar";
   "$browser" = "firefox";
 

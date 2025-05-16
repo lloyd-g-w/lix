@@ -112,7 +112,49 @@ in
     ++ linuxEnvironment
     ++ fonts
     ++ fileManager
-    ++ [ waylandPushToTalkFix ];
+    ++ [
+      waylandPushToTalkFix
+    ];
+
+  programs.anyrun = {
+    enable = true;
+    extraCss = ''
+      /* target the main elements and make their background transparent */
+      window {
+        background-color: transparent;
+        /* optionally remove any shadows */
+        box-shadow: none;
+      }
+    '';
+    config = {
+      x = {
+        fraction = 0.5;
+      };
+      y = {
+        fraction = 0.0;
+      };
+      width = {
+        absolute = 800;
+      };
+      height = {
+        absolute = 0;
+      };
+      hideIcons = false;
+      ignoreExclusiveZones = false;
+      layer = "overlay";
+      hidePluginInfo = false;
+      closeOnClick = true;
+      showResultsImmediately = false;
+      maxEntries = null;
+
+      plugins = [
+        # An array of all the plugins you want, which either can be paths to the .so files, or their packages
+        inputs.anyrun.packages.${pkgs.system}.applications
+        inputs.anyrun.packages.${pkgs.system}.symbols
+        inputs.anyrun.packages.${pkgs.system}.rink
+      ];
+    };
+  };
 
   imports = [ ./autostart.nix ];
   home.username = "lloyd";

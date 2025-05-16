@@ -1,6 +1,16 @@
 {
   description = "NixOS Config";
 
+  nixConfig = {
+    builders-use-substitutes = true;
+    extra-substituters = [
+      "https://anyrun.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
@@ -50,27 +60,21 @@
               nixpkgs.config.allowUnfree = true;
             }
           )
-      ./configuration.nix
-
-      # ❗ this is already required for homeConfigurations — good if it's there:
-      {
-        _module.args = {
-          inherit inputs;
-        };
-      }
+          ./configuration.nix
+          {
+            _module.args = {
+              inherit inputs;
+            };
+          }
         ];
       };
 
       homeConfigurations.lloyd = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        #useGlobalPkgs = true;
-        #useUserPackages = true;
-        #backupFileExtension = "backup";
-    extraSpecialArgs = { inherit inputs system; };
+        extraSpecialArgs = { inherit inputs system; };
         modules = [
           ./home.nix
           lim.home-manager-module
-          #anyrun.homeManagerModules.default
         ];
       };
 
