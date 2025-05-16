@@ -119,11 +119,8 @@ in
   programs.anyrun = {
     enable = true;
     extraCss = ''
-      /* target the main elements and make their background transparent */
-      window {
+      window, main {
         background-color: transparent;
-        /* optionally remove any shadows */
-        box-shadow: none;
       }
     '';
     config = {
@@ -131,10 +128,10 @@ in
         fraction = 0.5;
       };
       y = {
-        fraction = 0.0;
+        fraction = 0.3;
       };
       width = {
-        absolute = 800;
+        absolute = 600;
       };
       height = {
         absolute = 0;
@@ -231,10 +228,10 @@ in
       "gtk-application-prefer-dark-theme" = true;
     };
 
-    theme = {
-      package = pkgs.adw-gtk3;
-      name = "adw-gtk3-dark";
-    };
+    # theme = {
+    #   package = pkgs.adw-gtk3;
+    #   name = "adw-gtk3-dark";
+    # };
 
     iconTheme = {
       name = "Papirus-Dark";
