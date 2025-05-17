@@ -57,6 +57,7 @@ let
   ];
 
   linuxEnvironment = [
+    wlogout
     hyprsunset
     brightnessctl
     swaylock
@@ -200,6 +201,45 @@ in
   programs.waybar.enable = true;
 
   home.file.".config/waybar".source = ./hypr/waybar;
+
+  home.file.".config/wlogout/layout".text = ''
+    {
+      "label": "lock",
+      "action": "swaylock -l -c 3C3836",
+      "text": "Lock",
+      "keybind": "l"
+    },
+    {
+      "label": "suspend",
+      "action": "systemctl suspend",
+      "text": "Suspend",
+      "keybind": "s"
+    },
+    {
+      "label": "reboot",
+      "action": "systemctl reboot",
+      "text": "Reboot",
+      "keybind": "r"
+    },
+    {
+      "label" : "hibernate",
+      "action" : "systemctl hibernate",
+      "text" : "Hibernate",
+      "keybind" : "h"
+    },
+    {
+      "label": "shutdown",
+      "action": "systemctl poweroff",
+      "text": "Shutdown",
+      "keybind": "p"
+    },
+    {
+      "label": "logout",
+      "action": "hyprctl dispatch exit",
+      "text": "Logout",
+      "keybind": "e"
+    }
+  '';
 
   home.file.".config/hypr/hyprpaper.conf".text = ''
     preload = ${./hypr/background.jpg}

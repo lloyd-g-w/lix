@@ -127,6 +127,6 @@
   "custom/poweroff": {
     "tooltip": false,
     "format": " ",
-    "on-click": "bash $HOME/.config/waybar/scripts/poweroff.sh",
+    "on-click": "wlogout",
   },
 }
