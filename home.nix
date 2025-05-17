@@ -82,15 +82,13 @@ in {
   programs.anyrun = {
     enable = true;
     extraCss = ''
-            window, main {
-              background-color: transparent;
-            }
-
-            window main GtkBox {
-        /* pick your desired width */
-        max-width: 250px;
+      window, main {
+        background-color: transparent;
       }
 
+      main {
+        width: 200px;
+      }
     '';
     config = {
       x = { fraction = 0.5; };
