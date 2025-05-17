@@ -8,7 +8,13 @@
 
   bindm = [ "$mod, mouse:272, movewindow" "$mod, mouse:273, resizewindow" ];
 
-  exec-once = [ "hyprpaper" "waybar" "playerctld daemon" "hyprsunset -t 5000" ];
+  exec-once = [
+    "hyprpaper"
+    "waybar"
+    "playerctld daemon"
+    "hyprsunset -t 5000"
+    "ulauncher --no-window-shadow"
+  ];
 
   monitor = let
     monitorsFile = ./monitors.nix;
