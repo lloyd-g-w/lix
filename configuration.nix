@@ -5,16 +5,15 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
 
   nix.settings = {
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+    substituters = ["https://hyprland.cachix.org"];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
   };
 
   # Bluetooth
@@ -30,7 +29,7 @@
     openFirewall = true;
   };
 
-  networking.firewall.allowedTCPPorts = [ 1701 5432 ];
+  networking.firewall.allowedTCPPorts = [1701 5432];
 
   # For file manager
   services.gvfs.enable = true;
@@ -100,7 +99,7 @@
       "plugdev"
     ];
     shell = pkgs.zsh;
-    packages = with pkgs; [ inputs.home-manager.packages.${pkgs.system}.home-manager ];
+    packages = with pkgs; [inputs.home-manager.packages.${pkgs.system}.home-manager];
   };
 
   nix.settings.trusted-users = [
@@ -174,7 +173,7 @@
   # Swaylock
   programs.xss-lock.enable = true;
   programs.xss-lock.lockerCommand = "${pkgs.swaylock}/bin/swaylock";
-  security.pam.services.swaylock = { };
+  security.pam.services.swaylock = {};
 
   # Enable some other useful programs
   programs.zsh.enable = true;
@@ -190,10 +189,10 @@
   # Setup Nvidia drivers
   hardware.graphics = {
     enable = true;
-    extraPackages = with pkgs; [ nvidia-vaapi-driver ];
+    extraPackages = with pkgs; [nvidia-vaapi-driver];
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia.open = true;
 
   # Some programs need SUID wrappers, can be configured further or are

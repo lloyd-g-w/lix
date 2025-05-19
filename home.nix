@@ -1,13 +1,17 @@
-{ pkgs, inputs, system, ... }:
-with pkgs;
-let
-  devTools = [ cargo git ];
+{
+  pkgs,
+  inputs,
+  system,
+  ...
+}:
+with pkgs; let
+  devTools = [cargo git];
 
-  devPackages = [ gnumake gcc pkg-config cmake jdk21 gradle nodejs_24 pnpm_9 ];
+  devPackages = [gnumake gcc pkg-config cmake jdk21 gradle nodejs_24 pnpm_9];
 
-  gamingPackages = [ discord prismlauncher ];
+  gamingPackages = [discord prismlauncher];
 
-  mediaPackages = [ spotify xournalpp ];
+  mediaPackages = [spotify xournalpp];
 
   fileManager = [
     xfce.thunar
@@ -46,7 +50,7 @@ let
     networkmanagerapplet
   ];
 
-  fonts = [ nerd-fonts.jetbrains-mono ];
+  fonts = [nerd-fonts.jetbrains-mono];
 
   cursorName = "phinger-cursors-light";
   cursorSize = 24;
@@ -64,8 +68,8 @@ let
       sha256 = "11zbqz9zznzncf84jrvd5hl2iig6i1cpx6pwv02x2dg706ns0535";
     };
 
-    nativeBuildInputs = [ pkg-config xorg.libX11 ];
-    buildInputs = [ libevdev pkgs.xdotool ];
+    nativeBuildInputs = [pkg-config xorg.libX11];
+    buildInputs = [libevdev pkgs.xdotool];
     installPhase = ''
       # Create the directory structure under $out
       mkdir -p $out/bin $out/share/applications
@@ -75,9 +79,16 @@ let
     '';
   };
 in {
-  home.packages = devTools ++ devPackages ++ gamingPackages ++ mediaPackages
-    ++ systemTools ++ linuxEnvironment ++ fonts ++ fileManager
-    ++ [ waylandPushToTalkFix ];
+  home.packages =
+    devTools
+    ++ devPackages
+    ++ gamingPackages
+    ++ mediaPackages
+    ++ systemTools
+    ++ linuxEnvironment
+    ++ fonts
+    ++ fileManager
+    ++ [waylandPushToTalkFix];
 
   programs.anyrun = {
     enable = true;
@@ -91,10 +102,10 @@ in {
       }
     '';
     config = {
-      x = { fraction = 0.5; };
-      y = { fraction = 0.3; };
-      width = { absolute = 600; };
-      height = { absolute = 0; };
+      x = {fraction = 0.5;};
+      y = {fraction = 0.3;};
+      width = {absolute = 600;};
+      height = {absolute = 0;};
       hideIcons = false;
       ignoreExclusiveZones = false;
       layer = "overlay";
@@ -112,7 +123,7 @@ in {
     };
   };
 
-  imports = [ ./autostart.nix ];
+  imports = [./autostart.nix];
   home.username = "lloyd";
   home.homeDirectory = "/home/lloyd";
 
@@ -219,8 +230,8 @@ in {
 
   gtk = {
     enable = true;
-    gtk3.extraConfig = { "gtk-application-prefer-dark-theme" = true; };
-    gtk4.extraConfig = { "gtk-application-prefer-dark-theme" = true; };
+    gtk3.extraConfig = {"gtk-application-prefer-dark-theme" = true;};
+    gtk4.extraConfig = {"gtk-application-prefer-dark-theme" = true;};
 
     theme = {
       package = pkgs.adw-gtk3;
@@ -239,19 +250,17 @@ in {
     };
   };
 
-  home.sessionVariables = { QT_QPA_PLATFORMTHEME = "qt6ct"; };
+  home.sessionVariables = {QT_QPA_PLATFORMTHEME = "qt6ct";};
 
   dconf.settings = {
-    "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; };
+    "org/gnome/desktop/interface" = {color-scheme = "prefer-dark";};
   };
 
   #Kitty
-  xdg.configFile."kitty/themes/gruvbox-material-dark-soft.conf".source =
-    builtins.fetchurl {
-      url =
-        "https://raw.githubusercontent.com/kovidgoyal/kitty-themes/refs/heads/master/themes/GruvboxMaterialDarkSoft.conf";
-      sha256 = "04azpbiv3vkqm0af0nl6ij9i0j2i95ij1rxxr2bb2cr3hh78x8yh";
-    };
+  xdg.configFile."kitty/themes/gruvbox-material-dark-soft.conf".source = builtins.fetchurl {
+    url = "https://raw.githubusercontent.com/kovidgoyal/kitty-themes/refs/heads/master/themes/GruvboxMaterialDarkSoft.conf";
+    sha256 = "04azpbiv3vkqm0af0nl6ij9i0j2i95ij1rxxr2bb2cr3hh78x8yh";
+  };
   programs.kitty = lib.mkForce {
     enable = true;
     font = {
@@ -291,7 +300,7 @@ in {
     oh-my-zsh = {
       enable = true;
 
-      plugins = [ "git" ];
+      plugins = ["git"];
       theme = "robbyrussell";
     };
   };
