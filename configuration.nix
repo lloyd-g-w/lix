@@ -30,7 +30,7 @@
     openFirewall = true;
   };
 
-  networking.firewall.allowedTCPPorts = [ 1701 ];
+  networking.firewall.allowedTCPPorts = [ 1701 5432 ];
 
   # For file manager
   services.gvfs.enable = true;
