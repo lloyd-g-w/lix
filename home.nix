@@ -11,7 +11,7 @@ with pkgs; let
 
   gamingPackages = [discord prismlauncher];
 
-  mediaPackages = [spotify xournalpp];
+  mediaPackages = [spotify xournalpp audacity];
 
   fileManager = [
     xfce.thunar
