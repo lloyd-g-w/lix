@@ -12,7 +12,7 @@
     "hyprpaper"
     "waybar"
     "playerctld daemon"
-    "hyprsunset -t 5000"
+    # "hyprsunset -t 5000"
     "ulauncher --no-window-shadow"
   ];
 
