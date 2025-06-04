@@ -80,11 +80,12 @@
       # workspaces
       # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
       builtins.concatLists (builtins.genList (i: let
-        ws = i + 1;
-      in [
-        "$mod, code:1${toString i}, split-workspace, ${toString ws}"
-        "$mod SHIFT, code:1${toString i}, split-movetoworkspace, ${toString ws}"
-      ]) 6)
+          ws = i + 1;
+        in [
+          "$mod, code:1${toString i}, split-workspace, ${toString ws}"
+          "$mod SHIFT, code:1${toString i}, split-movetoworkspace, ${toString ws}"
+        ])
+        6)
     );
   bindel = [
     ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"

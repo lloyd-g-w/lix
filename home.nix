@@ -257,19 +257,11 @@ in {
   };
 
   #Kitty
+  programs.kitty.enable = true;
+  xdg.configFile."kitty/kitty.conf".source = ./kitty/kitty.conf;
   xdg.configFile."kitty/themes/gruvbox-material-dark-soft.conf".source = builtins.fetchurl {
     url = "https://raw.githubusercontent.com/kovidgoyal/kitty-themes/refs/heads/master/themes/GruvboxMaterialDarkSoft.conf";
     sha256 = "04azpbiv3vkqm0af0nl6ij9i0j2i95ij1rxxr2bb2cr3hh78x8yh";
-  };
-  programs.kitty = lib.mkForce {
-    enable = true;
-    font = {
-      name = "JetBrainsMono Nerd Font";
-      size = 14;
-    };
-    extraConfig = ''
-      include themes/gruvbox-material-dark-soft.conf
-    '';
   };
 
   #Zsh
