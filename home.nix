@@ -333,7 +333,7 @@ in {
     myShellFlakes = {
       comp3891 = {
         type = "path";
-        path = ./shells/comp3891;
+        path = "${inputs.self}/shells/comp3891";
       };
     };
 
