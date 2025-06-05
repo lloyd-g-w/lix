@@ -281,7 +281,14 @@ in {
       gacp = "git add .; git add -u; git commit -m '🙃'; git push";
     };
 
+    # nixd function for having nix shells
+    # use the current shell
     initContent = ''
+
+      nixd() {
+        command nix develop "$@" -c "$SHELL"
+      }
+
       set -o vi
       eval "$(starship init zsh)"
       export TERMINAL=kitty

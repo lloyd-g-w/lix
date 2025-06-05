@@ -45,8 +45,6 @@
     };
   in {
     devShells.${system}.default = pkgs.mkShell {
-      interactiveShell = pkgs.zsh;
-
       buildInputs = [os161Utils];
 
       shellHook = ''
