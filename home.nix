@@ -322,6 +322,38 @@ in {
     };
   };
 
+  home.file.".config/nix/registry.json".text = let
+    myShellFlakes = {
+      comp3891 = {
+        type = "path";
+        path = ./shells/comp3891;
+      };
+    };
+
+    registryEntries = builtins.map (
+      alias: let
+        attrs = builtins.getAttr alias myShellFlakes;
+      in {
+        from = {
+          type = "indirect";
+          id = alias;
+        };
+        to = {
+          type = attrs.type;
+          path = attrs.path;
+        };
+      }
+    ) (builtins.attrNames myShellFlakes);
+
+    registryJson = builtins.toJSON {
+      version = 2;
+      flakes = registryEntries;
+    };
+  in
+    registryJson;
+
+  # (…plus the rest of your Home Manager config below…)
+
   # The state version is required and should stay at the version you
   # originally installed.
   home.stateVersion = "24.11";
