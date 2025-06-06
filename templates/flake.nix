@@ -4,8 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # Import the comp4128 flake from the subdirectory
-    comp4128-template.url = "path:./templates/comp4128"; # Adjust path if needed
+    comp4128-template.url = "path:./comp4128"; # Adjust path if needed
   };
 
   outputs = {
