@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
+
 template_file="@template_path@"
 destination_file=""
 
-if [ -z "$1" ]; then
+if [ "$#" -eq 0 ]; then
   destination_file="main.cpp"
 else
   destination_file="$1"
-  # If the user didn’t supply a ".cpp" suffix, append it
   case "$destination_file" in
     *.cpp) ;;
     *) destination_file="${destination_file}.cpp" ;;
@@ -19,8 +19,8 @@ if [ ! -f "$template_file" ]; then
   exit 1
 fi
 
-# Use cat instead of cp for getting around nix-store default
-# write protection
+# Use `cat` to redirect the content, creating a new, writable file.
 cat "$template_file" > "$destination_file"
 
-echo "Constructed the COMP4128 template file."
+echo "Constructed COMP4128 file: $destination_file"
+
