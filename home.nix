@@ -335,6 +335,10 @@ in {
         type = "path";
         path = "${inputs.self}/shells/comp3891";
       };
+      progtemp = {
+        type = "path";
+        path = "${inputs.self}/templates";
+      };
     };
 
     registryEntries = builtins.map (

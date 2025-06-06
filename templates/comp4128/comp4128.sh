@@ -19,7 +19,8 @@ if [ ! -f "$template_file" ]; then
   exit 1
 fi
 
-# --- Copy the Template to the Destination File ---
-cp "$template_file" "$destination_file"
+# Use cat instead of cp for getting around nix-store default
+# write protection
+cat "$template_file" > "$destination_file"
 
 echo "Constructed the COMP4128 template file."

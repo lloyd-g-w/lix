@@ -11,64 +11,28 @@
     nixpkgs,
     flake-utils,
   }:
-    flake-utils.lib.eachDefaultSystem (
-      system: let
-        pkgs = nixpkgs.legacyPackages.${system};
+    flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
 
-        # The C++ template file
-        templateFile = ./comp4128.cpp;
+      templateFile = ./comp4128.cpp;
 
-        # The main script that will be built
-        comp4128-script = pkgs.writeShellApplication {
-          name = "comp4128";
-          runtimeInputs = [pkgs.bash];
-          text = ''
-            #!${pkgs.bash}/bin/bash
-            template_file="${templateFile}"
-            destination_file=""
+      comp4128-script = pkgs.writeShellApplication {
+        name = "comp4128";
+        runtimeInputs = [pkgs.bash pkgs.coreutils]; # for `cat`
 
-            if [ -z "$1" ]; then
-              destination_file="main.cpp"
-            else
-              destination_file="$1"
-              # If the user didn’t supply a ".cpp" suffix, append it
-              case "$destination_file" in
-                *.cpp) ;;
-                *) destination_file="''${destination_file}.cpp" ;;
-              esac
-            fi
+        # Read the contents of the shell script and replace the placeholder.
+        text =
+          builtins.replaceStrings
+          ["@template_path@"]
+          ["${templateFile}"]
+          (builtins.readFile ./comp4128.sh);
+      };
+    in {
+      apps.default = {
+        type = "app";
+        program = "${comp4128-script}/bin/comp4128";
+      };
 
-
-            if [ ! -f "$template_file" ]; then
-              echo "Error: Template file not found at '$template_file'"
-              exit 1
-            fi
-
-            # --- Copy the Template to the Destination File ---
-            cp "$template_file" "$destination_file"
-
-            echo "Constructed COMP4128 file: $destination_file"
-          '';
-        };
-      in {
-        packages = {
-          default = comp4128-script;
-        };
-
-        apps = {
-          default = {
-            type = "app";
-            program = "${comp4128-script}/bin/comp4128";
-          };
-        };
-
-        templates = {
-          default = self;
-          comp4128 = {
-            path = ./.;
-            description = "COMP4128 Competitive Programming Template";
-          };
-        };
-      }
-    );
+      packages.default = comp4128-script;
+    });
 }
