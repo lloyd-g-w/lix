@@ -51,14 +51,10 @@
           '';
         };
       in {
-        # Package that can be installed or used as a build input
-        # build with `nix build .#`
         packages = {
           default = comp4128-script;
         };
 
-        # App that can be run directly
-        # run with `nix run . -- <filename>`
         apps = {
           default = {
             type = "app";
@@ -66,8 +62,6 @@
           };
         };
 
-        # Template files that can be used by other flakes
-        # useful for composing flakes
         templates = {
           default = self;
           comp4128 = {
