@@ -11,9 +11,8 @@
     system = "x86_64-linux";
     pkgs = import nixpkgs {inherit system;};
   in {
-    # Define a single "default" app for x86_64-linux
-    apps.${system}.default = pkgs.writeShellScriptBin "cpp-template" ''
-      ${./cpp-template.sh}
+    apps.${system}.comp4128 = pkgs.writeShellScriptBin "comp4128" ''
+      ${./comp4128.sh}
     '';
   };
 }
