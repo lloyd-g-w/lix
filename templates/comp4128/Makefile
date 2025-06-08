@@ -9,9 +9,8 @@ TARGET = main
 
 all: $(TARGET)
 
-$(TARGET):
+$(TARGET): $(SRC)
 	$(CXX) $(CPPFLAGS) $(SRC) -o $(TARGET)
 
 clean:
-	rm -f $(OBJ) $(TARGET)
-
+	rm -f $(TARGET)
