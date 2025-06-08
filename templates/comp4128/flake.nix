@@ -15,6 +15,9 @@
       pkgs = nixpkgs.legacyPackages.${system};
 
       templateFile = ./comp4128.cpp;
+      makeFile = ./Makefile;
+      clangdFile = ./.clangd;
+      clangFormatFile = ./.clang-format;
 
       comp4128-script = pkgs.writeShellApplication {
         name = "comp4128";
@@ -23,8 +26,8 @@
         # Read the contents of the shell script and replace the placeholder.
         text =
           builtins.replaceStrings
-          ["@template_path@"]
-          ["${templateFile}"]
+          ["@template_path@" "@make_path@" "@clangd_file@" "@clang_format_file@"]
+          ["${templateFile}" "${makeFile}" "${clangdFile}" "${clangFormatFile}"]
           (builtins.readFile ./comp4128.sh);
       };
     in {
