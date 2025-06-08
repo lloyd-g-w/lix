@@ -5,16 +5,12 @@ CPPFLAGS = -Wall -Wextra -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogica
            -O2 --std=c++17 -g
 
 SRC = $(wildcard *.cpp)
-OBJ = $(SRC:.cpp=.o)
 TARGET = main
 
 all: $(TARGET)
 
-$(TARGET): $(OBJ)
-	$(CXX) $(CPPFLAGS) -o $@ $^
-
-%.o: %.cpp
-	$(CXX) $(CPPFLAGS) -c $< -o $@
+$(TARGET):
+	$(CXX) $(CPPFLAGS) $(SRC) -o $(TARGET)
 
 clean:
 	rm -f $(OBJ) $(TARGET)
