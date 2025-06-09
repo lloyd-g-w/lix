@@ -16,6 +16,7 @@
 
     lim = {
       url = "path:./modules/lim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
