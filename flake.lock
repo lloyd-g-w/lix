@@ -400,11 +400,11 @@
         ]
       },
       "locked": {
-        "path": "./modules/lim",
+        "path": "modules/lim",
         "type": "path"
       },
       "original": {
-        "path": "./modules/lim",
+        "path": "modules/lim",
         "type": "path"
       },
       "parent": []
