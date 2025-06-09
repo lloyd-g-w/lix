@@ -20,6 +20,7 @@ with pkgs; let
   ];
 
   systemTools = [
+    vscode
     openvpn
     btop
     weylus

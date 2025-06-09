@@ -45,7 +45,7 @@
     };
   in {
     devShells.${system}.default = pkgs.mkShell {
-      buildInputs = [os161Utils];
+      buildInputs = [os161Utils pkgs.gcc pkgs.clang pkgs.bear];
 
       shellHook = ''
         echo "Creating a temporary FHS environment for os161-utils..."
