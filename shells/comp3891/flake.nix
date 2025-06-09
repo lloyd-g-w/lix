@@ -65,6 +65,8 @@
         # ⭐️ ADD THIS LINE: Tell bmake where to find its system files.
         export MAKESYSPATH="$OS161_TEMP_DIR/usr/local/share/mk"
 
+        exec zsh
+
         echo "Done. The os161 toolchain is now available."
       '';
     };

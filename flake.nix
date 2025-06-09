@@ -14,10 +14,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    lim = {
-      url = "github:lloyd-g-w/lim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    lim = ./modules/lim;
 
     hyprland.url = "github:hyprwm/Hyprland";
 
