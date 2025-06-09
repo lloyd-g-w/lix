@@ -16,7 +16,6 @@
 
     lim = {
       url = "path:./modules/lim";
-      follows = "nixpkgs";
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
@@ -68,7 +67,7 @@
       extraSpecialArgs = {inherit inputs system;};
       modules = [
         ./home.nix
-        lim.home-manager-module
+        lim.homeManagerModules.default
       ];
     };
   };
