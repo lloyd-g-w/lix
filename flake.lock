@@ -393,26 +393,6 @@
         "type": "github"
       }
     },
-    "lim": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1749458107,
-        "narHash": "sha256-TOrO2oycOtmY+YhZnUQPWIBc4mOj5YDmyxuyak/7ddA=",
-        "ref": "refs/heads/main",
-        "rev": "5b66ad26425f9e6a0f8739f0822852438755a096",
-        "revCount": 135,
-        "type": "git",
-        "url": "file:./modules/lim"
-      },
-      "original": {
-        "type": "git",
-        "url": "file:./modules/lim"
-      }
-    },
     "nix-filter": {
       "locked": {
         "lastModified": 1693833173,
@@ -488,7 +468,9 @@
         "anyrun": "anyrun",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
-        "lim": "lim",
+        "lim": [
+          "nixpkgs"
+        ],
         "nixpkgs": "nixpkgs_2",
         "split-monitor-workspaces": "split-monitor-workspaces"
       }
