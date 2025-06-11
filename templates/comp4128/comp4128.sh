@@ -4,29 +4,65 @@ template_file="@template_path@"
 make_file="@make_path@"
 clangd_file="@clangd_file@"
 clang_format_file="@clang_format_file@"
-destination_file=""
 
-if [ "$#" -eq 0 ]; then
-  destination_file="main.cpp"
-else
-  destination_file="$1"
-  case "$destination_file" in
-    *.cpp) ;;
-    *) destination_file="${destination_file}.cpp" ;;
+copy_template=true
+copy_make=true
+copy_clangd=false
+copy_clang_format=false
+
+destination_file="main.cpp"
+
+if [ "$#" -ge 1 ]; then
+  case "$1" in
+    setup)
+      copy_template=false
+      copy_make=false
+      copy_clangd=true
+      copy_clang_format=true
+      ;;
+    all)
+      copy_clangd=true
+      copy_clang_format=true
+      copy_make=true
+      copy_template=true
+      if [ "$#" -ge 2 ]; then
+        destination_file="$2"
+        case "$destination_file" in
+          *.cpp) ;;
+          *) destination_file="${destination_file}.cpp" ;;
+        esac
+      fi
+      ;;
+    *)
+      destination_file="$1"
+      case "$destination_file" in
+        *.cpp) ;;
+        *) destination_file="${destination_file}.cpp" ;;
+      esac
+      ;;
   esac
 fi
 
-
-if [ ! -f "$template_file" ]; then
-  echo "Error: Template file not found at '$template_file'"
-  exit 1
+if $copy_template; then
+  if [ ! -f "$template_file" ]; then
+    echo "Error: Template file not found at '$template_file'"
+    exit 1
+  fi
+  cat "$template_file" > "$destination_file"
+  echo "Created: $destination_file"
 fi
 
-# Use `cat` to redirect the content, creating a new, writable file.
-cat "$template_file" > "$destination_file"
-cat "$make_file" > "Makefile"
-cat "$clangd_file" > ".clangd"
-cat "$clang_format_file" > ".clang-format"
+if $copy_make; then
+  cat "$make_file" > "Makefile"
+  echo "Created: Makefile"
+fi
 
-echo "Constructed COMP4128 file: $destination_file"
+if $copy_clangd; then
+  cat "$clangd_file" > ".clangd"
+  echo "Created: .clangd"
+fi
 
+if $copy_clang_format; then
+  cat "$clang_format_file" > ".clang-format"
+  echo "Created: .clang-format"
+fi
