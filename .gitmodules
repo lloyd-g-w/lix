@@ -1,3 +1,3 @@
 [submodule "modules/lim"]
 	path = modules/lim
-	url = https://github.com/lloyd-g-w/lim.git
+	url = git@github.com:lloyd-g-w/lim.git
