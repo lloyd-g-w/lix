@@ -20,6 +20,7 @@ with pkgs; let
   ];
 
   systemTools = [
+    pandoc
     vscode
     openvpn
     btop
