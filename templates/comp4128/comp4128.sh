@@ -4,9 +4,11 @@ template_file="@template_path@"
 make_file="@make_path@"
 clangd_file="@clangd_file@"
 clang_format_file="@clang_format_file@"
+diary_file="@diary_file@"
 
 copy_template=true
 copy_make=true
+copy_diary=true
 copy_clangd=false
 copy_clang_format=false
 
@@ -50,6 +52,12 @@ if $copy_template; then
   fi
   cat "$template_file" > "$destination_file"
   echo "Created: $destination_file"
+fi
+
+
+if $copy_diary; then
+  cat "$diary_file" > "diary.md"
+  echo "Created: diary.md"
 fi
 
 if $copy_make; then
