@@ -1,6 +1,5 @@
-# A - Problem 
+# Title
 
 ## Problem-solving process
 
 ## Challenges
-

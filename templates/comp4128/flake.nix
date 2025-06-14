@@ -14,8 +14,8 @@
     flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
 
-      templateFile = ./comp4128.cpp;
-      diaryFile = ./comp4128.md;
+      templateFile = ./main.cpp;
+      diaryFile = ./diary.md;
       makeFile = ./Makefile;
       clangdFile = ./.clangd;
       clangFormatFile = ./.clang-format;
@@ -29,7 +29,7 @@
           builtins.replaceStrings
           ["@template_path@" "@make_path@" "@clangd_file@" "@clang_format_file@" "@diary_file@"]
           ["${templateFile}" "${makeFile}" "${clangdFile}" "${clangFormatFile}" "${diaryFile}"]
-          (builtins.readFile ./comp4128.sh);
+          (builtins.readFile ./construct.sh);
       };
     in {
       apps.default = {
