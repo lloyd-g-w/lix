@@ -1,8 +1,8 @@
 {
   "$mod" = "SUPER";
   "$terminal" = "kitty";
-  "$menu" = "anyrun";
-  # "$menu" = "wofi --show drun";
+  # "$menu" = "anyrun";
+  "$menu" = "walker";
   "$fileManager" = "thunar";
   "$browser" = "firefox";
 
@@ -12,8 +12,9 @@
     "hyprpaper"
     "waybar"
     "playerctld daemon"
+    "walker --gapplication-service"
     # "hyprsunset -t 5000"
-    "ulauncher --no-window-shadow"
+    # "ulauncher --no-window-shadow"
   ];
 
   monitor = let

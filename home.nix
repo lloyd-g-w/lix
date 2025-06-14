@@ -45,7 +45,8 @@ with pkgs; let
     hyprsunset
     brightnessctl
     swaylock
-    wofi
+    rofi-wayland
+    walker
     waybar
     hyprpaper
     dconf
@@ -92,38 +93,38 @@ in {
     ++ fileManager
     ++ [waylandPushToTalkFix];
 
-  programs.anyrun = {
-    enable = true;
-    extraCss = ''
-      window, main {
-        background-color: transparent;
-      }
-
-      main {
-        width: 200px;
-      }
-    '';
-    config = {
-      x = {fraction = 0.5;};
-      y = {fraction = 0.3;};
-      width = {absolute = 600;};
-      height = {absolute = 0;};
-      hideIcons = false;
-      ignoreExclusiveZones = false;
-      layer = "overlay";
-      hidePluginInfo = false;
-      closeOnClick = true;
-      showResultsImmediately = false;
-      maxEntries = null;
-
-      plugins = [
-        # An array of all the plugins you want, which either can be paths to the .so files, or their packages
-        inputs.anyrun.packages.${pkgs.system}.applications
-        inputs.anyrun.packages.${pkgs.system}.symbols
-        inputs.anyrun.packages.${pkgs.system}.rink
-      ];
-    };
-  };
+  # programs.anyrun = {
+  #   enable = true;
+  #   extraCss = ''
+  #     window, main {
+  #       background-color: transparent;
+  #     }
+  #
+  #     main {
+  #       width: 200px;
+  #     }
+  #   '';
+  #   config = {
+  #     x = {fraction = 0.5;};
+  #     y = {fraction = 0.3;};
+  #     width = {absolute = 600;};
+  #     height = {absolute = 0;};
+  #     hideIcons = false;
+  #     ignoreExclusiveZones = false;
+  #     layer = "overlay";
+  #     hidePluginInfo = false;
+  #     closeOnClick = true;
+  #     showResultsImmediately = false;
+  #     maxEntries = null;
+  #
+  #     plugins = [
+  #       # An array of all the plugins you want, which either can be paths to the .so files, or their packages
+  #       inputs.anyrun.packages.${pkgs.system}.applications
+  #       inputs.anyrun.packages.${pkgs.system}.symbols
+  #       inputs.anyrun.packages.${pkgs.system}.rink
+  #     ];
+  #   };
+  # };
 
   imports = [./autostart.nix];
   home.username = "lloyd";
@@ -172,6 +173,23 @@ in {
   programs.waybar.enable = true;
 
   home.file.".config/waybar".source = ./hypr/waybar;
+
+  home.file.".config/tofi/config".text = ''
+    font = VT323
+    corner-radius = 60
+    outline-color = #D3D1B9
+    outline-width = 3
+    border-color = #E3E1C9
+    border-width = 60
+    background-color = #000000
+    text-color = #0A3
+    selection-color = #0F6
+    prompt-text = "C:\> "
+    num-results = 9
+    hide-cursor = true
+    width = 640
+    height = 480
+  '';
 
   home.file.".config/wlogout/layout".text = ''
     {
