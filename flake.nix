@@ -3,9 +3,9 @@
 
   nixConfig = {
     builders-use-substitutes = true;
-    extra-substituters = ["https://anyrun.cachix.org"];
+    extra-substituters = ["https://walker.cachix.org"];
     extra-trusted-public-keys = [
-      "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
+      "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
     ];
   };
 
@@ -27,16 +27,12 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    anyrun = {
-      url = "github:anyrun-org/anyrun";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    walker.url = "github:abenz1267/walker";
   };
   outputs = inputs @ {
     nixpkgs,
     home-manager,
     lim,
-    anyrun,
     ...
   }: let
     system = "x86_64-linux";
@@ -70,6 +66,7 @@
       modules = [
         ./home.nix
         lim.homeManagerModules.default
+        inputs.walker.homeManagerModules.default
       ];
     };
   };

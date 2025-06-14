@@ -20,6 +20,7 @@ with pkgs; let
   ];
 
   systemTools = [
+    libqalculate
     pandoc
     vscode
     openvpn
@@ -46,7 +47,6 @@ with pkgs; let
     brightnessctl
     swaylock
     rofi-wayland
-    walker
     waybar
     hyprpaper
     dconf
@@ -169,27 +169,26 @@ in {
     '';
   };
 
+  programs.walker = {
+    enable = true;
+    runAsService = true;
+
+    # All options from the config.json can be used here.
+    config = {
+      search.placeholder = "Search";
+      ui.fullscreen = true;
+      list = {
+        height = 200;
+      };
+      websearch.prefix = "?";
+      switcher.prefix = "/";
+    };
+  };
+
   fonts.fontconfig.enable = true;
   programs.waybar.enable = true;
 
   home.file.".config/waybar".source = ./hypr/waybar;
-
-  home.file.".config/tofi/config".text = ''
-    font = VT323
-    corner-radius = 60
-    outline-color = #D3D1B9
-    outline-width = 3
-    border-color = #E3E1C9
-    border-width = 60
-    background-color = #000000
-    text-color = #0A3
-    selection-color = #0F6
-    prompt-text = "C:\> "
-    num-results = 9
-    hide-cursor = true
-    width = 640
-    height = 480
-  '';
 
   home.file.".config/wlogout/layout".text = ''
     {
