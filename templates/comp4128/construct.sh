@@ -56,8 +56,8 @@ fi
 
 
 if $copy_diary; then
-  cat "$diary_file" > "diary.md"
-  echo "Created: diary.md"
+  cat "$diary_file" > "diary.tex"
+  echo "Created: diary.tex"
 fi
 
 if $copy_make; then

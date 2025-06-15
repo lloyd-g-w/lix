@@ -1,0 +1,33 @@
+\documentclass[11pt]{article}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{parskip}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{enumitem}
+
+\makeatletter
+\renewcommand{\maketitle}{%
+  \begin{flushleft}
+    {\LARGE\bfseries \@title}
+  \end{flushleft}
+  \vspace{1em}
+}
+\makeatother
+
+\title{Title}
+
+\begin{document}
+
+\maketitle
+
+\hrule
+
+\section*{Problem-solving Process}
+Summary
+
+\section*{Challenge Summary}
+\begin{itemize}[leftmargin=*]
+  \item Item1
+\end{itemize}
+
+\end{document}

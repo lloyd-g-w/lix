@@ -15,7 +15,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
 
       templateFile = ./main.cpp;
-      diaryFile = ./diary.md;
+      diaryFile = ./diary.tex;
       makeFile = ./Makefile;
       clangdFile = ./.clangd;
       clangFormatFile = ./.clang-format;

@@ -21,7 +21,6 @@ with pkgs; let
 
   systemTools = [
     libqalculate
-    pandoc
     vscode
     openvpn
     btop
