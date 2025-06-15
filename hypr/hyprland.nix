@@ -12,7 +12,6 @@
     "hyprpaper"
     "waybar"
     "playerctld daemon"
-    "walker --gapplication-service"
     # "hyprsunset -t 5000"
     # "ulauncher --no-window-shadow"
   ];
