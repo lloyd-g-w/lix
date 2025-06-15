@@ -82,12 +82,6 @@
     LC_TIME = "en_AU.UTF-8";
   };
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "au";
-    variant = "";
-  };
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.lloyd = {
     isNormalUser = true;
@@ -155,10 +149,8 @@
   '';
 
   # Set display manager
+
   services = {
-    xserver = {
-      enable = true;
-    };
     displayManager.sddm = {
       enable = true;
       wayland.enable = true;
@@ -192,8 +184,21 @@
     extraPackages = with pkgs; [nvidia-vaapi-driver];
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia.open = true;
+
+  # X server
+  services.xserver = {
+    enable = true;
+
+    # Set nvidia drivers
+    videoDrivers = ["nvidia"];
+
+    # Set keyboard layout
+    xkb = {
+      layout = "au";
+      variant = "";
+    };
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
