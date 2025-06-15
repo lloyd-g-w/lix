@@ -3,15 +3,22 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    legacy-nixpkgs = {
+      url = "github:NixOS/nixpkgs/release-19.09";
+      flake = false;
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
+    legacy-nixpkgs,
     ...
   }: let
     system = "x86_64-linux";
     pkgs = import nixpkgs {inherit system;};
+    legacyPkgs = import legacy-nixpkgs {inherit system;};
 
     os161Utils = pkgs.stdenv.mkDerivation {
       pname = "os161-utils";
@@ -24,12 +31,12 @@
 
       nativeBuildInputs = [pkgs.dpkg pkgs.autoPatchelfHook];
 
-      buildInputs = with pkgs; [
-        glibc
-        ncurses
-        libmpc
-        mpfr
-        gmp
+      buildInputs = [
+        pkgs.glibc
+        legacyPkgs.ncurses
+        pkgs.libmpc
+        pkgs.mpfr
+        pkgs.gmp
       ];
 
       unpackPhase = ''

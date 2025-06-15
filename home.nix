@@ -16,6 +16,8 @@ with pkgs; let
   fileManager = [
     xfce.thunar
     xfce.tumbler # core thumbnail daemon
+    xfce.thunar-archive-plugin
+    xfce.thunar-media-tags-plugin
     ffmpegthumbnailer # video thumbnailer
   ];
 
