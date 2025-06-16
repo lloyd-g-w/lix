@@ -1,4 +1,9 @@
 {pkgs, ...}: {
+  # Keep SSH socket so I can use SSH for nixos switch as su
+  security.sudo.extraConfig = ''
+    Defaults env_keep += "SSH_AUTH_SOCK"
+  '';
+
   # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
