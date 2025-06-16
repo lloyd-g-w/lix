@@ -53,6 +53,15 @@
           ./hosts/laptop
         ];
       };
+
+      server = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          {nixpkgs.config.allowUnfree = true;}
+          ./hosts/server
+        ];
+      };
     };
 
     homeConfigurations = {
@@ -79,6 +88,18 @@
           ./home/users/lloyd/laptop.nix
           lim.homeManagerModules.default
           inputs.walker.homeManagerModules.default
+        ];
+      };
+
+      "server" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+        extraSpecialArgs = {inherit inputs;};
+        modules = [
+          ./home/users/server
+          lim.homeManagerModules.default
         ];
       };
     };
