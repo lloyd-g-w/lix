@@ -29,45 +29,54 @@
 
     walker.url = "github:abenz1267/walker";
   };
-  outputs = inputs @ {
+  outputs = {
     nixpkgs,
     home-manager,
     lim,
-    ...
-  }: let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      config = {
-        allowUnfree = true;
+  } @ inputs: {
+    nixosConfigurations = {
+      desktop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          {
+            _module.args.pkgs = import nixpkgs {
+              system = "x86_64-linux";
+              config.allowUnfree = true;
+            };
+          }
+          ./hosts/desktop
+        ];
+      };
+
+      laptop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          {
+            _module.args.pkgs = import nixpkgs {
+              system = "x86_64-linux";
+              config.allowUnfree = true;
+            };
+          }
+          ./hosts/laptop
+        ];
       };
     };
-  in {
-    nixosConfigurations.lloyd = nixpkgs.lib.nixosSystem {
-      system = system;
-      modules = [
-        (
-          {
-            config,
-            pkgs,
-            ...
-          }: {
-            nixpkgs.config.allowUnfree = true;
-          }
-        )
-        ./configuration.nix
-        {_module.args = {inherit inputs;};}
-      ];
-    };
 
-    homeConfigurations.lloyd = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      extraSpecialArgs = {inherit inputs system;};
-      modules = [
-        ./home.nix
-        lim.homeManagerModules.default
-        inputs.walker.homeManagerModules.default
-      ];
+    homeConfigurations = {
+      lloyd = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+        extraSpecialArgs = {inherit inputs;};
+        modules = [
+          ./home/users/lloyd
+          lim.homeManagerModules.default
+          inputs.walker.homeManagerModules.default
+        ];
+      };
     };
   };
 }

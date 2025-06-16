@@ -24,6 +24,7 @@ with pkgs; let
 
   systemTools = [
     kdePackages.xwaylandvideobridge
+    libqalculate
     vscode
     openvpn
     btop
@@ -33,18 +34,23 @@ with pkgs; let
     zathura
     geeqie
     unzip
+    playerctl
     easyeffects
     atool
     httpie
     evtest
+    grim
+    slurp
+    swaynotificationcenter
   ];
 
   linuxEnvironment = [
     wlogout
     hyprsunset
     brightnessctl
-    waybar
     swaylock
+    rofi-wayland
+    waybar
     hyprpaper
     dconf
     networkmanagerapplet
@@ -90,30 +96,22 @@ in {
     ++ fileManager
     ++ [waylandPushToTalkFix];
 
-  imports = [./autostart.nix];
-  home.username = "lloyd";
-  home.homeDirectory = "/home/lloyd";
-
   programs.tmux = {
     enable = true;
-
     # aggressiveResize = true; -- Disabled to be iTerm-friendly
     baseIndex = 1;
     # Stop tmux+escape craziness.
     escapeTime = 0;
     # Force tmux to use /tmp for sockets (WSL2 compat)
     secureSocket = false;
-
     plugins = with pkgs; [
       tmuxPlugins.better-mouse-mode
       tmuxPlugins.gruvbox
       tmuxPlugins.sensible
       tmuxPlugins.vim-tmux-navigator
     ];
-
     keyMode = "vi";
     shortcut = "b";
-
     extraConfig = ''
       bind-key h select-pane -L
       bind-key j select-pane -D
@@ -131,112 +129,6 @@ in {
 
       set -g @tmux-gruvbox 'dark' # or 'light', 'dark-transparent', 'light-transparent'
     '';
-  };
-
-  programs.walker = {
-    enable = true;
-    runAsService = true;
-
-    # All options from the config.json can be used here.
-    config = {
-      search.placeholder = "Search";
-      ui.fullscreen = true;
-      list = {
-        height = 200;
-      };
-      websearch.prefix = "?";
-      switcher.prefix = "/";
-    };
-  };
-
-  fonts.fontconfig.enable = true;
-  programs.waybar.enable = true;
-
-  home.file.".config/waybar".source = ./hypr/waybar;
-
-  home.file.".config/wlogout/layout".text = ''
-    {
-      "label": "lock",
-      "action": "swaylock -l -c 3C3836",
-      "text": "Lock",
-      "keybind": "l"
-    },
-    {
-      "label": "suspend",
-      "action": "systemctl suspend",
-      "text": "Suspend",
-      "keybind": "s"
-    },
-    {
-      "label": "reboot",
-      "action": "systemctl reboot",
-      "text": "Reboot",
-      "keybind": "r"
-    },
-    {
-      "label" : "hibernate",
-      "action" : "systemctl hibernate",
-      "text" : "Hibernate",
-      "keybind" : "h"
-    },
-    {
-      "label": "shutdown",
-      "action": "systemctl poweroff",
-      "text": "Shutdown",
-      "keybind": "p"
-    },
-    {
-      "label": "logout",
-      "action": "hyprctl dispatch exit",
-      "text": "Logout",
-      "keybind": "e"
-    }
-  '';
-
-  home.file.".config/hypr/hyprpaper.conf".text = ''
-    preload = ${./hypr/background.jpg}
-    wallpaper = ,${./hypr/background.jpg}
-  '';
-
-  home.pointerCursor = {
-    name = cursorName;
-    package = cursorPackage;
-    size = cursorSize;
-    gtk.enable = true;
-    x11.enable = true;
-  };
-
-  home.sessionVariables = {
-    XCURSOR_THEME = cursorName;
-    XCURSOR_SIZE = cursorSize;
-  };
-
-  gtk = {
-    enable = true;
-    gtk3.extraConfig = {"gtk-application-prefer-dark-theme" = true;};
-    gtk4.extraConfig = {"gtk-application-prefer-dark-theme" = true;};
-
-    theme = {
-      package = pkgs.adw-gtk3;
-      name = "adw-gtk3-dark";
-    };
-
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
-
-    cursorTheme = {
-      name = cursorName;
-      package = cursorPackage;
-      size = cursorSize;
-    };
-  };
-
-  home.sessionVariables = {QT_QPA_PLATFORMTHEME = "qt6ct";};
-
-  dconf.settings = {
-    "org/gnome/desktop/interface" = {color-scheme = "prefer-dark";};
   };
 
   #Kitty
@@ -301,6 +193,16 @@ in {
     settings = import ./hypr/hyprland.nix;
   };
 
+  # Sway
+  wayland.windowManager.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true; # Fixes common issues with GTK 3 apps
+    config = {
+      modifier = "Mod4";
+      terminal = "kitty";
+    };
+  };
+
   home.file.".config/nix/registry.json".text = let
     myShellFlakes = {
       comp3891 = {
@@ -334,6 +236,4 @@ in {
     };
   in
     registryJson;
-
-  home.stateVersion = "24.11";
 }

@@ -1,4 +1,3 @@
-# shell.nix
 let
   pkgs = import <nixpkgs> {};
 
