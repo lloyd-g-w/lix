@@ -7,12 +7,7 @@
     comp4128-template.url = "path:./comp4128";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    comp4128-template,
-    ...
-  } @ inputs: {
+  outputs = {comp4128-template, ...} @ inputs: {
     apps.x86_64-linux = {
       comp4128 = {
         type = "app";

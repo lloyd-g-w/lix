@@ -16,7 +16,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     lim = {
-      url = ./modules/lim;
+      url = ./modules/home-manager/lim;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

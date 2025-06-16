@@ -357,11 +357,11 @@
         ]
       },
       "locked": {
-        "path": "modules/lim",
+        "path": "modules/home-manager/lim",
         "type": "path"
       },
       "original": {
-        "path": "modules/lim",
+        "path": "modules/home-manager/lim",
         "type": "path"
       },
       "parent": []
