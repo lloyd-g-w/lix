@@ -33,6 +33,7 @@
     nixpkgs,
     home-manager,
     lim,
+    ...
   } @ inputs: {
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
