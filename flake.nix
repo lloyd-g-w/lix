@@ -56,14 +56,27 @@
     };
 
     homeConfigurations = {
-      lloyd = home-manager.lib.homeManagerConfiguration {
+      "lloyd@desktop" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
           system = "x86_64-linux";
           config.allowUnfree = true;
         };
         extraSpecialArgs = {inherit inputs;};
         modules = [
-          ./home/users/lloyd
+          ./home/users/lloyd/desktop.nix
+          lim.homeManagerModules.default
+          inputs.walker.homeManagerModules.default
+        ];
+      };
+
+      "lloyd@laptop" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+        extraSpecialArgs = {inherit inputs;};
+        modules = [
+          ./home/users/lloyd/laptop.nix
           lim.homeManagerModules.default
           inputs.walker.homeManagerModules.default
         ];
