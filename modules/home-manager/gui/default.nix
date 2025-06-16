@@ -1,7 +1,6 @@
 {
   pkgs,
   inputs,
-  system,
   ...
 }: let
   fonts = [pkgs.nerd-fonts.jetbrains-mono];
@@ -32,6 +31,8 @@
   cursorName = "phinger-cursors-light";
   cursorSize = 24;
   cursorPackage = pkgs.phinger-cursors;
+
+  system = pkgs.stdenv.hostPlatform.system;
 in {
   home.packages = fonts ++ environment ++ tools;
 
@@ -54,9 +55,9 @@ in {
   # Hyprland
   wayland.windowManager.hyprland = {
     package =
-      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      inputs.hyprland.packages.${system}.hyprland;
     portalPackage =
-      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+      inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
     plugins = [
       inputs.split-monitor-workspaces.packages.${system}.split-monitor-workspaces
     ];

@@ -40,12 +40,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
-          {
-            _module.args.pkgs = import nixpkgs {
-              system = "x86_64-linux";
-              config.allowUnfree = true;
-            };
-          }
+          {nixpkgs.config.allowUnfree = true;}
           ./hosts/desktop
         ];
       };
@@ -54,12 +49,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
-          {
-            _module.args.pkgs = import nixpkgs {
-              system = "x86_64-linux";
-              config.allowUnfree = true;
-            };
-          }
+          {nixpkgs.config.allowUnfree = true;}
           ./hosts/laptop
         ];
       };

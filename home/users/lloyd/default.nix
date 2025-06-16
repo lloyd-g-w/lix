@@ -3,7 +3,6 @@
     ../../../modules/home-manager/common.nix
     ../../../modules/home-manager/thunar.nix
     ../../../modules/home-manager/terminal.nix
-    ../../../modules/home-manager/development.nix
     ../../../modules/home-manager/wayland-fixes.nix
     ../../../modules/home-manager/gui
     ./autostart.nix

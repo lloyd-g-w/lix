@@ -1,4 +1,4 @@
-{pkgs}: {
+{pkgs, ...}: {
   # Setup Nvidia drivers
   hardware.graphics = {
     enable = true;
