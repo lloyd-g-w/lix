@@ -1,9 +1,4 @@
-{
-  pkgs,
-  inputs,
-  system,
-  ...
-}: let
+{pkgs, ...}: let
   waylandPushToTalkFix = pkgs.stdenv.mkDerivation {
     pname = "wayland-push-to-talk-fix";
     version = "unstable";

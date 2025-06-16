@@ -1,8 +1,4 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   environment.systemPackages = [pkgs.keyd];
 
   # Remap side button with keyd to F19

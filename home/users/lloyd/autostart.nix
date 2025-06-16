@@ -1,4 +1,4 @@
-{}: {
+{...}: {
   xdg.autostart.enable = true;
 
   home.file.".config/autostart/discord-push-to-talk.desktop".text = ''
