@@ -1,4 +1,4 @@
-{
+{config, ...}: {
   "$mod" = "SUPER";
   "$terminal" = "kitty";
   # "$menu" = "anyrun";
@@ -16,15 +16,7 @@
     # "ulauncher --no-window-shadow"
   ];
 
-  monitor = let
-    monitorsFile = ./monitors.nix;
-    isMonitorsFile = builtins.pathExists monitorsFile;
-    monitors =
-      if isMonitorsFile
-      then import monitorsFile
-      else [];
-  in
-    monitors;
+  monitor = config.lix.hyprland.monitors;
 
   animation = ["global, 0"];
 

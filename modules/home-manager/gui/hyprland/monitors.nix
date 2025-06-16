@@ -1,1 +1,0 @@
-["DP-4, preferred, 0x0, 1" "HDMI-A-2, preferred, auto, 1"]

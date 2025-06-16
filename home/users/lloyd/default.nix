@@ -12,6 +12,9 @@
   home.homeDirectory = "/home/lloyd";
   home.stateVersion = "24.11";
 
+  # Setup hyprland monitors with custom option
+  lix.hyprland.monitors = ["DP-4, preferred, 0x0, 1" "HDMI-A-2, preferred, auto, 1"];
+
   home.packages = with pkgs; [
     # Utils
     kdePackages.xwaylandvideobridge
