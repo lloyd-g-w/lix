@@ -27,5 +27,6 @@
     };
   };
 
+  networking.firewall.allowedTCPPorts = [80];
   programs.zsh.enable = true;
 }

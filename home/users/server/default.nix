@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs,lib, ...}: {
   imports = [
     ../../../modules/home-manager/common.nix
     ../../../modules/home-manager/terminal.nix
@@ -28,4 +28,8 @@
     nodejs_24
     pnpm_9
   ];
+
+  programs.tmux = {
+    shortcut = lib.mkForce "a";
+  };
 }
