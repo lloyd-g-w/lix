@@ -4,9 +4,6 @@
     Defaults env_keep += "SSH_AUTH_SOCK"
   '';
 
-  # Bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
 
   # Bluetooth
   hardware.bluetooth.enable = true;

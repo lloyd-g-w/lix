@@ -11,6 +11,10 @@
   system.stateVersion = "24.11";
   networking.hostName = "laptop";
 
+  # Bootloader
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
   nix.settings.trusted-users = [
     "root"
     "lloyd"

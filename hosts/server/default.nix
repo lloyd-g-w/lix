@@ -8,10 +8,24 @@
   system.stateVersion = "24.11";
   networking.hostName = "server";
 
+  # Bootloader.
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/sda";
+  boot.loader.grub.useOSProber = true;
+
   nix.settings.trusted-users = [
     "root"
     "lloyd"
   ];
+
+  services.openssh = {
+    enable = true;
+    ports = [143];
+    settings = {
+      UseDns = true;
+      PasswordAuthentication = false;
+    };
+  };
 
   programs.zsh.enable = true;
 }
