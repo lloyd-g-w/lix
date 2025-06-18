@@ -14,7 +14,6 @@
 
   home.packages = with pkgs; [
     # Utils
-    kdePackages.xwaylandvideobridge
     unzip
     atool
     httpie
