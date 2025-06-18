@@ -12,7 +12,6 @@
   home.homeDirectory = "/home/lloyd";
   home.stateVersion = "24.11";
 
-
   home.packages = with pkgs; [
     # Utils
     kdePackages.xwaylandvideobridge
