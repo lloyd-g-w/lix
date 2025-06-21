@@ -24,10 +24,11 @@
       set -sg escape-time 50
       set -g default-terminal "screen-256color"
       set -as terminal-features ",xterm-256color:RGB"
+      set-option -g default-shell "''${SHELL}"
 
       # Set new panes to open in current directory
       bind c new-window -c "#{pane_current_path}"
-      bind '"' split-window -c "#{pane_current_path}"
+      bind '"' split-window -c "{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
 
       set -g @tmux-gruvbox 'dark' # or 'light', 'dark-transparent', 'light-transparent'
