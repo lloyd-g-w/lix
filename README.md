@@ -1,1 +1,1 @@
-# lix | lloyd's nixos config
+# lix | nixos config
