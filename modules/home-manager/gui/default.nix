@@ -77,6 +77,10 @@ in {
       settings = import ./hyprland {inherit config;};
     };
 
+    xdg.portal.enable = true;
+    xdg.portal.extraPortals = [inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-wlr];
+    xdg.portal.config.common.default = ["hyprland"];
+
     # Hyprpaper (wallpaper for hyprland)
     home.file.".config/hypr/hyprpaper.conf".text = ''
       preload = ${./hyprland/background.jpg}

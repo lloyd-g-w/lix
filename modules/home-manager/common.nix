@@ -3,11 +3,6 @@
   pkgs,
   ...
 }: {
-  xdg.portal = {
-    enable = true;
-    # extraPortals = [pkgs.xdg-desktop-portal-wlr];
-    # config.common.default = "wlr";
-  };
 
   # Set nix registry
   home.file.".config/nix/registry.json".text = let

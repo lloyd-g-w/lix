@@ -4,7 +4,6 @@
     Defaults env_keep += "SSH_AUTH_SOCK"
   '';
 
-
   # Bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
