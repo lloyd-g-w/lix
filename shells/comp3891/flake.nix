@@ -51,7 +51,7 @@
     };
   in {
     devShells.${system}.default = pkgs.mkShell {
-      buildInputs = [os161Utils pkgs.gcc pkgs.clang pkgs.bear];
+      buildInputs = [os161Utils pkgs.gcc pkgs.clang pkgs.bear pkgs.zsh];
 
       shellHook = ''
         echo "Creating a temporary FHS environment for os161-utils..."
@@ -71,6 +71,7 @@
         # ⭐️ ADD THIS LINE: Tell bmake where to find its system files.
         export MAKESYSPATH="$OS161_TEMP_DIR/usr/local/share/mk"
 
+        export SHELL="${pkgs.zsh}/bin/zsh"
         exec zsh
 
         echo "Done. The os161 toolchain is now available."
