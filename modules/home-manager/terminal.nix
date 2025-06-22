@@ -89,4 +89,17 @@
       theme = "robbyrussell";
     };
   };
+
+  # Zoxide (cd replacement)
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+    options = [
+      "--cmd cd"
+    ];
+  };
+
+  # fzf (mostly for zoxide)
+  programs.fzf.enable = true;
+  programs.fzf.enableZshIntegration = true;
 }
