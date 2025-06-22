@@ -23,6 +23,7 @@
     openvpn
 
     # Dev
+    python3
     vscode
     cargo
     git
