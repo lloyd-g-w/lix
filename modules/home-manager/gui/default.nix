@@ -78,8 +78,14 @@ in {
     };
 
     xdg.portal.enable = true;
-    xdg.portal.extraPortals = [inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-wlr];
+    xdg.portal.extraPortals = [inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland];
     xdg.portal.config.common.default = ["hyprland"];
+
+    home.sessionVariables = {
+      XDG_CURRENT_DESKTOP = "Hyprland";
+      XDG_SESSION_TYPE = "wayland";
+      XDG_DESKTOP_PORTAL = "xdg-desktop-portal-hyprland";
+    };
 
     # Hyprpaper (wallpaper for hyprland)
     home.file.".config/hypr/hyprpaper.conf".text = ''
