@@ -31,6 +31,7 @@
   services.displayManager.gdm = {
     enable = true;
     wayland = true;
+    autoSuspend = false;
   };
 
   # Enable hyprland for display manager
