@@ -49,5 +49,20 @@
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+    # For xdg portals - mostly discord screen sharing
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_TYPE = "wayland";
+    XDG_DESKTOP_PORTAL = "xdg-desktop-portal-hyprland";
+  };
+
+  # Continuing for xdg portals
+  systemd.user.services.importXdgEnv = {
+    description = "Import XDG vars into user systemd";
+    after = ["graphical-session.target"];
+    wantedBy = ["default.target"];
+    serviceConfig.ExecStart = ''
+      /usr/bin/systemctl import-environment \
+        XDG_CURRENT_DESKTOP XDG_SESSION_TYPE XDG_DESKTOP_PORTAL
+    '';
   };
 }

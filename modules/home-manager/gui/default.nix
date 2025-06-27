@@ -81,6 +81,8 @@ in {
     xdg.portal.extraPortals = [inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland];
     xdg.portal.config.common.default = ["hyprland"];
 
+    # For desktop portal hyprland (screensharing for discord)
+    # This is also in the nixos config for gui
     home.sessionVariables = {
       XDG_CURRENT_DESKTOP = "Hyprland";
       XDG_SESSION_TYPE = "wayland";
