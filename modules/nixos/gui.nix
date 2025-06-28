@@ -37,6 +37,11 @@
   # Enable hyprland for display manager
   programs.hyprland = {
     enable = true;
+    extraSessionVariables = {
+      XDG_SESSION_TYPE = "wayland";
+      XDG_CURRENT_DESKTOP = "Hyprland";
+      XDG_BACKEND = "xdg-desktop-portal";
+    };
   };
 
   # Swaylock
