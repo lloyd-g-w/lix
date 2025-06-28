@@ -77,18 +77,6 @@ in {
       settings = import ./hyprland {inherit config;};
     };
 
-    xdg.portal.enable = true;
-    xdg.portal.extraPortals = [inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland];
-    xdg.portal.config.common.default = ["hyprland"];
-
-    # For desktop portal hyprland (screensharing for discord)
-    # This is also in the nixos config for gui
-    home.sessionVariables = {
-      XDG_CURRENT_DESKTOP = "Hyprland";
-      XDG_SESSION_TYPE = "wayland";
-      XDG_DESKTOP_PORTAL = "xdg-desktop-portal-hyprland";
-    };
-
     # Hyprpaper (wallpaper for hyprland)
     home.file.".config/hypr/hyprpaper.conf".text = ''
       preload = ${./hyprland/background.jpg}

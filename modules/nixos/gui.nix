@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  system,
+  ...
+}: {
   nix.settings = {
     substituters = ["https://hyprland.cachix.org"];
     trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
@@ -39,19 +44,18 @@
     enable = true;
   };
 
+  # Enable portals for x11 apps (discord)
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland];
+  xdg.portal.config.common.default = ["hyprland"];
+
   # Swaylock
   programs.xss-lock.enable = true;
   programs.xss-lock.lockerCommand = "${pkgs.swaylock}/bin/swaylock";
   security.pam.services.swaylock = {};
 
   # Set environment variables
-  environment.variables = {
-    # For xdg portals - mostly discord screen sharing
-    XDG_CURRENT_DESKTOP = "Hyprland";
-    XDG_SESSION_TYPE = "wayland";
-    XDG_DESKTOP_PORTAL = "xdg-desktop-portal-hyprland";
-    OZONE_PLATFORM = "wayland";
-
+  environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
