@@ -48,7 +48,9 @@
     xournalpp
 
     # Comms
-    discord
+    # Literally just discord wrapped with some
+    # environment vars for streaming
+    (import ../../../pkgs/discord-hyprland/default.nix {inherit pkgs;})
 
     # Game
     prismlauncher

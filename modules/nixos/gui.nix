@@ -45,16 +45,15 @@
   security.pam.services.swaylock = {};
 
   # Set environment variables
-  environment.sessionVariables = {
-    WLR_NO_HARDWARE_CURSORS = "1";
-    NIXOS_OZONE_WL = "1";
-    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-  };
-
   environment.variables = {
     # For xdg portals - mostly discord screen sharing
     XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_TYPE = "wayland";
     XDG_DESKTOP_PORTAL = "xdg-desktop-portal-hyprland";
+    OZONE_PLATFORM = "wayland";
+
+    WLR_NO_HARDWARE_CURSORS = "1";
+    NIXOS_OZONE_WL = "1";
+    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
   };
 }
