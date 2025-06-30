@@ -14,6 +14,9 @@
     "playerctld daemon"
     # "hyprsunset -t 5000"
     # "ulauncher --no-window-shadow"
+
+    # This is for discord to recognize portals when launched with walker
+    "dbus-update-activation-environment --systemd --all"
   ];
 
   monitor = config.lix.hyprland.monitors;

@@ -77,6 +77,16 @@ in {
       settings = import ./hyprland {inherit config;};
     };
 
+    xdg.portal = {
+      enable = true;
+      config.common.default = ["hyprland"];
+    };
+
+    home.sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+      OZONE_PLATFORM = "wayland";
+    };
+
     # Hyprpaper (wallpaper for hyprland)
     home.file.".config/hypr/hyprpaper.conf".text = ''
       preload = ${./hyprland/background.jpg}

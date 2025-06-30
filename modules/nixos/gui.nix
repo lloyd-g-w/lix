@@ -1,7 +1,6 @@
 {
   pkgs,
   inputs,
-  system,
   ...
 }: {
   nix.settings = {
@@ -43,11 +42,6 @@
   programs.hyprland = {
     enable = true;
   };
-
-  # Enable portals for x11 apps (discord)
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland];
-  xdg.portal.config.common.default = ["hyprland"];
 
   # Swaylock
   programs.xss-lock.enable = true;
