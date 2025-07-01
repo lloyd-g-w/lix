@@ -53,5 +53,7 @@
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+    # Fucking electron on wayland
+    ELECTRON_DISABLE_GPU = "1";
   };
 }
