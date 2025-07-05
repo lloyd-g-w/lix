@@ -1,12 +1,11 @@
 {pkgs, ...}:
 pkgs.stdenv.mkDerivation {
-  pname = "oxcaml";
+  pname = "ocaml-lsp";
   version = "unstable-2024-03-26";
 
   src = pkgs.fetchFromGitHub {
     owner = "oxcaml";
-    repo = "oxcaml";
-    rev = "5.3.0";
+    repo = "ocaml-lsp";
     sha256 = "sha256-MJWrcuzJVoHM00ZRgFB5vjnJO0KfYXISPRByQlqFJco=";
     fetchSubmodules = true;
   };
@@ -16,7 +15,7 @@ pkgs.stdenv.mkDerivation {
   ];
 
   buildInputs = with pkgs; [
-    ocaml
+    oxcaml.oxcaml
     dune_3
     ocamlPackages.menhir
     ocamlPackages.sedlex
@@ -32,8 +31,8 @@ pkgs.stdenv.mkDerivation {
   # This is the intended build process for this project.
 
   meta = with pkgs.lib; {
-    description = "A new implementation of the OCaml programming language";
-    homepage = "https://github.com/oxcaml/oxcaml";
+    description = "Oxcaml LSP";
+    homepage = "https://github.com/oxcaml/ocaml-lsp";
     license = licenses.mit;
     platforms = pkgs.ocaml.meta.platforms or [];
   };
