@@ -24,6 +24,8 @@
 
     # Dev
     oxcaml.oxcaml
+    oxcaml.ocamlformat
+    oxcaml.ocaml-lsp
     python3
     vscode
     cargo
