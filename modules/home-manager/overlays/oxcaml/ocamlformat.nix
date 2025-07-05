@@ -1,4 +1,8 @@
-{pkgs, ...}:
+{
+  pkgs,
+  oxcaml,
+  ...
+}:
 pkgs.stdenv.mkDerivation {
   pname = "ocamlformat";
   version = "0.4";
@@ -7,7 +11,7 @@ pkgs.stdenv.mkDerivation {
     owner = "oxcaml";
     repo = "ocamlformat";
     rev = "0.4";
-    sha256 = "sha256-MJWrcuzJVoHM00ZRgFB5vjnJO0KfYXISPRByQlqFJco=";
+    sha256 = "sha256-AYMHDdtUvGozeYiQPX6v8MEdSv4EQksa4YAjfjfIInc=";
     fetchSubmodules = true;
   };
 
@@ -16,7 +20,7 @@ pkgs.stdenv.mkDerivation {
   ];
 
   buildInputs = with pkgs; [
-    oxcaml.oxcaml
+    oxcaml
     dune_3
     ocamlPackages.menhir
     ocamlPackages.sedlex
