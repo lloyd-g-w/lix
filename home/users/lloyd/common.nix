@@ -23,6 +23,7 @@
     openvpn
 
     # Dev
+    oxcaml.oxcaml
     python3
     vscode
     cargo
