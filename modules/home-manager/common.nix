@@ -3,6 +3,7 @@
   pkgs,
   ...
 }: {
+  nixpkgs.overlays = [(import ./overlays)];
 
   # Set nix registry
   home.file.".config/nix/registry.json".text = let
