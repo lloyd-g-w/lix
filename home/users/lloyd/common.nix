@@ -28,6 +28,7 @@
     # oxcaml.ocaml-lsp
     opam
     dune_3
+    autoconf
     python3
     vscode
     cargo
