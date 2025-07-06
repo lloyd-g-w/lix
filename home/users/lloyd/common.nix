@@ -23,9 +23,9 @@
     openvpn
 
     # Dev
-    oxcaml.oxcaml
+    # oxcaml.oxcaml
     # oxcaml.ocamlformat
-    oxcaml.ocaml-lsp
+    # oxcaml.ocaml-lsp
     python3
     vscode
     cargo

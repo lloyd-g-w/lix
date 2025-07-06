@@ -5,7 +5,9 @@
   oxcaml,
   ...
 }: let
-  ppx_yojson_conv = import ./ppx_yojson_conv.nix;
+  ppx_yojson_conv = import ./ppx_yojson_conv.nix {
+    inherit oxcaml ocamlPackages fetchurl;
+  };
   lspCustom = ocamlPackages.buildDunePackage rec {
     pname = "lsp";
     version = "1.19.0+ox";
