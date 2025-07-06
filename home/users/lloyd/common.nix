@@ -26,6 +26,8 @@
     # oxcaml.oxcaml
     # oxcaml.ocamlformat
     # oxcaml.ocaml-lsp
+    opam
+    dune_3
     python3
     vscode
     cargo
