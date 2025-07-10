@@ -1,4 +1,8 @@
 {pkgs, ...}: {
+  home.packages = [
+    pkgs.eza
+  ];
+
   programs.tmux = {
     enable = true;
     # aggressiveResize = true; -- Disabled to be iTerm-friendly
@@ -77,6 +81,9 @@
       }
       set -o vi
       eval "$(starship init zsh)"
+
+      alias ls='eza --icons'
+
       export TERMINAL=kitty
       export EDITOR=nvim
       export VISUAL=nvim
