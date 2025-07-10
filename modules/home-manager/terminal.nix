@@ -82,7 +82,7 @@
       set -o vi
       eval "$(starship init zsh)"
 
-      alias ls='eza --icons'
+      alias ls='eza'
 
       export TERMINAL=kitty
       export EDITOR=nvim
