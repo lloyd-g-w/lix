@@ -41,7 +41,6 @@
     gradle
     nodejs_24
     pnpm_9
-    uv
 
     # Audio
     easyeffects
