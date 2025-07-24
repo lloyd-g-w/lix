@@ -41,7 +41,7 @@
     gradle
     nodejs_24
     pnpm_9
-    manim
+    uv
 
     # Audio
     easyeffects
