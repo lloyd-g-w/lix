@@ -42,10 +42,11 @@
     nodejs_24
     pnpm_9
 
-    # Audio
+    # Media / Audio
     easyeffects
     audacity
     spotify
+    vlc
 
     # Documents
     geeqie
