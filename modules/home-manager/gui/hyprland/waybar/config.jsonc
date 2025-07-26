@@ -94,9 +94,9 @@
     "modules": [
       "custom/expand",
       "tray",
-      "cpu",
-      "memory",
-      "temperature",
+      // "cpu",
+      // "memory",
+      // "temperature",
       "custom/endpoint",
     ],
   },
