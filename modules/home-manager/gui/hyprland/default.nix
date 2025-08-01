@@ -49,7 +49,7 @@
   };
 
   bind = let
-    screenshotScript = ./scripts/screenshot.sh;
+    screenshotScript = ../scripts/screenshot.sh;
   in
     [
       "$mod, RETURN, exec, $terminal"

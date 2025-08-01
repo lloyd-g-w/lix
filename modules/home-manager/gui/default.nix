@@ -43,6 +43,12 @@ in {
     description = "A list of monitor configuration strings for Hyprland.";
   };
 
+  options.lix.compositor = lib.mkOption {
+    type = lib.types.enum ["sway" "hyprland"];
+    default = "sway";
+    description = "The compositor for lix (must be 'sway' or 'hyprland').";
+  };
+
   config = {
     home.packages = fonts ++ environment ++ tools;
 
@@ -62,26 +68,34 @@ in {
       XCURSOR_SIZE = cursorSize;
     };
 
+    services.gnome-keyring.enable = true;
+
     # Hyprland
-    wayland.windowManager.hyprland = {
-      package =
-        inputs.hyprland.packages.${system}.hyprland;
-      portalPackage =
-        inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
-      plugins = [
-        inputs.split-monitor-workspaces.packages.${system}.split-monitor-workspaces
-        inputs.hy3.packages.x86_64-linux.hy3
-      ];
+    # wayland.windowManager.hyprland = {
+    #   package =
+    #     inputs.hyprland.packages.${system}.hyprland;
+    #   portalPackage =
+    #     inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
+    #   plugins = [
+    #     inputs.split-monitor-workspaces.packages.${system}.split-monitor-workspaces
+    #     inputs.hy3.packages.x86_64-linux.hy3
+    #   ];
+    #
+    #   systemd.enableXdgAutostart = true;
+    #   enable = true;
+    #   settings = import ./hyprland {inherit config;};
+    # };
 
-      systemd.enableXdgAutostart = true;
+    wayland.windowManager.sway = {
       enable = true;
-      settings = import ./hyprland {inherit config;};
+      wrapperFeatures.gtk = true; # Fixes common issues with GTK 3 apps
+      extraConfig = import ./sway {inherit config lib;};
     };
 
-    xdg.portal = {
-      enable = true;
-      config.common.default = ["hyprland"];
-    };
+    # xdg.portal = {
+    #   enable = true;
+    #   config.common.default = ["hyprland"];
+    # };
 
     home.sessionVariables = {
       NIXOS_OZONE_WL = "1";
