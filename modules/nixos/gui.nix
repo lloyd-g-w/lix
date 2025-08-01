@@ -1,6 +1,8 @@
 {
   pkgs,
   inputs,
+  lib,
+  config,
   ...
 }: {
   nix.settings = {
@@ -31,6 +33,8 @@
     };
   };
 
+  security.polkit.enable = true;
+
   # Set display manager
   services.displayManager.gdm = {
     enable = true;
@@ -38,12 +42,9 @@
     autoSuspend = false;
   };
 
-  # Enable hyprland for display manager
-  # programs.hyprland = {
-  #   enable = true;
-  # };
-
-  programs.sway.enable = true;
+  # Enable hyprland/sway for display manager
+  programs.hyprland.enable = lib.mkIf (config.lix.compositor == "hyprland") true;
+  programs.sway.enable = lib.mkIf (config.lix.compositor == "sway") true;
 
   # Swaylock
   programs.xss-lock.enable = true;
@@ -53,6 +54,7 @@
   # Set environment variables
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
+    WLR_NO_LIBSEAT = 1;
     NIXOS_OZONE_WL = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
     # Fucking electron on wayland

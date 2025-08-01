@@ -45,7 +45,7 @@ in {
 
   options.lix.compositor = lib.mkOption {
     type = lib.types.enum ["sway" "hyprland"];
-    default = "sway";
+    default = "hyprland";
     description = "The compositor for lix (must be 'sway' or 'hyprland').";
   };
 
@@ -71,31 +71,31 @@ in {
     services.gnome-keyring.enable = true;
 
     # Hyprland
-    # wayland.windowManager.hyprland = {
-    #   package =
-    #     inputs.hyprland.packages.${system}.hyprland;
-    #   portalPackage =
-    #     inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
-    #   plugins = [
-    #     inputs.split-monitor-workspaces.packages.${system}.split-monitor-workspaces
-    #     inputs.hy3.packages.x86_64-linux.hy3
-    #   ];
-    #
-    #   systemd.enableXdgAutostart = true;
-    #   enable = true;
-    #   settings = import ./hyprland {inherit config;};
-    # };
+    wayland.windowManager.hyprland = lib.mkIf (config.lix.compositor == "hyprland") {
+      package =
+        inputs.hyprland.packages.${system}.hyprland;
+      portalPackage =
+        inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
+      plugins = [
+        inputs.split-monitor-workspaces.packages.${system}.split-monitor-workspaces
+        inputs.hy3.packages.x86_64-linux.hy3
+      ];
 
-    wayland.windowManager.sway = {
+      systemd.enableXdgAutostart = true;
+      enable = true;
+      settings = import ./hyprland {inherit config;};
+    };
+
+    wayland.windowManager.sway = lib.mkIf (config.lix.compositor == "sway") {
       enable = true;
       wrapperFeatures.gtk = true; # Fixes common issues with GTK 3 apps
       extraConfig = import ./sway {inherit config lib;};
     };
 
-    # xdg.portal = {
-    #   enable = true;
-    #   config.common.default = ["hyprland"];
-    # };
+    xdg.portal = {
+      enable = true;
+      config.common.default = ["hyprland"];
+    };
 
     home.sessionVariables = {
       NIXOS_OZONE_WL = "1";
@@ -104,12 +104,12 @@ in {
 
     # Hyprpaper (wallpaper for hyprland)
     home.file.".config/hypr/hyprpaper.conf".text = ''
-      preload = ${./hyprland/background.jpg}
-      wallpaper = ,${./hyprland/background.jpg}
+      preload = ${./background.jpg}
+      wallpaper = ,${./background.jpg}
     '';
 
     # Waybar
-    home.file.".config/waybar".source = ./hyprland/waybar;
+    home.file.".config/waybar".source = ./waybar;
     programs.waybar.enable = true;
 
     # Poweroff menu for waybar
