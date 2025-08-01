@@ -163,7 +163,10 @@ in {
       }
     '';
 
-    home.file.".config/waybar/scripts/custom_hyprland_workspaces".source = ./scripts/custom_hyprland_workspaces.py;
+    home.file.".config/waybar/scripts/custom_hyprland_workspaces.py" = {
+      source = ./scripts/custom_hyprland_workspaces.py;
+      executable = true;
+    };
 
     # Application launcher
     programs.walker = {
