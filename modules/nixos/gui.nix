@@ -39,9 +39,11 @@
   };
 
   # Enable hyprland for display manager
-  programs.hyprland = {
-    enable = true;
-  };
+  # programs.hyprland = {
+  #   enable = true;
+  # };
+
+  programs.sway.enable = true;
 
   # Swaylock
   programs.xss-lock.enable = true;
