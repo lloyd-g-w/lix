@@ -70,6 +70,7 @@ in {
         inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
       plugins = [
         inputs.split-monitor-workspaces.packages.${system}.split-monitor-workspaces
+        inputs.hy3.packages.x86_64-linux.hy3
       ];
 
       systemd.enableXdgAutostart = true;

@@ -6,7 +6,7 @@
   "$fileManager" = "thunar";
   "$browser" = "firefox";
 
-  bindm = ["$mod, mouse:272, movewindow" "$mod, mouse:273, resizewindow"];
+  bindm = ["$mod, mouse:272, hy3:movewindow" "$mod, mouse:273, resizewindow"];
 
   exec-once = [
     "hyprpaper"
@@ -45,6 +45,7 @@
   general = {
     gaps_in = 0;
     gaps_out = 0;
+    layout = "hy3";
   };
 
   bind = let
@@ -62,15 +63,15 @@
       # Screenshot
       "$mod SHIFT, S, exec, ${screenshotScript}"
 
-      "$mod,H,movefocus,l"
-      "$mod,J,movefocus,d"
-      "$mod,K,movefocus,u"
-      "$mod,L,movefocus,r"
+      "$mod,H,hy3:movefocus,l"
+      "$mod,J,hy3:movefocus,d"
+      "$mod,K,hy3:movefocus,u"
+      "$mod,L,hy3:movefocus,r"
 
-      "$mod SHIFT,H,swapwindow,l"
-      "$mod SHIFT,J,swapwindow,d"
-      "$mod SHIFT,K,swapwindow,u"
-      "$mod SHIFT,L,swapwindow,r"
+      "$mod SHIFT,H,hy3:movewindow,l"
+      "$mod SHIFT,J,hy3:movewindow,d"
+      "$mod SHIFT,K,hy3:movewindow,u"
+      "$mod SHIFT,L,hy3:movewindow,r"
     ]
     ++ (
       # workspaces

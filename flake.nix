@@ -22,6 +22,11 @@
 
     hyprland.url = "github:hyprwm/Hyprland/v0.50.0";
 
+    hy3 = {
+      url = "github:outfoxxed/hy3?ref=hl0.50.0";
+      inputs.hyprland.follows = "hyprland";
+    };
+
     split-monitor-workspaces = {
       url = "github:Duckonaut/split-monitor-workspaces/c88e49f8cc5bbc1f3daec5e11116494a7b9e62ed";
       inputs.hyprland.follows = "hyprland";
