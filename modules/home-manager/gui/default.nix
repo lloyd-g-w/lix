@@ -37,16 +37,24 @@
   system = pkgs.stdenv.hostPlatform.system;
 in {
   # Make an option for monitors
-  options.lix.hyprland.monitors = lib.mkOption {
-    type = lib.types.listOf lib.types.str;
-    default = [];
-    description = "A list of monitor configuration strings for Hyprland.";
+  options.lix.hyprland = {
+    monitors = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [];
+      description = "A list of monitor configuration strings for Hyprland.";
+    };
+
+    hy3.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable or disable hy3 (default: false)";
+    };
   };
 
   options.lix.compositor = lib.mkOption {
     type = lib.types.enum ["sway" "hyprland"];
     default = "hyprland";
-    description = "The compositor for lix (must be 'sway' or 'hyprland').";
+    description = "The compositor for lix (default: hyprland)";
   };
 
   config = {
@@ -76,14 +84,17 @@ in {
         inputs.hyprland.packages.${system}.hyprland;
       portalPackage =
         inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
-      plugins = [
-        inputs.split-monitor-workspaces.packages.${system}.split-monitor-workspaces
-        inputs.hy3.packages.x86_64-linux.hy3
-      ];
+      plugins =
+        [
+          inputs.split-monitor-workspaces.packages.${system}.split-monitor-workspaces
+        ]
+        ++ lib.optionals config.lix.hyprland.hy3.enable [
+          inputs.hy3.packages.${system}.hy3
+        ];
 
       systemd.enableXdgAutostart = true;
       enable = true;
-      settings = import ./hyprland {inherit config;};
+      settings = import ./hyprland {inherit config lib;};
     };
 
     wayland.windowManager.sway = lib.mkIf (config.lix.compositor == "sway") {
@@ -151,6 +162,8 @@ in {
         "keybind": "e"
       }
     '';
+
+    home.file.".config/waybar/scripts/custom_hyprland_workspaces".source = ./scripts/custom_hyprland_workspaces.py;
 
     # Application launcher
     programs.walker = {

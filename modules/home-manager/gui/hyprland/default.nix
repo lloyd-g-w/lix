@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   "$mod" = "SUPER";
   "$terminal" = "kitty";
   # "$menu" = "anyrun";
@@ -28,7 +32,7 @@
   plugin.split-monitor-workspaces = {
     count = 6;
     keep_focused = true;
-    enable_persistent_workspaces = true;
+    enable_persistent_workspaces = false;
   };
 
   input = {
@@ -45,11 +49,19 @@
   general = {
     gaps_in = 0;
     gaps_out = 0;
-    layout = "hy3";
+    layout = lib.mkIf config.lix.hyprland.hy3.enable "hy3";
   };
 
   bind = let
     screenshotScript = ../scripts/screenshot.sh;
+    movefocus =
+      if config.lix.hyprland.hy3.enable
+      then "hy3:movefocus"
+      else "movefocus";
+    movewindow =
+      if config.lix.hyprland.hy3.enable
+      then "hy3:movewindow"
+      else "movewindow";
   in
     [
       "$mod, RETURN, exec, $terminal"
@@ -63,15 +75,15 @@
       # Screenshot
       "$mod SHIFT, S, exec, ${screenshotScript}"
 
-      "$mod,H,hy3:movefocus,l"
-      "$mod,J,hy3:movefocus,d"
-      "$mod,K,hy3:movefocus,u"
-      "$mod,L,hy3:movefocus,r"
+      "$mod,H,${movefocus},l"
+      "$mod,J,${movefocus},d"
+      "$mod,K,${movefocus},u"
+      "$mod,L,${movefocus},r"
 
-      "$mod SHIFT,H,hy3:movewindow,l"
-      "$mod SHIFT,J,hy3:movewindow,d"
-      "$mod SHIFT,K,hy3:movewindow,u"
-      "$mod SHIFT,L,hy3:movewindow,r"
+      "$mod SHIFT,H,${movewindow},l"
+      "$mod SHIFT,J,${movewindow},d"
+      "$mod SHIFT,K,${movewindow},u"
+      "$mod SHIFT,L,${movewindow},r"
     ]
     ++ (
       # workspaces
