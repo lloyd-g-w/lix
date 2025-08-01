@@ -32,7 +32,7 @@
   plugin.split-monitor-workspaces = {
     count = 6;
     keep_focused = true;
-    enable_persistent_workspaces = false;
+    enable_persistent_workspaces = true;
   };
 
   input = {

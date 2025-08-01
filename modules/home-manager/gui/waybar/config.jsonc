@@ -2,7 +2,7 @@
   "layer": "top",
   "position": "top",
   "reload_style_on_change": true,
-  "modules-left": ["custom/hyprland/workspaces"],
+  "modules-left": ["hyprland/workspaces"],
   "modules-center": ["clock"],
   "modules-right": [
     "group/expand",
@@ -14,18 +14,13 @@
   ],
 
   "hyprland/workspaces": {
-    // "format": "{icon}",
-    // "format-icons": {
-    //   "active": "",
-    //   "default": "",
-    //   "empty": "",
-    // },
+    "format": "{icon}",
+    "format-icons": {
+      "active": "",
+      "default": "",
+      "empty": "",
+    },
     "all-outputs": false,
-  },
-  "custom/workspace_rewrite": {
-    "format": "{}",
-    "exec": "~/.config/waybar/scripts/custom_hyprland_workspaces.py",
-    "interval": 1,
   },
   "custom/notification": {
     "tooltip": false,
