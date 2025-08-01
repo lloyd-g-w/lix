@@ -6,7 +6,7 @@
   "$fileManager" = "thunar";
   "$browser" = "firefox";
 
-  bindm = ["$mod, mouse:272, hy3:movewindow" "$mod, mouse:273, resizewindow"];
+  bindm = ["$mod, mouse:272, movewindow" "$mod, mouse:273, resizewindow"];
 
   exec-once = [
     "hyprpaper"
