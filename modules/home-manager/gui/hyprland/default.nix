@@ -105,11 +105,14 @@
     ",XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
   ];
 
-  bindl = [
+  bindl = let
+    kbdBacklightScript = ../scripts/cycle_kbd_backlight.sh;
+  in [
     ",switch:off:Lid Switch, exec, hyprlock --immediate"
     ", XF86AudioNext, exec, playerctl next"
     ", XF86AudioPause, exec, playerctl play-pause"
     ", XF86AudioPlay, exec, playerctl play-pause"
     ", XF86AudioPrev, exec, playerctl previous"
+    ", XF86KbdBrightnessUp, exec, ${kbdBacklightScript}"
   ];
 }
