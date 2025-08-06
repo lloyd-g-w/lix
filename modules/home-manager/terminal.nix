@@ -38,17 +38,20 @@
 
       # set -g @tmux-gruvbox 'dark' # or 'light', 'dark-transparent', 'light-transparent'
 
-        # Catppuccin theme: set flavour and configure minimal status line
-        set -g @catppuccin_flavour 'frappe'
-        set -g @catppuccin_window_tabs_enabled 'off'
-        set -g @catppuccin_status_modules_left "session"
-        set -g @catppuccin_status_modules_right "date_time"
-        set -g @catppuccin_status_left_separator ""
-        set -g @catppuccin_status_right_separator ""
+      # Configure the catppuccin plugin
+      set -g @catppuccin_flavor "mocha"
+      set -g @catppuccin_window_status_style "rounded"
 
-        # Simplify window title (avoid full path or program title)
-        set -g set-titles on
-        set -g set-titles-string "#W"  # Just window name
+      # Load catppuccin
+      run ~/.tmux/plugins/catppuccin.tmux
+
+      # Make the status line pretty and add some modules
+      set -g status-right-length 100
+      set -g status-left-length 100
+      set -g status-left ""
+      set -g status-right "#{E:@catppuccin_status_application}"
+      set -ag status-right "#{E:@catppuccin_status_session}"
+      set -ag status-right "#{E:@catppuccin_status_uptime}"
     '';
   };
 
