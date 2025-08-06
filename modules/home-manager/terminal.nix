@@ -49,6 +49,8 @@
       set -g status-right-length 100
       set -g status-left-length 100
       set -g status-left ""
+      # Shorten the cwd to just the leaf
+      set -g @catppuccin_directory_text "#{b:pane_current_path##*/}"
       set -g status-right "#{E:@catppuccin_status_application}"
       set -ag status-right "#{E:@catppuccin_status_session}"
       set -ag status-right "#{E:@catppuccin_status_uptime}"
