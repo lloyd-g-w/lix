@@ -37,7 +37,18 @@
       bind % split-window -h -c "#{pane_current_path}"
 
       # set -g @tmux-gruvbox 'dark' # or 'light', 'dark-transparent', 'light-transparent'
-      set -g @catppuccin_flavour 'frappe'
+
+        # Catppuccin theme: set flavour and configure minimal status line
+        set -g @catppuccin_flavour 'frappe'
+        set -g @catppuccin_window_tabs_enabled 'off'
+        set -g @catppuccin_status_modules_left "session"
+        set -g @catppuccin_status_modules_right "date_time"
+        set -g @catppuccin_status_left_separator ""
+        set -g @catppuccin_status_right_separator ""
+
+        # Simplify window title (avoid full path or program title)
+        set -g set-titles on
+        set -g set-titles-string "#W"  # Just window name
     '';
   };
 
