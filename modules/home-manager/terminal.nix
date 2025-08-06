@@ -51,6 +51,12 @@
       set -g status-left ""
       # Shorten the cwd to just the leaf
       set -g @catppuccin_directory_text "#{b:pane_current_path##*/}"
+
+      # Disable automatic renaming of windows
+      set-option -g allow-rename off
+      set-option -g automatic-rename off
+      set-option -g automatic-rename-format ""
+
       set -g status-right "#{E:@catppuccin_status_application}"
       set -ag status-right "#{E:@catppuccin_status_session}"
       set -ag status-right "#{E:@catppuccin_status_uptime}"
