@@ -43,19 +43,12 @@
       set -g @catppuccin_window_status_style "rounded"
 
       # Load catppuccin
-      run ~/.tmux/plugins/catppuccin.tmux
+      # run ~/.config/tmux/plugins/catppuccin/tmux/catppuccin.tmux
 
       # Make the status line pretty and add some modules
       set -g status-right-length 100
       set -g status-left-length 100
       set -g status-left ""
-      # Shorten the cwd to just the leaf
-      set -g @catppuccin_directory_text "#{b:pane_current_path##*/}"
-
-      # Disable automatic renaming of windows
-      set-option -g allow-rename off
-      set-option -g automatic-rename off
-      set-option -g automatic-rename-format ""
 
       set -g status-right "#{E:@catppuccin_status_application}"
       set -ag status-right "#{E:@catppuccin_status_session}"
