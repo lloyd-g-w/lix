@@ -39,11 +39,11 @@
       # set -g @tmux-gruvbox 'dark' # or 'light', 'dark-transparent', 'light-transparent'
 
       # Configure the catppuccin plugin
-      set -g @catppuccin_flavor "mocha"
+      set -g @catppuccin_flavor "frappe"
       set -g @catppuccin_window_status_style "rounded"
 
       # Load catppuccin
-      # run ~/.config/tmux/plugins/catppuccin/tmux/catppuccin.tmux
+      source ${pkgs.tmuxPlugins.catppuccin}/catppuccin.tmux
 
       # Make the status line pretty and add some modules
       set -g status-right-length 100
