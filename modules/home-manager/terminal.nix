@@ -40,10 +40,10 @@
 
       # Configure the catppuccin plugin
       set -g @catppuccin_flavor "frappe"
-      set -g @catppuccin_window_status_style "rounded"
+      # set -g @catppuccin_window_status_style "rounded"
 
       # Load catppuccin
-      source ${pkgs.tmuxPlugins.catppuccin}/catppuccin.tmux
+      run-shell ${pkgs.tmuxPlugins.catppuccin}/share/tmux-plugins/catppuccin/catppuccin.tmux
 
       # Make the status line pretty and add some modules
       set -g status-right-length 100
@@ -53,6 +53,12 @@
       set -g status-right "#{E:@catppuccin_status_application}"
       set -ag status-right "#{E:@catppuccin_status_session}"
       set -ag status-right "#{E:@catppuccin_status_uptime}"
+
+      # Window formatting
+      set -g allow-rename off
+      set -g automatic-rename off
+      set -g window-status-format "#[fg=colour244]#I:#(basename #{pane_current_path})"
+      set -g window-status-current-format "#[fg=colour81]#[bold]#I:#(basename #{pane_current_path})"
     '';
   };
 
