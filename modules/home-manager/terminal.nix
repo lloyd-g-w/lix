@@ -13,7 +13,8 @@
     secureSocket = false;
     plugins = with pkgs; [
       tmuxPlugins.better-mouse-mode
-      tmuxPlugins.gruvbox
+      # tmuxPlugins.gruvbox
+      tmuxPlugins.catppuccin
       tmuxPlugins.sensible
       tmuxPlugins.vim-tmux-navigator
     ];
@@ -35,7 +36,8 @@
       bind '"' split-window -c "{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
 
-      set -g @tmux-gruvbox 'dark' # or 'light', 'dark-transparent', 'light-transparent'
+      # set -g @tmux-gruvbox 'dark' # or 'light', 'dark-transparent', 'light-transparent'
+      set -g @catppuccin_flavour 'frappe'
     '';
   };
 
