@@ -39,7 +39,7 @@
       # set -g @tmux-gruvbox 'dark' # or 'light', 'dark-transparent', 'light-transparent'
 
       # Configure the catppuccin plugin
-      set -g @catppuccin_flavor "frappe"
+      set -g @catppuccin_flavor "macchiato"
       # set -g @catppuccin_window_status_style "rounded"
 
       # Load catppuccin
@@ -69,14 +69,14 @@
 
     font_size 16.0
 
-    include themes/catppuccin-frappe.conf
+    include themes/catppuccin-macchiato.conf
   '';
   xdg.configFile."kitty/themes/gruvbox-material-dark-soft.conf".source = builtins.fetchurl {
     url = "https://raw.githubusercontent.com/kovidgoyal/kitty-themes/refs/heads/master/themes/GruvboxMaterialDarkSoft.conf";
     sha256 = "04azpbiv3vkqm0af0nl6ij9i0j2i95ij1rxxr2bb2cr3hh78x8yh";
   };
-  xdg.configFile."kitty/themes/catppuccin-frappe.conf".source = builtins.fetchurl {
-    url = "https://raw.githubusercontent.com/catppuccin/kitty/main/themes/frappe.conf";
+  xdg.configFile."kitty/themes/catppuccin-macchiato.conf".source = builtins.fetchurl {
+    url = "https://raw.githubusercontent.com/catppuccin/kitty/main/themes/macchiato.conf";
     sha256 = "sha256:096szmcym5zi18qf1i72hqw4mjgkjzibcsf8yxwjv2zdqd7jx1kf";
   };
 
