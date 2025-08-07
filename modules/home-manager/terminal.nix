@@ -77,7 +77,7 @@
   };
   xdg.configFile."kitty/themes/catppuccin-macchiato.conf".source = builtins.fetchurl {
     url = "https://raw.githubusercontent.com/catppuccin/kitty/main/themes/macchiato.conf";
-    sha256 = "sha256:096szmcym5zi18qf1i72hqw4mjgkjzibcsf8yxwjv2zdqd7jx1kf";
+    sha256 = "sha256:1givl76kzc0ya70r4bvj5dnh01n7n4d2543xbmigwwdmd7879wfm";
   };
 
   #Zsh
