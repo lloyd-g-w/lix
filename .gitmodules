@@ -1,3 +1,4 @@
 [submodule "modules/lim"]
 	path = modules/home-manager/lim
 	url = https://github.com/lloyd-g-w/lim.git
+	branch = main
