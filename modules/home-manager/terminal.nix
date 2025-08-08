@@ -56,6 +56,14 @@
       set -g automatic-rename off
       set -g window-status-format "#[fg=colour244]#I:#(basename #{pane_current_path})"
       set -g window-status-current-format "#[fg=colour81]#[bold]#I:#(basename #{pane_current_path})"
+
+      # Snappy redraw so the text flips quickly
+      set -g status-interval 1
+
+      # Others go Mauve while prefix is held; otherwise stay colour244
+      set -g window-status-format '#[fg=#{?client_prefix,#aec1ff,colour244}]#I:#(basename #{pane_current_path})'
+      # Current window in slightly lighter Lavender (keeps your bold)
+      set -g window-status-current-format '#[fg=#bea4fb]#[bold]#I:#(basename #{pane_current_path})'
     '';
   };
 
