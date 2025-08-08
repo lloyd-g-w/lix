@@ -96,6 +96,18 @@
     syntaxHighlighting.enable = true;
     shellAliases = {
       gacp = "git add .; git add -u; git commit -m '🙃'; git push";
+      gacps = ''
+        git submodule foreach '
+          git add .;
+          git add -u;
+          git commit -m "🙃" || true;
+          git push || true
+        ';
+        git add .;
+        git add -u;
+        git commit -m "🙃" || true;
+        git push
+      '';
     };
     # nixd function for having nix shells
     # use the current shell
