@@ -15,9 +15,13 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    # For lim
+    flake-utils.url = "github:numtide/flake-utils";
+
     lim = {
       url = ./modules/home-manager/lim;
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     hyprland.url = "github:hyprwm/Hyprland/v0.50.0";
