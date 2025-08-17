@@ -17,6 +17,7 @@
       tmuxPlugins.catppuccin
       tmuxPlugins.sensible
       tmuxPlugins.vim-tmux-navigator
+      tmuxPlugins.resurrect
     ];
     keyMode = "vi";
     shortcut = "b";
