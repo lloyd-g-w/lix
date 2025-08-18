@@ -18,6 +18,9 @@
     "lloyd"
   ];
 
+  # Start systemd services even without logging in.
+  users.users.lloyd.linger = true;
+
   services.openssh = {
     enable = true;
     ports = [143];
