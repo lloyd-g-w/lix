@@ -4,7 +4,7 @@
   ...
 }: let
   mod = "Mod4";
-  terminal = "kitty";
+  terminal = "ghostty";
   menu = "walker";
   screenshotScript = ../scripts/screenshot.sh;
 

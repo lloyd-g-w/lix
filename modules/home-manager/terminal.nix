@@ -1,6 +1,11 @@
-{pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   home.packages = [
     pkgs.eza
+    inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default # Ghostty
   ];
 
   programs.tmux = {
@@ -71,26 +76,35 @@
     '';
   };
 
-
   #Kitty
-  programs.kitty.enable = true;
-  xdg.configFile."kitty/kitty.conf".text = ''
-    font_family      family="JetBrainsMono Nerd Font"
-    bold_font        auto
-    italic_font      auto
-    bold_italic_font auto
+  # programs.kitty.enable = true;
+  # xdg.configFile."kitty/kitty.conf".text = ''
+  #   font_family      family="JetBrainsMono Nerd Font"
+  #   bold_font        auto
+  #   italic_font      auto
+  #   bold_italic_font auto
+  #
+  #   font_size 16.0
+  #
+  #   include themes/catppuccin-macchiato.conf
+  # '';
+  # xdg.configFile."kitty/themes/gruvbox-material-dark-soft.conf".source = builtins.fetchurl {
+  #   url = "https://raw.githubusercontent.com/kovidgoyal/kitty-themes/refs/heads/master/themes/GruvboxMaterialDarkSoft.conf";
+  #   sha256 = "04azpbiv3vkqm0af0nl6ij9i0j2i95ij1rxxr2bb2cr3hh78x8yh";
+  # };
+  # xdg.configFile."kitty/themes/catppuccin-macchiato.conf".source = builtins.fetchurl {
+  #   url = "https://raw.githubusercontent.com/catppuccin/kitty/main/themes/macchiato.conf";
+  #   sha256 = "sha256:1givl76kzc0ya70r4bvj5dnh01n7n4d2543xbmigwwdmd7879wfm";
+  # };
 
-    font_size 16.0
-
-    include themes/catppuccin-macchiato.conf
+  # Ghostty (pkg already added above)
+  xdg.configFile."ghostty/config".text = ''
+    theme = catppuccin-macchiato.conf
   '';
-  xdg.configFile."kitty/themes/gruvbox-material-dark-soft.conf".source = builtins.fetchurl {
-    url = "https://raw.githubusercontent.com/kovidgoyal/kitty-themes/refs/heads/master/themes/GruvboxMaterialDarkSoft.conf";
-    sha256 = "04azpbiv3vkqm0af0nl6ij9i0j2i95ij1rxxr2bb2cr3hh78x8yh";
-  };
-  xdg.configFile."kitty/themes/catppuccin-macchiato.conf".source = builtins.fetchurl {
-    url = "https://raw.githubusercontent.com/catppuccin/kitty/main/themes/macchiato.conf";
-    sha256 = "sha256:1givl76kzc0ya70r4bvj5dnh01n7n4d2543xbmigwwdmd7879wfm";
+
+  xdg.configFile."ghostty/themes/catppuccin-macchiato.conf".source = builtins.fetchurl {
+    url = "https://raw.githubusercontent.com/catppuccin/ghostty/refs/heads/main/themes/catppuccin-macchiato.conf";
+    sha256 = "sha256:1mv2gmxm6g2v6hwxdkzxjfl880j26206l8n76g5213x975x8dj3v";
   };
 
   #Zsh
@@ -133,7 +147,7 @@
 
       alias ls='eza'
 
-      export TERMINAL=kitty
+      export TERMINAL=ghostty
       export EDITOR=nvim
       export VISUAL=nvim
     '';
