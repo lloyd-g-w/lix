@@ -101,6 +101,7 @@
   xdg.configFile."ghostty/config".text = ''
     theme = catppuccin-macchiato
     font-size = 16
+    font-family = "JetBrainsMono Nerd Font"
   '';
 
   #Zsh
