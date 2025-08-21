@@ -99,13 +99,9 @@
 
   # Ghostty (pkg already added above)
   xdg.configFile."ghostty/config".text = ''
-    theme = catppuccin-macchiato.conf
+    theme = catppuccin-macchiato
+    font-size = 16
   '';
-
-  xdg.configFile."ghostty/themes/catppuccin-macchiato.conf".source = builtins.fetchurl {
-    url = "https://raw.githubusercontent.com/catppuccin/ghostty/refs/heads/main/themes/catppuccin-macchiato.conf";
-    sha256 = "sha256:1mv2gmxm6g2v6hwxdkzxjfl880j26206l8n76g5213x975x8dj3v";
-  };
 
   #Zsh
   programs.starship = {
