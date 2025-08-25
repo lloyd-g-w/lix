@@ -53,6 +53,7 @@
     zathura
     texlive.combined.scheme-full
     xournalpp
+    typst
 
     # Comms
     discord
