@@ -31,7 +31,6 @@
     autoconf
     python3
     vscode
-    cargo
     git
     gnumake
     gcc
@@ -41,6 +40,7 @@
     gradle
     nodejs_24
     pnpm_9
+    rustup
 
     # Media / Audio
     easyeffects
