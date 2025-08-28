@@ -21,6 +21,7 @@
     scrcpy
     btop
     openvpn
+    codex
 
     # Dev
     # oxcaml.oxcaml
