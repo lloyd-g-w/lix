@@ -40,7 +40,10 @@
     gradle
     nodejs_24
     pnpm_9
-    rustup
+
+    # Rust
+    cargo
+    rustc
 
     # Media / Audio
     easyeffects
