@@ -4,7 +4,7 @@
   ...
 }: {
   "$mod" = "SUPER";
-  "$terminal" = "ghostty";
+  "$terminal" = "kitty";
   # "$menu" = "anyrun";
   "$menu" = "walker";
   "$fileManager" = "thunar";
