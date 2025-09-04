@@ -147,6 +147,9 @@
       export TERMINAL=kitty
       export EDITOR=nvim
       export VISUAL=nvim
+
+      source ${pkgs.fzf}/share/fzf/completion.zsh
+      source ${pkgs.fzf}/share/fzf/key-bindings.zsh
     '';
 
     oh-my-zsh = {
@@ -167,6 +170,8 @@
   };
 
   # fzf (mostly for zoxide)
-  programs.fzf.enable = true;
-  programs.fzf.enableZshIntegration = true;
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 }
