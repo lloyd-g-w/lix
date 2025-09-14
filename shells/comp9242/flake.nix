@@ -1,5 +1,5 @@
 {
-  description = "A Nix-based development environment for seL4.";
+  description = "A definitive Nix-based development environment for seL4.";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -12,28 +12,54 @@
     flake-utils,
   }:
     flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = import nixpkgs {
+      pkgs = import nixpkgs {inherit system;};
+
+      # Create dedicated package sets for each cross-compilation target.
+      pkgs_arm32 = import nixpkgs {
         inherit system;
+        crossSystem = {config = "armv7l-linux-gnueabihf";};
+      };
+      pkgs_aarch64 = import nixpkgs {
+        inherit system;
+        crossSystem = {config = "aarch64-linux-gnu";};
       };
 
-      python-with-packages = pkgs.python3.withPackages (ps:
+      # Use a stable Python version.
+      python = pkgs.python312;
+
+      # ⭐ Create a Python environment with the seL4 dependencies listed directly.
+      # This is simpler and more reliable than fetching the sel4-deps meta-package.
+      python-with-packages = python.withPackages (ps:
         with ps; [
-          setuptools
-          sel4-deps
+          aenum
+          future
+          jinja2
+          ply
+          pyelftools
+          pyserial
+          six
         ]);
     in {
       devShells.default = pkgs.mkShell {
         packages = with pkgs; [
-          # Base build tools
+          # Shell
+          zsh
+
+          # Base build tools from the seL4 documentation
           gcc
           gdb
-          make
+          gnumake
           cmake
           ccache
           ninja
           cmakeCurses
+          doxygen
+          dtc
+          ubootTools
+          protobuf
+          vim # for xxd
 
-          # Python
+          # Python environment with seL4 dependencies
           python-with-packages
 
           # Other tools
@@ -41,30 +67,29 @@
           ncurses
           curl
           git
-          doxygen
-          dtc
-          ubootTools
-          protobuf
 
-          # Cross-compilers
-          # ARM 32-bit
-          arm-linux-gnueabihf-binutils
-          arm-linux-gnueabihf-gcc
-
-          # ARM 64-bit
-          aarch64-linux-gnu-binutils
-          aarch64-linux-gnu-gcc
-
-          # LaTeX for manual
-          texlive.combined.scheme-full
+          # Cross-compilers from the dedicated package sets
+          pkgs_arm32.gcc
+          pkgs_aarch64.gcc
         ];
 
         shellHook = ''
           echo "Entering seL4 development environment..."
-          # Create a Python virtual environment
-          python -m venv .venv
+
+          # Create and activate a Python virtual environment
+          if [ ! -d ".venv" ]; then
+            echo "Creating Python virtual environment..."
+            python -m venv .venv
+          fi
           source .venv/bin/activate
           echo "Python virtual environment activated."
+
+          # If the current shell is not Zsh, switch to it
+          if [ -z "$ZSH_VERSION" ]; then
+            echo "Switching to Zsh..."
+            export SHELL="${pkgs.zsh}/bin/zsh"
+            exec zsh
+          fi
         '';
       };
     });
