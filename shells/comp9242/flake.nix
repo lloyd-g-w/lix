@@ -39,6 +39,7 @@
           python3Packages.pip
           python3Packages.virtualenv
           python3Packages.protobuf
+          git-repo
           repo # Google's 'repo' tool
           qemu # system emulators (arm/x86/etc)
         ];
