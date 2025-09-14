@@ -1,81 +1,71 @@
 {
-  description = "A Nix shell for os161-utils";
+  description = "A Nix-based development environment for seL4.";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    legacy-nixpkgs = {
-      url = "github:NixOS/nixpkgs/release-19.09";
-      flake = false;
-    };
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = {
+    self,
     nixpkgs,
-    legacy-nixpkgs,
-    ...
-  }: let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {inherit system;};
-    legacyPkgs = import legacy-nixpkgs {inherit system;};
-
-    os161Utils = pkgs.stdenv.mkDerivation {
-      pname = "os161-utils";
-      version = "2.0.8-4";
-
-      src = pkgs.fetchurl {
-        url = "http://www.cse.unsw.edu.au/~cs3231/os161-files/os161-utils_2.0.8-4.deb";
-        sha256 = "0blnhzkj1m5k3d5x615gqr32vsdz2zfw4484phf5r4jmkf4f9hik";
+    flake-utils,
+  }:
+    flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = import nixpkgs {
+        inherit system;
       };
 
-      nativeBuildInputs = [pkgs.dpkg pkgs.autoPatchelfHook];
+      python-with-packages = pkgs.python3.withPackages (ps:
+        with ps; [
+          setuptools
+          sel4-deps
+        ]);
+    in {
+      devShells.default = pkgs.mkShell {
+        packages = with pkgs; [
+          # Base build tools
+          gcc
+          gdb
+          make
+          cmake
+          ccache
+          ninja
+          cmakeCurses
 
-      buildInputs = [
-        pkgs.glibc
-        legacyPkgs.ncurses
-        pkgs.libmpc
-        pkgs.mpfr
-        pkgs.gmp
-      ];
+          # Python
+          python-with-packages
 
-      unpackPhase = ''
-        mkdir -p $out
-        dpkg-deb -x "$src" "$out"
-      '';
+          # Other tools
+          libxml2
+          ncurses
+          curl
+          git
+          doxygen
+          dtc
+          ubootTools
+          protobuf
 
-      installPhase = ''
-        find $out/usr/local/bin -type f -exec chmod +x {} +
-      '';
+          # Cross-compilers
+          # ARM 32-bit
+          arm-linux-gnueabihf-binutils
+          arm-linux-gnueabihf-gcc
 
-      dontStrip = true;
-    };
-  in {
-    devShells.${system}.default = pkgs.mkShell {
-      buildInputs = [os161Utils pkgs.gcc pkgs.clang pkgs.bear pkgs.zsh];
+          # ARM 64-bit
+          aarch64-linux-gnu-binutils
+          aarch64-linux-gnu-gcc
 
-      shellHook = ''
-        echo "Creating a temporary FHS environment for os161-utils..."
+          # LaTeX for manual
+          texlive.combined.scheme-full
+        ];
 
-        export OS161_TEMP_DIR=$(mktemp -d)
-        trap "rm -rf $OS161_TEMP_DIR" EXIT
-
-        # Create the top-level /usr/local structure
-        mkdir -p "$OS161_TEMP_DIR/usr/local"
-
-        # Symlink EVERYTHING from the package's usr/local into our fake one
-        ln -s ${os161Utils}/usr/local/* "$OS161_TEMP_DIR/usr/local/"
-
-        # Add the bin directory to the PATH
-        export PATH="$OS161_TEMP_DIR/usr/local/bin:$PATH"
-
-        # ⭐️ ADD THIS LINE: Tell bmake where to find its system files.
-        export MAKESYSPATH="$OS161_TEMP_DIR/usr/local/share/mk"
-
-        export SHELL="${pkgs.zsh}/bin/zsh"
-        exec zsh
-
-        echo "Done. The os161 toolchain is now available."
-      '';
-    };
-  };
+        shellHook = ''
+          echo "Entering seL4 development environment..."
+          # Create a Python virtual environment
+          python -m venv .venv
+          source .venv/bin/activate
+          echo "Python virtual environment activated."
+        '';
+      };
+    });
 }
