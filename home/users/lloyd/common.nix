@@ -27,6 +27,7 @@
     # oxcaml.oxcaml
     # oxcaml.ocamlformat
     # oxcaml.ocaml-lsp
+    docker
     opam
     dune_3
     autoconf

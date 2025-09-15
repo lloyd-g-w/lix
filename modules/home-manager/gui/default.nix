@@ -80,10 +80,10 @@ in {
 
     # Hyprland
     wayland.windowManager.hyprland = lib.mkIf (config.lix.compositor == "hyprland") {
-      package =
-        inputs.hyprland.packages.${system}.hyprland;
-      portalPackage =
-        inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
+      # package =
+      #   inputs.hyprland.packages.${system}.hyprland;
+      # portalPackage =
+      #   inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
       plugins =
         [
           inputs.split-monitor-workspaces.packages.${system}.split-monitor-workspaces
