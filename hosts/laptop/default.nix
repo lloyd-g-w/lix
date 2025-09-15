@@ -30,4 +30,9 @@
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
+
+  hardware.nvidia.prime = {
+    intelBusId = "PCI:64:0:0";
+    nvidiaBusId = "PCI:1:0:0";
+  };
 }
