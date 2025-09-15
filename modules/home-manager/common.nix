@@ -12,10 +12,6 @@
         type = "path";
         path = "${inputs.self}/shells/comp3891";
       };
-      comp9242 = {
-        type = "path";
-        path = "${inputs.self}/shells/comp9242";
-      };
       progtemp = {
         type = "path";
         path = "${inputs.self}/templates";
