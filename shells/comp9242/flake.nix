@@ -1,7 +1,7 @@
 {
-  description = "seL4 dev shell (older cross toolchain + Ninja/CMake + Python deps)";
+  description = "seL4/AOS dev shell (pinned toolchains + host deps + auto musllibc patch)";
 
-  # Pin to 23.11 to avoid binutils 2.44 copy-reloc error
+  # Pin to 23.11 for older binutils/gcc known to work with seL4
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
 
   outputs = {
@@ -19,116 +19,126 @@
     devShells = forAllSystems (system: let
       pkgs = import nixpkgs {inherit system;};
 
-      # Cross toolchains (23.11 gives older binutils/gcc)
-      aarch64_gcc = pkgs.pkgsCross.aarch64-embedded.buildPackages.gcc;
+      # Cross toolchains (older versions from 23.11)
       aarch64_binutils = pkgs.pkgsCross.aarch64-embedded.buildPackages.binutils;
+      aarch64_gcc = pkgs.pkgsCross.aarch64-embedded.buildPackages.gcc;
 
-      riscv_gcc = pkgs.pkgsCross.riscv64-embedded.buildPackages.gcc;
       riscv_binutils = pkgs.pkgsCross.riscv64-embedded.buildPackages.binutils;
+      riscv_gcc = pkgs.pkgsCross.riscv64-embedded.buildPackages.gcc;
 
       arm_gcc = pkgs.gcc-arm-embedded; # arm-none-eabi-*
-    in {
-      default = pkgs.mkShell {
-        packages =
-          (with pkgs; [
-            # build tools
-            cmake
-            ninja
-            ccache
-            cmakeCurses
 
-            # your apt-mapped utils
-            libxml2
-            ncurses
-            curl
-            git
-            doxygen
-            dtc
-            xxd
-            ubootTools
-            protobuf
-            qemu_full
+      py = pkgs.python3.withPackages (ps:
+        with ps; [
+          six
+          future
+          jinja2
+          lxml
+          ply
+          psutil
+          beautifulsoup4
+          pyelftools
+          pexpect
+          pyyaml
+          jsonschema
+          setuptools
+          autopep8
+          # cmake-format and pyfdt are optional; comment in if you have them in your nixpkgs
+          # cmake-format pyfdt
+        ]);
+    in
+      pkgs.mkShell {
+        packages = with pkgs; [
+          # build tools / host deps
+          cmake
+          ninja
+          ccache
+          cmakeCurses
+          libxml2
+          ncurses
+          curl
+          git
+          doxygen
+          dtc
+          xxd
+          ubootTools
+          protobuf
+          qemu_full
+          gdb
+          py
 
-            # python (venv created in shellHook) with pip + setuptools
-            (python3.withPackages (ps: with ps; [pip setuptools]))
-          ])
-          ++ [
-            aarch64_gcc
-            aarch64_binutils
-            riscv_gcc
-            riscv_binutils
-            arm_gcc
-          ];
+          # cross toolchains
+          aarch64_binutils
+          aarch64_gcc
+          riscv_binutils
+          riscv_gcc
+          arm_gcc
+        ];
 
-        # Default to AArch64; you can switch inside the shell (see helper)
-        env = {
-          CROSS_COMPILER_PREFIX = "aarch64-none-elf-";
-          CC = "aarch64-none-elf-gcc";
-          CXX = "aarch64-none-elf-g++";
-          LD = "aarch64-none-elf-ld";
-          AR = "aarch64-none-elf-ar";
-        };
-
+        # Keep environment vars inside the shell (avoid leaking to parent)
+        # Set default cross (AArch64); switch with `sel4-target` helper.
         shellHook = ''
-          set -euo pipefail
-          alias python=python3
+          set -eu
 
-          # Helper to change target without leaving the shell
+          # ---- Pretty prompt so it's obvious you're *in* the dev shell
+          if [ -n "''${PS1-}" ]; then
+            export PS1="(seL4-dev) $PS1"
+          fi
+
+          # ---- Default target: aarch64
+          export CROSS_COMPILER_PREFIX="aarch64-none-elf-"
+          export CC="''${CROSS_COMPILER_PREFIX}gcc"
+          export CXX="''${CROSS_COMPILER_PREFIX}g++"
+          export LD="''${CROSS_COMPILER_PREFIX}ld"
+          export AR="''${CROSS_COMPILER_PREFIX}ar"
+
           sel4-target () {
             case "''${1-}" in
               aarch64)
-                export CROSS_COMPILER_PREFIX=aarch64-none-elf-
-                export CC=aarch64-none-elf-gcc CXX=aarch64-none-elf-g++ LD=aarch64-none-elf-ld AR=aarch64-none-elf-ar ;;
+                export CROSS_COMPILER_PREFIX=aarch64-none-elf- ;;
               arm)
-                export CROSS_COMPILER_PREFIX=arm-none-eabi-
-                export CC=arm-none-eabi-gcc CXX=arm-none-eabi-g++ LD=arm-none-eabi-ld AR=arm-none-eabi-ar ;;
+                export CROSS_COMPILER_PREFIX=arm-none-eabi- ;;
               riscv)
-                export CROSS_COMPILER_PREFIX=riscv64-none-elf-
-                export CC=riscv64-none-elf-gcc CXX=riscv64-none-elf-g++ LD=riscv64-none-elf-ld AR=riscv64-none-elf-ar ;;
+                export CROSS_COMPILER_PREFIX=riscv64-none-elf- ;;
               *)
                 echo "Usage: sel4-target aarch64|arm|riscv" >&2; return 1 ;;
             esac
-            echo "Switched to $CROSS_COMPILER_PREFIX (CC=$CC)"
+            export CC="''${CROSS_COMPILER_PREFIX}gcc"
+            export CXX="''${CROSS_COMPILER_PREFIX}g++"
+            export LD="''${CROSS_COMPILER_PREFIX}ld"
+            export AR="''${CROSS_COMPILER_PREFIX}ar"
+            echo "Switched to ''${CROSS_COMPILER_PREFIX} (CC=$CC)"
           }
 
-          # --- Python deps for seL4 builds (project-local venv) ---
-          VENV_DIR="$PWD/.venv-sel4"
-          if [ ! -d "$VENV_DIR" ]; then
-            echo "Creating Python venv at $VENV_DIR ..."
-            python3 -m venv "$VENV_DIR"
-            "$VENV_DIR/bin/pip" install --upgrade pip
-          fi
-          . "$VENV_DIR/bin/activate"
+          # ---- Auto-detect AOS repo root no matter where you run `nix develop` from
+          find_aos_root () {
+            for p in . .. ../.. ../../.. ../../../..; do
+              if [ -e "$p/projects/musllibc/src/stdio/__stdio_exit.c" ]; then
+                (cd "$p" && pwd)
+                return 0
+              fi
+            done
+            return 1
+          }
 
-          REQS="$VENV_DIR/requirements.sel4.txt"
-          if [ ! -f "$REQS" ]; then
-            cat > "$REQS" <<'EOF'
-            six
-            future
-            jinja2
-            lxml
-            ply
-            psutil
-            bs4
-            pyelftools
-            sh
-            pexpect
-            pyyaml>=5.1
-            jsonschema
-            pyfdt
-            cmake-format==0.6.13
-            guardonce
-            autopep8==2.3.2
-            libarchive-c
-            setuptools
-            EOF
+          # ---- Auto-patch musllibc to avoid '__stdin_used' copy-reloc link failure
+          # Idempotent: only applies once and only if needed.
+          if AOS_ROOT="$(find_aos_root)"; then
+            FILE="$AOS_ROOT/projects/musllibc/src/stdio/__stdio_exit.c"
+            # Only patch if the symbol is still the old declaration
+            if grep -Eq '^[[:space:]]*volatile[[:space:]]+int[[:space:]]+__stdin_used[[:space:]]*;[[:space:]]*$' "$FILE"; then
+              echo "[seL4-dev] Patching musllibc (__stdin_used visibility -> hidden) in: $FILE"
+              cp "$FILE" "$FILE.bak"
+              sed -i \
+                's/^[[:space:]]*volatile[[:space:]]\+int[[:space:]]\+__stdin_used[[:space:]]*;$/__attribute__((visibility("hidden"))) volatile int __stdin_used = 0;/' \
+                "$FILE"
+            fi
           fi
-          PIP_DISABLE_PIP_VERSION_CHECK=1 pip install -r "$REQS" >/dev/null
 
-          echo "seL4 dev shell ready — $CROSS_COMPILER_PREFIX (CC=$CC)"
+          # Helpful reminder
+          echo "seL4 dev shell ready — CROSS=''${CROSS_COMPILER_PREFIX} (CC=$CC)"
           echo "Switch target with:  sel4-target aarch64|arm|riscv"
         '';
-      };
-    });
+      });
   };
 }
