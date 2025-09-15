@@ -51,30 +51,31 @@
     };
   in {
     devShells.${system}.default = pkgs.mkShell {
-      buildInputs = with pkgs; [
-        # C/C++ build tools
+      packages = with pkgs; [
+        zsh
         cmake
         ccache
         ninja
-
-        # Libraries and utilities
+        cmakeCurses
         libxml2
         ncurses
         curl
         git
         doxygen
-        dtc # device-tree-compiler
-        xxd # from the vim package
+        dtc
+        xxd
         ubootTools
-
-        # Python environment
-        python3
         protobuf
+        (python3.withPackages (ps: with ps; [pip protobuf]))
       ];
 
       shellHook = ''
+
         export SHELL="${pkgs.zsh}/bin/zsh"
         exec zsh
+
+        alias python=python3
+        CMAKE_MAKE_PROGRAM=Ninja
 
         echo "Done."
       '';
