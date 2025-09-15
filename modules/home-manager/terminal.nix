@@ -16,21 +16,20 @@
     escapeTime = 0;
     # Force tmux to use /tmp for sockets (WSL2 compat)
     secureSocket = false;
-    plugins = with pkgs; [
-      tmuxPlugins.better-mouse-mode
-      # tmuxPlugins.gruvbox
-      tmuxPlugins.catppuccin
-      tmuxPlugins.sensible
-      tmuxPlugins.vim-tmux-navigator
-      tmuxPlugins.resurrect
-      tmuxPlugins.continuum
+    plugins = with pkgs.tmuxPlugins; [
+      better-mouse-mode
+      # gruvbox
+      catppuccin
+      sensible
+      vim-tmux-navigator
+      resurrect
+      continuum
     ];
     keyMode = "vi";
     shortcut = "b";
     extraConfig = ''
-
-      set -g @continuum-restore 'on'         # auto-restore on tmux start
       set -g @continuum-save-interval '15'   # autosave every 15 minutes
+      set -g @continuum-restore 'on'         # auto-restore on tmux start
 
       bind-key h select-pane -L
       bind-key j select-pane -D
