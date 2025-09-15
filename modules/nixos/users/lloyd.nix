@@ -13,6 +13,7 @@
       "plugdev"
       "audio" # Often needed for sound
       "video" # Often needed for hardware acceleration
+      "docker"
     ];
     shell = pkgs.zsh;
     packages = [inputs.home-manager.packages.${pkgs.system}.home-manager];
