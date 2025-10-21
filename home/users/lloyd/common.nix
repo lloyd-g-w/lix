@@ -65,5 +65,9 @@
 
     # Game
     prismlauncher
+
+    # Misc
+    neofetch
+    cmatrix
   ];
 }
