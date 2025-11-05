@@ -22,6 +22,7 @@
     btop
     openvpn
     codex
+    nautilus # Might want to get rid of thunar and just have nautilus?
 
     # Dev
     # oxcaml.oxcaml
