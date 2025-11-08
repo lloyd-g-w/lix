@@ -8,7 +8,9 @@
     niri
   ];
 
-  home.file."niri/config.kdl".source = ./config.kdl;
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-wlr];
+
+  home.file.".config/niri/config.kdl".source = ./config.kdl;
 
   # "$mod" = "SUPER";
   # "$terminal" = "kitty";

@@ -6,9 +6,4 @@
     "desc:Samsung Electric Company LC27G5xT HNAW600500, preferred, 0x0, 1"
     "desc:BNQ BenQ XL2411Z C6F00870SL0, preferred, auto, 1"
   ];
-
-  lix.niri.monitors = [
-    "desc:Samsung Electric Company LC27G5xT HNAW600500, preferred, 0x0, 1"
-    "desc:BNQ BenQ XL2411Z C6F00870SL0, preferred, auto, 1"
-  ];
 }

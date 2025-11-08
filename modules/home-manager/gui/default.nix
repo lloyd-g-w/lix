@@ -35,29 +35,11 @@
   cursorPackage = pkgs.phinger-cursors;
 
   system = pkgs.stdenv.hostPlatform.system;
+
+  niriModule = import ./niri {inherit config lib pkgs;};
 in {
-  options.lix.compositor = lib.mkOption {
-    type = lib.types.enum ["sway" "hyprland" "niri"];
-    default = "hyprland";
-    description = "The compositor for lix (options: hyprland (default), sway, niri)";
-  };
 
-  # Make an option for monitors
-  options.lix.hyprland = {
-    monitors = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [];
-      description = "A list of monitor configuration strings for Hyprland.";
-    };
-
-    hy3.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable or disable hy3 (default: false)";
-    };
-  };
-
-  imports = [(lib.mkIf (config.lix.compositor == "niri") ./niri {inherit config lib pkgs;})];
+  imports = [(lib.mkIf (config.lix.compositor == "niri") niriModule)];
 
   config = {
     home.packages = fonts ++ environment ++ tools;
@@ -105,9 +87,11 @@ in {
       extraConfig = import ./sway {inherit config lib;};
     };
 
+    xdg.autostart.enable = true;
+
     xdg.portal = {
       enable = true;
-      config.common.default = ["hyprland"];
+      config.common.default = ["wlr"];
     };
 
     home.sessionVariables = {
