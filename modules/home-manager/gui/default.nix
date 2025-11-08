@@ -36,6 +36,12 @@
 
   system = pkgs.stdenv.hostPlatform.system;
 in {
+  options.lix.compositor = lib.mkOption {
+    type = lib.types.enum ["sway" "hyprland" "niri"];
+    default = "hyprland";
+    description = "The compositor for lix (options: hyprland (default), sway, niri)";
+  };
+
   # Make an option for monitors
   options.lix.hyprland = {
     monitors = lib.mkOption {
@@ -51,11 +57,7 @@ in {
     };
   };
 
-  options.lix.compositor = lib.mkOption {
-    type = lib.types.enum ["sway" "hyprland"];
-    default = "hyprland";
-    description = "The compositor for lix (default: hyprland)";
-  };
+  imports = [(lib.mkIf (config.lix.compositor == "niri") ./niri {inherit config lib pkgs;})];
 
   config = {
     home.packages = fonts ++ environment ++ tools;
