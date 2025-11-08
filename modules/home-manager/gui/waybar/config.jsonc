@@ -18,7 +18,7 @@
     "format-icons": {
       "active": "",
       "default": "",
-      "empty": "",
+      // "empty": "",
     },
   },
   "custom/notification": {
