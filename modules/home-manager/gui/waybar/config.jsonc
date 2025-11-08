@@ -14,13 +14,12 @@
   ],
 
   "niri/workspaces": {
-    "format": "{icon}",
+    "format": "{index}: {icon}",
     "format-icons": {
-      "active": "",
+      "active": "",
       "default": "",
-      "empty": "",
+      "empty": "",
     },
-    "all-outputs": false,
   },
   "custom/notification": {
     "tooltip": false,

@@ -91,7 +91,7 @@ in {
 
     xdg.portal = {
       enable = true;
-      config.common.default = ["wlr"];
+      config.common.default = ["gnome"];
     };
 
     home.sessionVariables = {
