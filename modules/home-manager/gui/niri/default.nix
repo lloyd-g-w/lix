@@ -6,6 +6,7 @@
 }: {
   home.packages = with pkgs; [
     niri
+    xwayland-satellite
   ];
 
   xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-wlr];
