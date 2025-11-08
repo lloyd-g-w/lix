@@ -44,6 +44,7 @@
     };
 
     # Enable hyprland/sway for display manager
+    programs.niri.enable = lib.mkIf (config.lix.compositor == "niri") true;
     programs.hyprland.enable = lib.mkIf (config.lix.compositor == "hyprland") true;
     programs.sway.enable = lib.mkIf (config.lix.compositor == "sway") true;
 
