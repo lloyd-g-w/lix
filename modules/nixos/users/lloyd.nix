@@ -18,4 +18,6 @@
     shell = pkgs.zsh;
     packages = [inputs.home-manager.packages.${pkgs.system}.home-manager];
   };
+
+  lix.compositor = "niri";
 }

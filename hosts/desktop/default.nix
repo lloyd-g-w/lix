@@ -7,7 +7,6 @@
     ../../modules/nixos/logitech-remap.nix
     ../../modules/nixos/users/lloyd.nix
   ];
-  lix.compositor = "niri";
 
   system.stateVersion = "24.11";
   networking.hostName = "desktop";
