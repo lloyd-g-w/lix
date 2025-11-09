@@ -60,8 +60,8 @@ input {
 
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
-    // focus-follows-mouse max-scroll-amount="0%"
-    focus-follows-mouse
+    focus-follows-mouse max-scroll-amount="0%"
+    // focus-follows-mouse
 }
 
 output "Samsung Electric Company LC27G5xT HNAW600500" {
@@ -81,7 +81,7 @@ output "PNP(BNQ) BenQ XL2411Z C6F00870SL0" {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 4
+    gaps 2
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
