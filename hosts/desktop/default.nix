@@ -14,6 +14,7 @@
   # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  services.desktopManager.cosmic.enable = true;
 
   nix.settings.trusted-users = [
     "root"
