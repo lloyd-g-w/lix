@@ -60,9 +60,15 @@
     # Documents
     geeqie
     zathura
-    texlive.combined.scheme-full
     xournalpp
     typst
+
+    # Latex
+    texlive.combined.scheme-full
+    # Minted code block deps
+    python3Packages.latexrestricted
+    python3Packages.latex2pydata
+    python3Packages.pygments
 
     # Comms
     discord
