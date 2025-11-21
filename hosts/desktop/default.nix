@@ -10,6 +10,7 @@
 
   system.stateVersion = "24.11";
   networking.hostName = "desktop";
+  services.ratbagd.enable = true; # This is so piper works for my mouse
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;
