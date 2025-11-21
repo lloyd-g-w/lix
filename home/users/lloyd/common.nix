@@ -26,6 +26,7 @@
     codex
     nautilus # Might want to get rid of thunar and just have nautilus?
     bottles
+    piper
 
     # Dev
     # oxcaml.oxcaml
