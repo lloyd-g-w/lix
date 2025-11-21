@@ -5,7 +5,7 @@
   services.keyd.enable = true;
   environment.etc."keyd/default.conf".text = ''
     [ids]
-    046d:4079
+    046d:c547
 
     [main]
     mouse1 = f19
