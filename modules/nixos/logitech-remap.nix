@@ -1,15 +1,26 @@
 {pkgs, ...}: {
   environment.systemPackages = [pkgs.keyd];
 
-  # Remap side button with keyd to F19
   services.keyd.enable = true;
+
+  # Remap side button with keyd to F19 - G Pro wireless
+  # environment.etc."keyd/default.conf".text = ''
+  #   [ids]
+  #   046d:c547
+  #
+  #   [main]
+  #   mouse1 = f19
+  # '';
+
+  # G502 X Plus
   environment.etc."keyd/default.conf".text = ''
     [ids]
-    046d:c547
+    046d:c547:db1d61df
 
     [main]
-    mouse1 = f19
+    stopcd = f19
   '';
+
   # Add symlink to /dev/input of keyd virtual keyboard
   services.udev.extraRules = ''
     # match the keyd virtual keyboard by its exact name
