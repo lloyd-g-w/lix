@@ -18,7 +18,8 @@
     046d:c547:db1d61df
 
     [main]
-    stopcd = f19
+    stopcd = prog1
+    mute = prog2
   '';
 
   # Add symlink to /dev/input of keyd virtual keyboard
