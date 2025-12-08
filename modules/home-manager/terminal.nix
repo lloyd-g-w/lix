@@ -85,12 +85,54 @@
 
     font_size 16.0
 
-    include themes/catppuccin-macchiato.conf
+    include themes/onedark-warmer.conf
   '';
+
   xdg.configFile."kitty/themes/gruvbox-material-dark-soft.conf".source = builtins.fetchurl {
     url = "https://raw.githubusercontent.com/kovidgoyal/kitty-themes/refs/heads/master/themes/GruvboxMaterialDarkSoft.conf";
     sha256 = "04azpbiv3vkqm0af0nl6ij9i0j2i95ij1rxxr2bb2cr3hh78x8yh";
   };
+
+  xdg.configFile."kitty/themes/onedark.conf".source = builtins.fetchurl {
+    url = "https://raw.githubusercontent.com/GiuseppeCesarano/kitty-theme-OneDark/refs/heads/master/OneDark.conf";
+    sha256 = "sha256:0ickbbk7j1ig66qp1rwxmpm8dd1kplijlhvdvk1s70xp8qr40a6z";
+  };
+
+  xdg.configFile."kitty/themes/onedark-warmer.conf".text = ''
+    foreground #a7aab0
+    background #2c2d30
+    selection_foreground #2c2d30
+    selection_background #a7aab0
+    cursor #a7aab0
+    cursor_text_color #2c2d30
+
+    # UI colors
+    active_border_color #68aee8
+    inactive_border_color #2c2d31
+    tab_bar_background #1b1c1e
+    url_color #57a5e5
+
+    # Normal colors
+    color0  #101012
+    color1  #de5d68
+    color2  #8fb573
+    color3  #dbb671
+    color4  #57a5e5
+    color5  #bb70d2
+    color6  #51a8b3
+    color7  #a7aab0
+
+    # Bright colors
+    color8  #5a5b5e
+    color9  #de5d68
+    color10 #8fb573
+    color11 #dbb671
+    color12 #57a5e5
+    color13 #bb70d2
+    color14 #51a8b3
+    color15 #ffffff
+  '';
+
   xdg.configFile."kitty/themes/catppuccin-macchiato.conf".source = builtins.fetchurl {
     url = "https://raw.githubusercontent.com/catppuccin/kitty/main/themes/macchiato.conf";
     sha256 = "sha256:1givl76kzc0ya70r4bvj5dnh01n7n4d2543xbmigwwdmd7879wfm";
