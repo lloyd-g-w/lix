@@ -7,6 +7,7 @@
     ../../../modules/home-manager/gui
     ./autostart.nix
     ../../../scripts/switch.nix
+    ../../../scripts/dev.nix
   ];
   home.username = "lloyd";
   home.homeDirectory = "/home/lloyd";
