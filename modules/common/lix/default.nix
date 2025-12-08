@@ -28,4 +28,24 @@
       description = "A list of monitor configuration strings for niri.";
     };
   };
+
+  options.lix = {
+    host = lib.mkOption {
+      type = lib.types.str;
+      default = "desktop";
+      description = "The lix hostname of the system.";
+    };
+
+    user = lib.mkOption {
+      type = lib.types.str;
+      default = "lloyd";
+      description = "The lix user of the system.";
+    };
+
+    dir = lib.mkOption {
+      type = lib.types.str;
+      default = "$HOME/projects/lix";
+      description = "The directory of the main lix config.";
+    };
+  };
 }

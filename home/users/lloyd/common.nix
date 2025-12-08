@@ -6,6 +6,7 @@
     ../../../modules/home-manager/wayland-fixes.nix
     ../../../modules/home-manager/gui
     ./autostart.nix
+    ../../../scripts/switch.nix
   ];
 
   home.username = "lloyd";

@@ -15,6 +15,6 @@
       "video" # Often needed for hardware acceleration
     ];
     shell = pkgs.zsh;
-    packages = [inputs.home-manager.packages.${pkgs.system}.home-manager];
+    packages = [inputs.home-manager.packages.${pkgs.stdenv.hostPlatform.system}.home-manager];
   };
 }
