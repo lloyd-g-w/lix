@@ -1,11 +1,5 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   home.packages = [
-    (pkgs.writeShellScriptBin "dev" ''
-
-    '')
+    (pkgs.writeShellScriptBin "dev" (builtins.readFile ./dev.sh))
   ];
 }
