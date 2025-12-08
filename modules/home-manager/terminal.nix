@@ -19,7 +19,7 @@
     plugins = with pkgs.tmuxPlugins; [
       better-mouse-mode
       # gruvbox
-      catppuccin
+      # catppuccin
       sensible
       vim-tmux-navigator
       resurrect
@@ -49,11 +49,11 @@
       # set -g @tmux-gruvbox 'dark' # or 'light', 'dark-transparent', 'light-transparent'
 
       # Configure the catppuccin plugin
-      set -g @catppuccin_flavor "macchiato"
+      # set -g @catppuccin_flavor "macchiato"
       # set -g @catppuccin_window_status_style "rounded"
 
       # Load catppuccin
-      run-shell ${pkgs.tmuxPlugins.catppuccin}/share/tmux-plugins/catppuccin/catppuccin.tmux
+      # run-shell ${pkgs.tmuxPlugins.catppuccin}/share/tmux-plugins/catppuccin/catppuccin.tmux
 
       # Make the status line pretty and add some modules
       set -g status-right-length 100
@@ -72,6 +72,52 @@
 
       set -g window-status-format '#[fg=#{?client_prefix,#bea4fb,colour244}]#I#[fg=colour244]:#(basename #{pane_current_path})'
       set -g window-status-current-format '#[fg=#bea4fb]#[bold]#I:#(basename #{pane_current_path})'
+
+
+
+# -------------------------------
+# Warmer Theme (based on kitty)
+# -------------------------------
+
+# Main foreground/background
+set -g status-fg "#a7aab0"
+set -g status-bg "#2c2d30"
+
+# Pane borders
+set -g pane-border-style "fg=#5a5b5e"
+set -g pane-active-border-style "fg=#68aee8"
+
+# Message + prompts
+set -g message-style "bg=#2c2d31,fg=#a7aab0"
+set -g message-command-style "bg=#2c2d31,fg=#a7aab0"
+
+# Mode (copy-mode)
+set -g mode-style "bg=#57a5e5,fg=#2c2d30"
+
+# Status line lengths
+set -g status-left-length 100
+set -g status-right-length 100
+
+# Empty status content (you fill later)
+set -g status-left ""
+set -g status-right ""
+
+# Window titles
+set -g window-status-format "#[fg=#5a5b5e]#I:#(basename #{pane_current_path})"
+set -g window-status-current-format "#[fg=#57a5e5,bold]#I:#(basename #{pane_current_path})"
+
+# Optional: Use purple for active windows instead
+# set -g window-status-current-format "#[fg=#bb70d2,bold]#I:#(basename #{pane_current_path})"
+
+# Optional: Use orange
+# set -g window-status-current-format "#[fg=#c49060,bold]#I:#(basename #{pane_current_path})"
+
+# Optional: Use green
+# set -g window-status-current-format "#[fg=#8fb573,bold]#I:#(basename #{pane_current_path})"
+
+
+
+
     '';
   };
 
