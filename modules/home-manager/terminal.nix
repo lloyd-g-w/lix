@@ -102,10 +102,9 @@
 
         # Window titles
         set -g window-status-format "#[fg=#5a5b5e]#I:#(basename #{pane_current_path})"
-        set -g window-status-current-format "#[fg=#57a5e5,bold]#I:#(basename #{pane_current_path})"
 
         # Optional: Use purple for active windows instead
-        # set -g window-status-current-format "#[fg=#bb70d2,bold]#I:#(basename #{pane_current_path})"
+        set -g window-status-current-format "#[fg=#bb70d2,bold]#I:#(basename #{pane_current_path})"
 
         # Optional: Use orange
         # set -g window-status-current-format "#[fg=#c49060,bold]#I:#(basename #{pane_current_path})"
