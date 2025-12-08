@@ -1,17 +1,17 @@
 /* colors defined at top for easy configuring */
-@define-color background        #1A1A1A;
-@define-color second-background #222222;
-@define-color text              #D0D0D0;
-@define-color borders           #555555;
+@define-color background        #2c2d30; /* main background */
+@define-color second-background #232326; /* bg0 */
+@define-color text              #a7aab0; /* foreground */
+@define-color borders           #5a5b5e; /* grey */
 
-@define-color focused           #777777;
-@define-color focused2          #888888;
+@define-color focused           #57a5e5; /* blue accent */
+@define-color focused2          #bb70d2; /* purple accent */
 
-@define-color color1            #5E5E5E;
-@define-color color2            #6A6A6A;
-@define-color color3            #505050;
+@define-color color1            #8fb573; /* green */
+@define-color color2            #dbb671; /* yellow */
+@define-color color3            #c49060; /* orange */
 
-@define-color urgent            #804040;
+@define-color urgent            #de5d68; /* red */
 
 /* font declared */
 * {
