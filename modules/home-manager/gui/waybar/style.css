@@ -1,154 +1,209 @@
+/* colors defined at top for easy configuring */
+@define-color background        #1A1A1A;
+@define-color second-background #222222;
+@define-color text              #D0D0D0;
+@define-color borders           #555555;
+
+@define-color focused           #777777;
+@define-color focused2          #888888;
+
+@define-color color1            #5E5E5E;
+@define-color color2            #6A6A6A;
+@define-color color3            #505050;
+
+@define-color urgent            #804040;
+
+/* font declared */
 * {
-  font-size: 16px;
   font-family: "Jetbrains Mono Nerd Font";
+  font-size: 15px;
 }
+
+#custom-openbracket,
+#custom-closebracket {
+  margin: 0 5px;
+}
+
+/* idk what all this does */
 window#waybar {
-  /* all:unset; */
+  background-color: @background;
+  border-bottom: 0;
+  color: @text;
+  padding: 6px 6px 6px 6px;
 }
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+window#waybar.empty #window {
+  background-color: transparent;
+}
+
+/* configuring the modules */
 .modules-left {
-  padding: 7px;
+  margin: 0 0 0 6px;
+  background-color: @background;
+  /* border: 2px solid @focused; */
 }
+
 .modules-center {
-  padding: 7px;
+  margin: 0 0 0 0;
+  background-color: @background;
+  /* border: 2px solid @focused; */
 }
+
 .modules-right {
-  padding: 7px 0px 7px 7px;
+  margin: 0 6px 0 0;
+  background-color: @background;
+  /* border: 2px solid @focused; */
 }
-tooltip {
-  background: grey;
-  color: white;
-}
-#clock:hover,
-#custom-pacman:hover,
-#custom-notification:hover,
-#bluetooth:hover,
-#network:hover,
-#battery:hover,
-#cpu:hover,
-#memory:hover,
-#temperature:hover,
-#pulseaudio:hover,
-#custom-poweroff:hover {
-  transition: all 0.3s ease;
-  color: #858585;
-}
-#custom-poweroff {
-  padding: 0px 10px;
-  transition: all 0.3s ease;
-  color: white;
-}
-#pulseaudio {
-  padding: 0px 5px;
-  transition: all 0.3s ease;
-  color: white;
-}
-#custom-notification {
-  padding: 0px 5px;
-  transition: all 0.3s ease;
-  color: white;
-}
-#clock {
-  padding: 0px 5px;
-  color: white;
-  transition: all 0.3s ease;
-}
-#custom-pacman {
-  padding: 0px 5px;
-  transition: all 0.3s ease;
-  color: white;
-}
-#workspaces {
-  min-width: 0;
+
+/* whats this?? */
+button {
   border: none;
-  /* Transition for background-color and color only */
-  transition:
-    background-color 0.2s ease-in-out,
-    color 0.2s ease-in-out;
 }
 
-#workspaces {
-  margin-right: 5px; /* Spacing after the workspaces module */
+/* left island */
+
+/* menu pannel */
+#custom-arch,
+#custom-powerprofile,
+#custom-themeswitcher {
+  padding-right: 10px;
+  padding-left: 5px;
+  font-size: 15px;
+  border-radius: 8px;
 }
 
-#workspaces button.active {
-  color: #e6e6e6; /* light grey text */
-  background-color: rgba(230, 230, 230, 0.06); /* very soft light overlay */
+#custom-arch:hover {
+  color: @color1;
+}
+
+#custom-powerprofile:hover {
+  color: @color1;
+}
+
+#custom-themeswitcher:hover {
+  color: @color1;
+}
+
+/* workspace pannel */
+#workspaces button {
+  min-width: 0;
+  padding: 0 8px 0 8px;
+  background-color: transparent;
+  color: @text;
+  border-radius: 0;
 }
 
 #workspaces button:hover {
-  background: #2a2a2a; /* mid-dark grey */
-  color: #f5f5f5; /* almost white text */
+  background-color: @second-background;
 }
 
-#bluetooth {
-  padding: 0px 5px;
-  transition: all 0.3s ease;
-  color: white;
+#workspaces button.active {
+  color: @focused2;
+  background-color: @second-background;
 }
+
+#workspaces button.urgent {
+  background-color: @urgent;
+}
+
+/* no idea what this does */
+.modules-left > widget:first-child > #workspaces {
+  margin-left: 0;
+}
+
+.modules-right > widget:last-child > #workspaces {
+  margin-right: 0;
+}
+
+/* media player */
+#mpris {
+  margin: 0 0 0 5px;
+  padding: 0 9px;
+  background-color: @background;
+  color: @text;
+}
+
+#mpris.playing {
+  background-color: @color3;
+  border-radius: 2px;
+  color: @background;
+}
+
+/* center module  */
+#window {
+  padding: 0 5px;
+}
+
+/* Right Island */
+
+/* module general styles */
+#clock,
+#battery,
+#cpu,
+#memory,
+#custom-clipboard,
+#custom-bluetooth,
 #network {
-  padding: 0px 5px;
-  transition: all 0.3s ease;
-  color: white;
-}
-#battery {
-  padding: 0px 5px;
-  transition: all 0.3s ease;
-  color: white;
-}
-#battery.charging {
-  color: #26a65b;
+  padding: 0 10px;
 }
 
-#battery.warning:not(.charging) {
-  color: #ffbe61;
+#clock:hover,
+#battery:hover,
+#custom-cpu:hover,
+#custom-clipboard:hover,
+#custom-bluetooth:hover,
+#network:hover,
+#idle_inhibitor:hover,
+#custom-swaync:hover,
+#backlight:hover,
+#wireplumber:hover {
+  color: @color1;
+}
+
+#idle_inhibitor {
+  padding: 0 10px 0 0;
+}
+
+#custom-powerprofile {
+  padding: 0 8px 0 4px;
+}
+
+/* Remaining Modules */
+#backlight,
+#wireplumber {
+  padding: 0 5px;
+}
+
+#wireplumber.muted {
+  background-color: @color2;
+}
+
+#custom-swaync {
+  padding: 0 10px 0 5px;
+  font-size: 16px;
+  /* same scale as other icons */
+  color: @text;
+}
+
+#battery.charging,
+#battery.plugged {
+  background-color: @focused2;
+  color: @background;
 }
 
 #battery.critical:not(.charging) {
-  color: #f53c3c;
-  animation-name: blink;
-  animation-duration: 0.5s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-#group-expand {
-  padding: 0px 5px;
-  transition: all 0.3s ease;
-}
-#custom-expand {
-  padding: 0px 5px;
-  color: alpha(grey, 0.2);
-  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.7);
-  transition: all 0.3s ease;
-}
-#custom-expand:hover {
-  color: rgba(255, 255, 255, 0.2);
-  text-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5);
-}
-#custom-colorpicker {
-  padding: 0px 5px;
-}
-#cpu,
-#memory,
-#temperature {
-  padding: 0px 5px;
-  transition: all 0.3s ease;
-  color: white;
-}
-#custom-endpoint {
-  color: transparent;
-  text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 1);
-}
-#tray {
-  padding: 0px 5px;
-  transition: all 0.3s ease;
-}
-#tray menu * {
-  padding: 0px 5px;
-  transition: all 0.3s ease;
+  background-color: @urgent;
+  color: @text;
+  animation: blink 0.5s steps(12) infinite alternate;
 }
 
-#tray menu separator {
-  padding: 0px 5px;
-  transition: all 0.3s ease;
+@keyframes blink {
+  to {
+    background-color: @second-background;
+    color: @text;
+  }
 }
