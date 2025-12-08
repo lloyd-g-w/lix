@@ -5,6 +5,8 @@
     ../../modules/nixos/users/lloyd.nix
   ];
 
+  lix.host = "server";
+
   system.stateVersion = "24.11";
   networking.hostName = "server";
 

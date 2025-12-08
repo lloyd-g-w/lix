@@ -8,7 +8,6 @@
     ./autostart.nix
     ../../../scripts/switch.nix
   ];
-
   home.username = "lloyd";
   home.homeDirectory = "/home/lloyd";
   home.stateVersion = "24.11";
