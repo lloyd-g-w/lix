@@ -13,6 +13,8 @@
   home.homeDirectory = "/home/lloyd";
   home.stateVersion = "24.11";
 
+  lix.compositor = "mango";
+
   home.packages = with pkgs; [
     # Utils
     unzip

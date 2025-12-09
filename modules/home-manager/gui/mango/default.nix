@@ -12,7 +12,7 @@
     BROWSER = "firefox";
     TERMINAL = "kitty";
     MENU = "walker";
-    # DEFAULT_AUDIO_SINK = null;
-    # DEFAULT_AUDIO_SOURCE = null;
+    DEFAULT_AUDIO_SINK = null;
+    DEFAULT_AUDIO_SOURCE = null;
   };
 }

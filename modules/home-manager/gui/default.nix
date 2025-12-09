@@ -77,7 +77,7 @@ in {
       ];
 
       config = {
-        common.default = ["wlr" "gtk"];
+        common.default = ["gtk" "wlr" ];
       };
     };
 
