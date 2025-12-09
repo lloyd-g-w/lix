@@ -103,7 +103,7 @@ button {
 
 #workspaces button.active {
   color: @focused2;
-  background-color: @second-background;
+  /* background-color: @second-background; */
 }
 
 #workspaces button.urgent {
@@ -147,18 +147,25 @@ button {
 #memory,
 #custom-clipboard,
 #custom-bluetooth,
+#custom-swaync,
+#bluetooth,
+#pulseaudio,
 #network {
   padding: 0 10px;
 }
 
 #clock:hover,
 #battery:hover,
+#custom-swaync:hover,
 #custom-cpu:hover,
 #custom-clipboard:hover,
 #custom-bluetooth:hover,
+#bluetooth:hover,
 #network:hover,
 #idle_inhibitor:hover,
 #custom-swaync:hover,
+#custom-poweroff:hover,
+#pulseaudio:hover,
 #backlight:hover,
 #wireplumber:hover {
   color: @color1;
@@ -182,7 +189,8 @@ button {
   background-color: @color2;
 }
 
-#custom-swaync {
+/* #custom-swaync, */
+#custom-poweroff {
   padding: 0 10px 0 5px;
   font-size: 16px;
   /* same scale as other icons */
