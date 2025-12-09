@@ -8,6 +8,7 @@
     ../../modules/nixos/users/lloyd.nix
   ];
 
+  programs.mango.enable = true;
   system.stateVersion = "24.11";
   networking.hostName = "desktop";
   hardware.logitech.wireless.enable = true;

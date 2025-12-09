@@ -44,11 +44,17 @@
       url = "github:abenz1267/walker";
       inputs.elephant.follows = "elephant";
     };
+
+    mango = {
+      url = "github:DreamMaoMao/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = {
     nixpkgs,
     home-manager,
     lim,
+    mango,
     ...
   } @ inputs: {
     nixosConfigurations = {
@@ -56,6 +62,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
+          mango.nixosModules.mango
           {nixpkgs.config.allowUnfree = true;}
           ./hosts/desktop
         ];
@@ -65,6 +72,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
+          mango.nixosModules.mango
           {nixpkgs.config.allowUnfree = true;}
           ./hosts/laptop
         ];
@@ -74,6 +82,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
+          mango.nixosModules.mango
           {nixpkgs.config.allowUnfree = true;}
           ./hosts/server
         ];

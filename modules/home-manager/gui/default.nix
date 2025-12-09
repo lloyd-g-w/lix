@@ -37,9 +37,13 @@
   system = pkgs.stdenv.hostPlatform.system;
 
   niriModule = import ./niri {inherit config lib pkgs;};
+  mangoModule = import ./mango {inherit config lib pkgs;};
 in {
-
-  imports = [(lib.mkIf (config.lix.compositor == "niri") niriModule)];
+  imports =
+    [(lib.mkIf (config.lix.compositor == "niri") niriModule)]
+    ++ [
+      mangoModule
+    ];
 
   config = {
     home.packages = fonts ++ environment ++ tools;

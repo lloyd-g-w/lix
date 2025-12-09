@@ -59,7 +59,8 @@
       "orientation": "horizontal",
       "modules": [
         "custom/openbracket",
-        "niri/workspaces",
+        // "niri/workspaces",
+        "ext/workspaces",
         "custom/closebracket",
       ],
     },
@@ -83,6 +84,14 @@
 
     "niri/workspaces": {
       "format": "{index}",
+    },
+
+    "ext/workspaces": {
+      "format": "{name}",
+      "ignore-hidden": true,
+      "on-click": "activate",
+      "on-click-right": "deactivate",
+      "sort-by-name": true,
     },
 
     "mpris": {
@@ -299,7 +308,7 @@
     "custom/notifications": {
       "format": "",
       "tooltip": false,
-      "on-click": "~/.config/waybar/scripts/notification_center.sh",
+      // "on-click": "~/.config/waybar/scripts/notification_center.sh",
     },
   },
 ]
