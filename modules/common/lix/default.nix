@@ -1,8 +1,8 @@
 {lib, ...}: {
   options.lix.compositor = lib.mkOption {
-    type = lib.types.enum ["sway" "hyprland" "niri"];
+    type = lib.types.enum ["sway" "hyprland" "niri" "mango"];
     default = "hyprland";
-    description = "The compositor for lix (options: hyprland (default), sway, niri)";
+    description = "The compositor for lix (options: hyprland (default), sway, niri, mango)";
   };
 
   # Make an option for monitors

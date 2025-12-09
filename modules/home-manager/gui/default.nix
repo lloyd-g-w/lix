@@ -35,15 +35,15 @@
   cursorPackage = pkgs.phinger-cursors;
 
   system = pkgs.stdenv.hostPlatform.system;
+  compositors = ["hyprland" "niri" "mango" "sway"];
 
-  niriModule = import ./niri {inherit config lib pkgs;};
-  mangoModule = import ./mango {inherit config lib pkgs;};
+  make_if_compositor = compositor:
+    lib.mkIf (config.lix.compositor == compositor)
+    (import ./${compositor} {inherit config lib pkgs system inputs;});
+
+  import_list = builtins.map make_if_compositor compositors;
 in {
-  imports =
-    [(lib.mkIf (config.lix.compositor == "niri") niriModule)]
-    ++ [
-      mangoModule
-    ];
+  imports = import_list;
 
   config = {
     home.packages = fonts ++ environment ++ tools;
@@ -66,41 +66,25 @@ in {
 
     services.gnome-keyring.enable = true;
 
-    # Hyprland
-    wayland.windowManager.hyprland = lib.mkIf (config.lix.compositor == "hyprland") {
-      # package =
-      #   inputs.hyprland.packages.${system}.hyprland;
-      # portalPackage =
-      #   inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
-      plugins =
-        [
-          inputs.split-monitor-workspaces.packages.${system}.split-monitor-workspaces
-        ]
-        ++ lib.optionals config.lix.hyprland.hy3.enable [
-          inputs.hy3.packages.${system}.hy3
-        ];
-
-      systemd.enableXdgAutostart = true;
-      enable = true;
-      settings = import ./hyprland {inherit config lib;};
-    };
-
-    wayland.windowManager.sway = lib.mkIf (config.lix.compositor == "sway") {
-      enable = true;
-      wrapperFeatures.gtk = true; # Fixes common issues with GTK 3 apps
-      extraConfig = import ./sway {inherit config lib;};
-    };
-
     xdg.autostart.enable = true;
 
     xdg.portal = {
       enable = true;
-      config.common.default = ["gnome"];
+
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
+      ];
+
+      config = {
+        common.default = ["wlr" "gtk"];
+      };
     };
 
     home.sessionVariables = {
       NIXOS_OZONE_WL = "1";
       OZONE_PLATFORM = "wayland";
+      QT_QPA_PLATFORMTHEME = "qt6ct";
     };
 
     # Hyprpaper (wallpaper for hyprland)
@@ -191,8 +175,6 @@ in {
         size = cursorSize;
       };
     };
-
-    home.sessionVariables = {QT_QPA_PLATFORMTHEME = "qt6ct";};
 
     dconf.settings = {
       "org/gnome/desktop/interface" = {color-scheme = "prefer-dark";};

@@ -48,7 +48,7 @@
     programs.hyprland.enable = lib.mkIf (config.lix.compositor == "hyprland") true;
     programs.sway.enable = lib.mkIf (config.lix.compositor == "sway") true;
 
-    services.displayManager.defaultSession = lib.mkIf (config.lix.compositor == "niri") "niri";
+    services.displayManager.defaultSession = config.lix.compositor;
 
     # Swaylock
     programs.xss-lock.enable = true;

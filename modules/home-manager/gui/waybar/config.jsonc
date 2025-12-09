@@ -3,8 +3,8 @@
     "height": 40,
     "spacing": 5,
 
-    // "modules-left": ["group/Utilities", "group/workspaces", "mpris"],
-    "modules-left": ["group/Utilities", "group/windows"],
+    // "modules-left": ["group/Utilities", "group/workspaces", "mpris", "group/windows"],
+    "modules-left": ["group/Utilities"],
     "modules-center": ["group/workspaces"],
     "modules-right": ["group/cpuram", "group/system"],
 
@@ -91,7 +91,7 @@
       "ignore-hidden": true,
       "on-click": "activate",
       "on-click-right": "deactivate",
-      "sort-by-name": true,
+      "sort-by-id": true,
     },
 
     "mpris": {
@@ -108,7 +108,7 @@
 
     "group/windows": {
       "orientation": "horizontal",
-      "modules": ["custom/openbracket", "niri/window", "custom/closebracket"],
+      "modules": ["custom/openbracket", "dwl/window", "custom/closebracket"],
     },
     "hyprland/window": {
       "format": "{title}",
@@ -116,11 +116,11 @@
       "min-length": 0,
       "all-outputs": true,
     },
-    "niri/window": {
-      "format": "{title}",
-      "max-length": 20,
-      "min-length": 0,
-      "all-outputs": true,
+    "dwl/window": {
+      // "format": "{title}",
+      // "max-length": 20,
+      // "min-length": 0,
+      // "all-outputs": true,
     },
 
     "group/cpuram": {
