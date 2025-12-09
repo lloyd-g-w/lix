@@ -9,11 +9,12 @@
     ../../../scripts/switch.nix
     ../../../scripts/dev.nix
   ];
+
+  lix.compositor = "niri";
+
   home.username = "lloyd";
   home.homeDirectory = "/home/lloyd";
   home.stateVersion = "24.11";
-
-  lix.compositor = "mango";
 
   home.packages = with pkgs; [
     # Utils
