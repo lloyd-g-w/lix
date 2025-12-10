@@ -4,6 +4,8 @@
   pkgs,
   ...
 }: {
+  imports = [../quickshell];
+
   home.packages = with pkgs; [
     niri
     xwayland-satellite
