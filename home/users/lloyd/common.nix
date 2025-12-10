@@ -50,6 +50,8 @@
     nodejs_24
     pnpm_9
 
+    zig
+
     # Rust
     cargo
     rustc

@@ -43,7 +43,7 @@
 
   import_list = builtins.map make_if_compositor compositors;
 in {
-  imports = import_list;
+  imports = import_list ++ [./quickshell];
 
   config = {
     home.packages = fonts ++ environment ++ tools;
@@ -77,7 +77,7 @@ in {
       ];
 
       config = {
-        common.default = ["gtk" "wlr" ];
+        common.default = ["gtk" "wlr"];
       };
     };
 
