@@ -62,7 +62,7 @@
     ...
   } @ inputs: {
     overlays.default = final: prev: {
-      latus = inputs.latus.packages.${final.system}.latus; # add latus as a pkg in nixpkgs
+      latus = inputs.latus.packages.${final.system}.default; # add latus as a pkg in nixpkgs
     };
 
     nixosConfigurations = {
