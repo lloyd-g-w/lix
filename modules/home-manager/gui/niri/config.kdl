@@ -230,8 +230,8 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 
-// This line starts waybar, a commonly used bar for Wayland compositors.
-spawn-at-startup "waybar"
+// This line starts latus my custom status bar
+spawn-at-startup "latus"
 spawn-at-startup "hyprpaper"
 spawn-sh-at-startup "playerctld daemon"
 
