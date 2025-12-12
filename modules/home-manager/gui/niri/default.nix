@@ -7,6 +7,7 @@
   home.packages = with pkgs; [
     niri
     xwayland-satellite
+    latus # Custom status bar app
   ];
 
   xdg.portal.extraPortals = [
