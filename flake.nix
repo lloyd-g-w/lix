@@ -49,6 +49,10 @@
       url = "github:DreamMaoMao/mango";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    latus = {
+      url = ./pkgs/latus;
+    };
   };
   outputs = {
     nixpkgs,
@@ -57,6 +61,10 @@
     mango,
     ...
   } @ inputs: {
+    overlays.default = final: prev: {
+      latus = inputs.latus.packages.${final.system}.latus; # add latus as a pkg in nixpkgs
+    };
+
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
