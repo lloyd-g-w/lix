@@ -74,10 +74,11 @@ in {
       extraPortals = with pkgs; [
         xdg-desktop-portal-wlr
         xdg-desktop-portal-gtk
+        xdg-desktop-portal-gnome
       ];
 
       config = {
-        common.default = ["gtk" "wlr"];
+        common.default = ["gnome" "gtk" "wlr"];
       };
     };
 

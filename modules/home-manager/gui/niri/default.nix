@@ -10,11 +10,6 @@
     latus # Custom status bar app
   ];
 
-  xdg.portal.extraPortals = [
-    pkgs.xdg-desktop-portal-gtk
-    pkgs.xdg-desktop-portal-gnome
-  ];
-
   home.file.".config/niri/config.kdl".source = pkgs.replaceVars ./config.kdl {
     SCREENSHOT = "${../scripts/screenshot.sh}";
     BROWSER = "firefox";
@@ -24,4 +19,3 @@
     DEFAULT_AUDIO_SOURCE = null;
   };
 }
-
