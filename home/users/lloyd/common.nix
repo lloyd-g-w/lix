@@ -49,6 +49,7 @@
     gradle
     nodejs_24
     pnpm_9
+    bun
 
     zig
 
