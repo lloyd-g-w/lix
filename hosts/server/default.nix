@@ -54,6 +54,38 @@
     extraOptions = ["--restart=unless-stopped"];
   };
 
+  # set up wireguard server
+  networking.wireguard = {
+    enable = true;
+
+    interfaces.wg0 = {
+      ips = ["10.0.0.1/24"];
+
+      listenPort = 51820;
+      privateKeyFile = "/etc/wireguard/server.key";
+      peers = [
+        {
+          publicKey = "tG3q4W+UJtJ1o5aNtJP30XE9RohPo3DuPy0mDUF/dQE=";
+          allowedIPs = ["10.0.0.2/32"];
+        }
+      ];
+    };
+  };
+  networking.nat = {
+    enable = true;
+    externalInterface = "ens18";
+    internalInterfaces = ["wg0"];
+  };
+  networking.firewall.allowedUDPPorts = [51820];
+  networking.firewall.extraForwardRules = ''
+    iifname "wg0" oifname "eth0" accept
+    iifname "eth0" oifname "wg0" accept
+  '';
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = true;
+    "net.ipv6.conf.all.forwarding" = true;
+  };
+
   networking.firewall.allowedTCPPorts = [443 2020 80 81 5173 7070];
   programs.zsh.enable = true;
 }
