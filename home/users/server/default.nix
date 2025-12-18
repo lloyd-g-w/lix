@@ -6,11 +6,15 @@
   imports = [
     ../../../modules/home-manager/common.nix
     ../../../modules/home-manager/terminal.nix
+    ../../../scripts/switch.nix
   ];
 
   home.username = "lloyd";
   home.homeDirectory = "/home/lloyd";
   home.stateVersion = "24.11";
+
+  lix.user = "server";
+  lix.host = "server";
 
   home.packages = with pkgs; [
     # Utils
