@@ -108,6 +108,17 @@
           ./hosts/server
         ];
       };
+
+      desktop-server = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {inherit inputs;};
+        modules = [
+          {nixpkgs.overlays = [self.overlays.default];}
+          {nixpkgs.config.allowUnfree = true;}
+          mango.nixosModules.mango
+          ./hosts/desktop-server
+        ];
+      };
     };
 
     # ─────────────────────────────────────────────────────────────
@@ -154,6 +165,20 @@
           lim.homeManagerModules.default
         ];
       };
+
+      "desktop-server" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = [self.overlays.default];
+        };
+        extraSpecialArgs = {inherit inputs;};
+        modules = [
+          ./home/users/desktop-server
+          lim.homeManagerModules.default
+        ];
+      };
+
     };
   };
 }
