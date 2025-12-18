@@ -8,6 +8,8 @@
     ../../modules/nixos/users/lloyd.nix
   ];
 
+  lix.host = "laptop";
+
   system.stateVersion = "24.11";
   networking.hostName = "laptop";
 
@@ -35,4 +37,6 @@
     intelBusId = "PCI:64:0:0";
     nvidiaBusId = "PCI:1:0:0";
   };
+
+  virtualisation.docker.enable = true;
 }

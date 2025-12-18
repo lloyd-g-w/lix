@@ -6,7 +6,11 @@
     ../../../modules/home-manager/wayland-fixes.nix
     ../../../modules/home-manager/gui
     ./autostart.nix
+    ../../../scripts/switch.nix
+    ../../../scripts/dev.nix
   ];
+
+  lix.compositor = "niri";
 
   home.username = "lloyd";
   home.homeDirectory = "/home/lloyd";
@@ -22,6 +26,9 @@
     btop
     openvpn
     codex
+    nautilus # Might want to get rid of thunar and just have nautilus?
+    bottles
+    piper
 
     # Dev
     # oxcaml.oxcaml
@@ -42,6 +49,9 @@
     gradle
     nodejs_24
     pnpm_9
+    bun
+
+    zig
 
     # Rust
     cargo
@@ -56,14 +66,24 @@
     # Documents
     geeqie
     zathura
-    texlive.combined.scheme-full
     xournalpp
     typst
+
+    # Latex
+    texlive.combined.scheme-full
+    # Minted code block deps
+    python3Packages.latexrestricted
+    python3Packages.latex2pydata
+    python3Packages.pygments
 
     # Comms
     discord
 
     # Game
     prismlauncher
+
+    # Misc
+    neofetch
+    cmatrix
   ];
 }

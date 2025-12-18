@@ -12,12 +12,12 @@
   inputs.self.submodules = true;
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     ghostty.url = "github:ghostty-org/ghostty";
 
-    # For lim
     flake-utils.url = "github:numtide/flake-utils";
 
     lim = {
@@ -38,48 +38,87 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    walker.url = "github:abenz1267/walker";
+    elephant.url = "github:abenz1267/elephant";
+
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.elephant.follows = "elephant";
+    };
+
+    mango = {
+      url = "github:DreamMaoMao/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    latus = {
+      url = ./pkgs/latus;
+    };
   };
+
   outputs = {
+    self,
     nixpkgs,
     home-manager,
     lim,
+    mango,
     ...
-  } @ inputs: {
+  } @ inputs: let
+    system = "x86_64-linux";
+  in {
+    # ─────────────────────────────────────────────────────────────
+    # Overlay: expose latus as pkgs.latus everywhere
+    # ─────────────────────────────────────────────────────────────
+    overlays.default = final: prev: {
+      latus = inputs.latus.packages.${final.system}.default;
+    };
+
+    # ─────────────────────────────────────────────────────────────
+    # NixOS configurations
+    # ─────────────────────────────────────────────────────────────
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        inherit system;
         specialArgs = {inherit inputs;};
         modules = [
+          {nixpkgs.overlays = [self.overlays.default];}
           {nixpkgs.config.allowUnfree = true;}
+          mango.nixosModules.mango
           ./hosts/desktop
         ];
       };
 
       laptop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        inherit system;
         specialArgs = {inherit inputs;};
         modules = [
+          {nixpkgs.overlays = [self.overlays.default];}
           {nixpkgs.config.allowUnfree = true;}
+          mango.nixosModules.mango
           ./hosts/laptop
         ];
       };
 
       server = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        inherit system;
         specialArgs = {inherit inputs;};
         modules = [
+          {nixpkgs.overlays = [self.overlays.default];}
           {nixpkgs.config.allowUnfree = true;}
+          mango.nixosModules.mango
           ./hosts/server
         ];
       };
     };
 
+    # ─────────────────────────────────────────────────────────────
+    # Home Manager configurations
+    # ─────────────────────────────────────────────────────────────
     homeConfigurations = {
       "lloyd@desktop" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
-          system = "x86_64-linux";
+          inherit system;
           config.allowUnfree = true;
+          overlays = [self.overlays.default];
         };
         extraSpecialArgs = {inherit inputs;};
         modules = [
@@ -91,8 +130,9 @@
 
       "lloyd@laptop" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
-          system = "x86_64-linux";
+          inherit system;
           config.allowUnfree = true;
+          overlays = [self.overlays.default];
         };
         extraSpecialArgs = {inherit inputs;};
         modules = [
@@ -104,8 +144,9 @@
 
       "server" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
-          system = "x86_64-linux";
+          inherit system;
           config.allowUnfree = true;
+          overlays = [self.overlays.default];
         };
         extraSpecialArgs = {inherit inputs;};
         modules = [

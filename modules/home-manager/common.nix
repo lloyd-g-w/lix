@@ -3,6 +3,8 @@
   pkgs,
   ...
 }: {
+  imports = [../common/lix];
+
   nixpkgs.overlays = [(import ./overlays)];
 
   # Set nix registry

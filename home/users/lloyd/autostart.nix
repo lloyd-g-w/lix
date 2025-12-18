@@ -8,6 +8,7 @@
     Name=Discord Push-to-Talk
     GenericName=Discord Push-to-Talk
     Comment=A workaround app that allows using push-to-talk keybinding in Discord on Wayland
-    Exec=push-to-talk /dev/input/keyd-kbd -k KEY_F19 -n F19
+    Exec=sh -c "push-to-talk /dev/input/keyd-kbd -k KEY_PROG1 -n XF86Launch1 & \
+            push-to-talk /dev/input/keyd-kbd -k KEY_PROG2 -n XF86Launch2 &"
   '';
 }

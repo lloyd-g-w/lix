@@ -5,11 +5,6 @@
   config,
   ...
 }: {
-  options.lix.compositor = lib.mkOption {
-    type = lib.types.enum ["sway" "hyprland"];
-    default = "hyprland";
-    description = "The compositor for lix (must be 'sway' or 'hyprland').";
-  };
   config = {
     nix.settings = {
       substituters = ["https://hyprland.cachix.org"];
@@ -49,8 +44,11 @@
     };
 
     # Enable hyprland/sway for display manager
-    programs.hyprland.enable = lib.mkIf (config.lix.compositor == "hyprland") true;
-    programs.sway.enable = lib.mkIf (config.lix.compositor == "sway") true;
+    programs.niri.enable = config.lix.compositor == "niri";
+    programs.hyprland.enable = config.lix.compositor == "hyprland";
+    programs.sway.enable = config.lix.compositor == "sway";
+
+    services.displayManager.defaultSession = config.lix.compositor;
 
     # Swaylock
     programs.xss-lock.enable = true;
