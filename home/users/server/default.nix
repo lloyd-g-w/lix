@@ -18,6 +18,7 @@
 
   home.packages = with pkgs; [
     # Utils
+    ncdu # disk usage tui
     unzip
     atool
     httpie

@@ -18,6 +18,7 @@
 
   home.packages = with pkgs; [
     # Utils
+    kdePackages.filelight # disk usage gui
     unzip
     atool
     httpie
