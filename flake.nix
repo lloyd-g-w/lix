@@ -178,7 +178,6 @@
           lim.homeManagerModules.default
         ];
       };
-
     };
   };
 }
