@@ -9,11 +9,13 @@
 in {
   home.packages = [
     (pkgs.writeShellScriptBin "ns" ''
-      sudo nixos-rebuild switch --flake ${dir}#${host}
+      nh os switch
+      # sudo nixos-rebuild switch --flake ${dir}#${host}
     '')
 
     (pkgs.writeShellScriptBin "hs" ''
-      home-manager switch --flake ${dir}#${user}@${host}
+      nh home switch
+      # home-manager switch --flake ${dir}#${user}@${host}
     '')
   ];
 }
