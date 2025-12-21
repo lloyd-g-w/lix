@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   imports = [
     ../../../modules/home-manager/common.nix
     ../../../modules/home-manager/thunar.nix
@@ -16,8 +20,13 @@
   home.homeDirectory = "/home/lloyd";
   home.stateVersion = "24.11";
 
+  home.sessionVariables = {
+    NH_FLAKE = config.lix.dir;
+  };
+
   home.packages = with pkgs; [
     # Utils
+    nh # Nix helper
     kdePackages.filelight # disk usage gui
     unzip
     atool
