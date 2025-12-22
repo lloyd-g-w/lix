@@ -1,11 +1,11 @@
 {...}: {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/nixos/common.nix
-    ../../modules/nixos/nvidia.nix
-    ../../modules/nixos/gui.nix
-    ../../modules/nixos/logitech-remap.nix
-    ../../modules/nixos/users/lloyd.nix
+    ../../modules/common.nix
+    ../../modules/nvidia.nix
+    ../../modules/gui.nix
+    ../../modules/logitech-remap.nix
+    ../../modules/users/lloyd.nix
   ];
 
   lix.host = "laptop";

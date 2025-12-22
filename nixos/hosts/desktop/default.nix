@@ -8,20 +8,6 @@
     ../../modules/users/lloyd.nix
   ];
 
-  # nix.registry = {
-  #   # Replace 'lix' with the name you want to use
-  #   lix = {
-  #     from = {
-  #       type = "indirect";
-  #       id = "lix";
-  #     };
-  #     to = {
-  #       type = "path";
-  #       path = "/absolute/path/to/your/flake";
-  #     };
-  #   };
-  # };
-
   system.stateVersion = "24.11";
   networking.hostName = "desktop";
   hardware.logitech.wireless.enable = true;
