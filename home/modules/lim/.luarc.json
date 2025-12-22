@@ -1,0 +1,10 @@
+{
+    "diagnostics.globals": [
+        "vim",
+        "build"
+    ],
+    "diagnostics.disable": [
+        "inject-field",
+        "param-type-mismatch"
+    ]
+}

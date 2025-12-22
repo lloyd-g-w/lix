@@ -1,32 +1,32 @@
 {
   pkgs,
-  config,
+  lix,
   ...
 }: {
   imports = [
-    ../../../modules/home-manager/common.nix
-    ../../../modules/home-manager/thunar.nix
-    ../../../modules/home-manager/terminal.nix
-    ../../../modules/home-manager/wayland-fixes.nix
-    ../../../modules/home-manager/gui
-    ./autostart.nix
-    ../../../scripts/switch.nix
-    ../../../scripts/dev.nix
+    ../../modules/registry.nix
+    ../../modules/terminal.nix
+    ../../modules/wayland-fixes.nix
+    ../../modules/gui
   ];
 
-  lix.compositor = "niri";
+  programs.lim = {
+    enable = true;
+    devPath = "/home/lloyd/projects/lim";
+  };
 
   home.username = "lloyd";
   home.homeDirectory = "/home/lloyd";
   home.stateVersion = "24.11";
 
   home.sessionVariables = {
-    NH_FLAKE = config.lix.dir;
+    NH_FLAKE = lix.dir; # for nix helper to not require a path
   };
 
   home.packages = with pkgs; [
     # Utils
     nh # Nix helper
+    pkgs.lix.dev
     kdePackages.filelight # disk usage gui
     unzip
     atool
@@ -36,7 +36,7 @@
     btop
     openvpn
     codex
-    nautilus # Might want to get rid of thunar and just have nautilus?
+    nautilus
     bottles
     piper
 
