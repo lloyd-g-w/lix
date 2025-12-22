@@ -21,7 +21,7 @@
   home.stateVersion = "24.11";
 
   home.sessionVariables = {
-    NH_FLAKE = lix.dir; # for nix helper to not require a path
+    NH_FLAKE = "path:" + lix.dir; # for nix helper to not require a path
   };
 
   home.packages = with pkgs; [
