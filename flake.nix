@@ -24,25 +24,28 @@
       url = "github:lloyd-g-w/latus";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    lix-config.url = "path:./config";
   };
 
   outputs = inputs @ {flake-parts, ...}:
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin"];
 
-      imports = [
-        inputs.home-manager.flakeModules.home-manager
-        inputs.lix-config.flakeModules.default # This configPath is where you define the lix options you want
-        ./options # This exposes the avaliable lix options
-        ./nixos
-        ./home
-        ./overlays
-        ./pkgs
-        ./shells
-        ./templates
-      ];
+      imports =
+        [
+          inputs.home-manager.flakeModules.home-manager
+          ./options # This exposes the avaliable lix options
+          ./nixos
+          ./home
+          ./overlays
+          ./pkgs
+          ./shells
+          ./templates
+        ]
+        ++ (
+          if builtins.pathExists ./config.nix
+          then [./config.nix]
+          else []
+        );
 
       lix.home.sharedModules = [
         inputs.walker.homeManagerModules.default
