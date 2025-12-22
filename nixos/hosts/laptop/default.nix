@@ -8,8 +8,6 @@
     ../../modules/users/lloyd.nix
   ];
 
-  lix.host = "laptop";
-
   system.stateVersion = "24.11";
   networking.hostName = "laptop";
 
