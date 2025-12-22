@@ -42,10 +42,15 @@
           ./templates
         ]
         ++ (
-          # This is where you define the lix options you want
-          if builtins.pathExists ./config.nix
-          then [./config.nix]
-          else []
+          let
+            # This is where you define the lix options you want
+            # this needs to be bootstrapped intially (e.g. LIX_DIR="DIR" sudo home-manager rebuild switch ...)
+            # but then is set by home manager and is defined in your config
+            CONFIG_DIR = builtins.getEnv "LIX_DIR" + "/config.nix";
+          in
+            if builtins.pathExists CONFIG_DIR
+            then [(/. + CONFIG_DIR)]
+            else []
         );
 
       lix.home.sharedModules = [
