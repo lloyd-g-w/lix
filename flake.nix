@@ -25,7 +25,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    lix-config.url = "path:./config.nix";
+    lix-config.url = "path:./config";
   };
 
   outputs = inputs @ {flake-parts, ...}:
