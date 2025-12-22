@@ -43,13 +43,14 @@
         ]
         ++ (
           let
-            # This is where you define the lix options you want
+            # This configPath is where you define the lix options you want
             # this needs to be bootstrapped intially (e.g. LIX_DIR="DIR" sudo home-manager rebuild switch ...)
             # but then is set by home manager and is defined in your config
-            CONFIG_DIR = builtins.getEnv "LIX_DIR" + "/config.nix";
+            lixDir = builtins.getEnv "LIX_DIR";
+            configPath = /. + (lixDir + "/config.nix");
           in
-            if builtins.pathExists CONFIG_DIR
-            then [(/. + CONFIG_DIR)]
+            if lixDir != "" && builtins.pathExists configPath
+            then [configPath]
             else []
         );
 

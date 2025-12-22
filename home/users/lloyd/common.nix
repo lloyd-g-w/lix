@@ -8,6 +8,7 @@
     ../../modules/terminal.nix
     ../../modules/wayland-fixes.nix
     ../../modules/gui
+    ../../modules/common.nix
   ];
 
   programs.lim = {

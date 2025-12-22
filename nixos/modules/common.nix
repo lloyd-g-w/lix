@@ -1,4 +1,12 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lix,
+  ...
+}: {
+  environment.sessionVariables = {
+    LIX_DIR = toString lix.dir;
+  };
+
   # Keep SSH socket so I can use SSH for nixos switch as su
   security.sudo.extraConfig = ''
     Defaults env_keep += "SSH_AUTH_SOCK"
