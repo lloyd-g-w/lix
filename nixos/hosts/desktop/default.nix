@@ -8,6 +8,12 @@
     ../../modules/users/lloyd.nix
   ];
 
+  # For vm support via virt-manager and libvirtd
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
+  programs.virt-manager.enable = true;
+  # -----
+
   system.stateVersion = "24.11";
   networking.hostName = "desktop";
   hardware.logitech.wireless.enable = true;
