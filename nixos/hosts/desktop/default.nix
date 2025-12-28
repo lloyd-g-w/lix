@@ -8,6 +8,16 @@
     ../../modules/users/lloyd.nix
   ];
 
+  boot.loader.grub = {
+    enable = true;
+    # Use "nodev" for UEFI systems; for Legacy BIOS, use your drive path (e.g., "/dev/sda")
+    device = "nodev";
+    efiSupport = true;
+
+    # This is the key line to find Windows
+    useOSProber = true;
+  };
+
   # For vm support via virt-manager and libvirtd
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
@@ -17,9 +27,6 @@
   system.stateVersion = "24.11";
   networking.hostName = "desktop";
   hardware.logitech.wireless.enable = true;
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
 
   nix.settings.trusted-users = ["@wheel"]; # Allow all wheel group users extra nix perms
 

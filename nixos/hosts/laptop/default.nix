@@ -12,8 +12,15 @@
   networking.hostName = "laptop";
 
   # Bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub = {
+    enable = true;
+    # Use "nodev" for UEFI systems; for Legacy BIOS, use your drive path (e.g., "/dev/sda")
+    device = "nodev";
+    efiSupport = true;
+
+    # This is the key line to find Windows
+    useOSProber = true;
+  };
 
   nix.settings.trusted-users = [
     "root"
