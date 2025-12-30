@@ -12,19 +12,18 @@
   networking.hostName = "laptop";
 
   # Bootloader
-  boot.loader.grub = {
-    enable = true;
-    # Use "nodev" for UEFI systems; for Legacy BIOS, use your drive path (e.g., "/dev/sda")
-    device = "nodev";
-    efiSupport = true;
-
-    # This is the key line to find Windows
-    useOSProber = true;
-  };
+  boot.loader.systemd-boot.enable = false;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "nodev";
+  boot.loader.grub.useOSProber = true;
+  boot.loader.grub.efiSupport = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot";
 
   nix.settings.trusted-users = [
     "root"
     "lloyd"
+    "@wheel"
   ];
 
   programs.firefox.enable = true;
