@@ -1,16 +1,14 @@
 {pkgs, ...}: {
   devShells.leet = pkgs.mkShell {
     packages = with pkgs; [
+      stdenv.cc # <- provides libstdc++ headers/libs
       clang
-      llvmPackages.lld
+      clang-tools
       cmake
       gnumake
       pkg-config
+      gdb
+      lldb
     ];
-
-    shellHook = ''
-      echo "LeetCode C++ shell: clang++ + clangd + (gdb/lldb/valgrind)"
-      echo "Tip: compile with: clang++ -std=c++20 -O2 -Wall -Wextra -pedantic main.cpp -o main"
-    '';
   };
 }
