@@ -1,6 +1,6 @@
-{pkgs', ...}: {
-  devShells.leet = pkgs'.mkShell {
-    packages = with pkgs'; [
+{pkgs, ...}: {
+  devShells.leet = pkgs.mkShell {
+    packages = with pkgs; [
       clang
       llvmPackages.lld
       cmake
