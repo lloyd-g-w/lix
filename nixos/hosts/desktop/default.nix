@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
     ../../modules/common.nix
@@ -6,6 +6,14 @@
     ../../modules/gui.nix
     ../../modules/logitech-remap.nix
     ../../modules/users/lloyd.nix
+  ];
+
+  # For nfs
+  services.rpcbind.enable = true;
+  services.gvfs.enable = true;
+  environment.systemPackages = with pkgs; [
+    nfs-utils
+    gvfs
   ];
 
   boot.loader.systemd-boot.enable = false;
@@ -42,4 +50,12 @@
   };
 
   virtualisation.docker.enable = true;
+
+  services.openssh = {
+    enable = true;
+    settings = {
+      UseDns = true;
+      PasswordAuthentication = true;
+    };
+  };
 }

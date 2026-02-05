@@ -1,14 +1,18 @@
 {pkgs, ...}: {
   devShells.leet = pkgs.mkShell {
     packages = with pkgs; [
-      stdenv.cc # <- provides libstdc++ headers/libs
+      gcc
       clang
       clang-tools
-      cmake
-      gnumake
-      pkg-config
       gdb
-      lldb
+      git
+      nixfmt-rfc-style
     ];
+
+    shellHook = ''
+      export CC=gcc
+      export CXX=g++
+      echo "CXX=$CXX"
+    '';
   };
 }
