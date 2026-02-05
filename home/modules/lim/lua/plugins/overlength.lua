@@ -1,3 +1,0 @@
-return {
-    'lcheylus/overlength.nvim',
-}

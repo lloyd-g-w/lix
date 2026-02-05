@@ -3,7 +3,6 @@
     packages = with pkgs; [
       gcc
       clang
-      clang-tools
       gdb
       git
       nixfmt-rfc-style
