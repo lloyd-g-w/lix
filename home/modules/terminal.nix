@@ -173,7 +173,7 @@
     enable = true;
     settings = builtins.fromTOML (builtins.readFile (builtins.fetchurl {
       url = "https://starship.rs/presets/toml/nerd-font-symbols.toml";
-      sha256 = "sha256:1qvi8b5p9wn8lpgr9xy3mb15hndjnl52zyn1660n2q4m073h1jra";
+      sha256 = "sha256:0f0pykrldyr5cxva278ahjs0xnqbm9gig7w8g850rswmiscc65fg";
     }));
   };
 

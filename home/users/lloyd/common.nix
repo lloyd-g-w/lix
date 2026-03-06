@@ -40,6 +40,7 @@
     nautilus
     bottles
     piper
+    acpi
 
     # Dev
     # oxcaml.oxcaml
