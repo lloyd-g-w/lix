@@ -95,7 +95,7 @@
     prismlauncher
 
     # Misc
-    neofetch
+    fastfetch
     cmatrix
   ];
 }

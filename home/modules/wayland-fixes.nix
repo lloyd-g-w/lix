@@ -10,7 +10,7 @@
       sha256 = "11zbqz9zznzncf84jrvd5hl2iig6i1cpx6pwv02x2dg706ns0535";
     };
 
-    nativeBuildInputs = [pkgs.pkg-config pkgs.xorg.libX11];
+    nativeBuildInputs = [pkgs.pkg-config pkgs.libX11];
     buildInputs = [pkgs.libevdev pkgs.xdotool];
     installPhase = ''
       # Create the directory structure under $out

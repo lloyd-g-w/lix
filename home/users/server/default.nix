@@ -29,7 +29,7 @@
     # Dev
     git
     gnumake
-    gcc
+    # gcc
     pkg-config
     cmake
     jdk21
