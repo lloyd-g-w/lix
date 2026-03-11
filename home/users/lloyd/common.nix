@@ -76,6 +76,7 @@
     vlc
 
     # Documents
+    anytype-fix
     geeqie
     zathura
     xournalpp
