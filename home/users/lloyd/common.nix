@@ -9,6 +9,7 @@
     ../../modules/wayland-fixes.nix
     ../../modules/gui
     ../../modules/common.nix
+    ../../modules/anytype-fix.nix
   ];
 
   programs.lim = {
@@ -76,7 +77,6 @@
     vlc
 
     # Documents
-    anytype-fix
     geeqie
     zathura
     xournalpp

@@ -223,9 +223,11 @@ layout {
 // See the binds section below for more spawn examples.
 
 // This line starts latus my custom status bar
+spawn-at-startup "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 spawn-at-startup "latus"
 spawn-sh-at-startup "@BACKGROUND@"
 spawn-sh-at-startup "playerctld daemon"
+
 
 // This is for discord to recognize portals when launched with walker
 spawn-at-startup "dbus-update-activation-environment --systemd --all"
