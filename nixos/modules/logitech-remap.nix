@@ -15,7 +15,7 @@
   # G502 X Plus
   environment.etc."keyd/default.conf".text = ''
     [ids]
-    046d:c547:db1d61df
+    046d:c547
 
     [main]
     stopcd = prog1
