@@ -26,6 +26,11 @@
   };
 
   home.packages = with pkgs; [
+    # fuck ai
+    codex
+    gemini-cli
+    claude-code
+
     # Utils
     nh # Nix helper
     pkgs.lix.dev
@@ -37,7 +42,6 @@
     scrcpy
     btop
     openvpn
-    codex
     nautilus
     bottles
     piper
