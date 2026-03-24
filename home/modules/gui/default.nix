@@ -6,7 +6,7 @@
   lix,
   ...
 }: let
-  fonts = [pkgs.nerd-fonts.jetbrains-mono];
+  fonts = [pkgs.nerd-fonts.jetbrains-mono pkgs.font-awesome];
 
   environment = with pkgs; [
     brightnessctl
@@ -21,6 +21,7 @@
   tools = with pkgs; [
     dconf
     networkmanagerapplet
+    networkmanager-openvpn
 
     # Notif manager
     swaynotificationcenter
