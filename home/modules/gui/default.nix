@@ -109,6 +109,7 @@ in {
       enable = true;
       gtk3.extraConfig = {"gtk-application-prefer-dark-theme" = true;};
       gtk4.extraConfig = {"gtk-application-prefer-dark-theme" = true;};
+      gtk4.theme = config.gtk.theme;
 
       theme = {
         package = pkgs.adw-gtk3;

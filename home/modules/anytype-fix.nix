@@ -12,16 +12,19 @@
 in {
   home.packages = [anytype-fix];
 
-  home.file.".local/share/applications/anytype.desktop".text = ''
-    [Desktop Entry]
-    Categories=Utility;Office;Calendar;ProjectManagement
-    Comment=P2P note-taking tool
-    Exec=${anytype-fix}/bin/anytype %u
-    Icon=anytype
-    MimeType=x-scheme-handler/anytype
-    Name=Anytype
-    StartupWMClass=anytype
-    Type=Application
-    Version=1.5
-  '';
+  home.file.".local/share/applications/anytype.desktop" = {
+    force = true;
+    text = ''
+      [Desktop Entry]
+      Categories=Utility;Office;Calendar;ProjectManagement
+      Comment=P2P note-taking tool
+      Exec=${anytype-fix}/bin/anytype %u
+      Icon=anytype
+      MimeType=x-scheme-handler/anytype
+      Name=Anytype
+      StartupWMClass=anytype
+      Type=Application
+      Version=1.5
+    '';
+  };
 }
