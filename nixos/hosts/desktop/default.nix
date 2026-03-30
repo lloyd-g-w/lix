@@ -37,6 +37,7 @@
   nix.settings.trusted-users = ["@wheel"]; # Allow all wheel group users extra nix perms
 
   programs.firefox.enable = true;
+  programs.chromium.enable = true;
   programs.zsh.enable = true;
 
   networking.firewall.allowedTCPPorts = [1701 5432 57621];

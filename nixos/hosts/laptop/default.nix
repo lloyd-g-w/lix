@@ -27,6 +27,7 @@
   ];
 
   programs.firefox.enable = true;
+  programs.chromium.enable = true;
   programs.zsh.enable = true;
 
   # Steam
