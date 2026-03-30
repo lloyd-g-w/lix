@@ -79,6 +79,7 @@
     audacity
     spotify
     vlc
+    google-chrome
 
     # Documents
     geeqie
