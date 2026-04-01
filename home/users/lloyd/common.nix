@@ -86,6 +86,7 @@
     zathura
     xournalpp
     typst
+    onlyoffice-desktopeditors
 
     # Latex
     texlive.combined.scheme-full
@@ -104,4 +105,18 @@
     fastfetch
     cmatrix
   ];
+
+  # default apps
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      # set firefox as default browser
+      "text/html" = ["firefox.desktop"];
+      "x-scheme-handler/http" = ["firefox.desktop"];
+      "x-scheme-handler/https" = ["firefox.desktop"];
+    };
+  };
+
+  xdg.configFile."mimeapps.list".force = true;
+  xdg.dataFile."applications/mimeapps.list".force = true;
 }
