@@ -80,6 +80,7 @@
     spotify
     vlc
     google-chrome
+    zen-browser
 
     # Documents
     geeqie
