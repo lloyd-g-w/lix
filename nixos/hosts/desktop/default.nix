@@ -8,6 +8,8 @@
     ../../modules/users/lloyd.nix
   ];
 
+  services.tailscale.enable = true;
+
   # For nfs
   services.rpcbind.enable = true;
   services.gvfs.enable = true;

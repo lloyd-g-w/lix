@@ -11,6 +11,8 @@
   system.stateVersion = "24.11";
   networking.hostName = "laptop";
 
+  services.tailscale.enable = true;
+
   # Bootloader
   boot.loader.systemd-boot.enable = false;
   boot.loader.grub.enable = true;
