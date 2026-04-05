@@ -7,6 +7,8 @@
 
   lix.host = "server";
 
+  services.tailscale.enable = true;
+
   system.stateVersion = "24.11";
   networking.hostName = "server";
 
@@ -73,6 +75,7 @@
       ];
     };
   };
+
   networking.nat = {
     enable = true;
     externalInterface = "ens18";
