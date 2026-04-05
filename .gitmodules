@@ -1,7 +1,0 @@
-[submodule "modules/lim"]
-	path = modules/home-manager/lim
-	url = https://github.com/lloyd-g-w/lim.git
-	branch = main
-[submodule "pkgs/latus"]
-	path = pkgs/latus
-	url = git@github.com:lloyd-g-w/latus.git

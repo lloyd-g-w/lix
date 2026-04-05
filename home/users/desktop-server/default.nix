@@ -13,12 +13,11 @@
   home.homeDirectory = "/home/lloyd";
   home.stateVersion = "24.11";
 
-  lix.user = "server";
-  lix.host = "server";
+  lix.user = "desktop-server";
+  lix.host = "desktop-server";
 
   home.packages = with pkgs; [
     # Utils
-    ncdu # disk usage tui
     unzip
     atool
     httpie

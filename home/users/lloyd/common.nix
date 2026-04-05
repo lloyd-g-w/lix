@@ -1,23 +1,40 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lix,
+  ...
+}: {
   imports = [
-    ../../../modules/home-manager/common.nix
-    ../../../modules/home-manager/thunar.nix
-    ../../../modules/home-manager/terminal.nix
-    ../../../modules/home-manager/wayland-fixes.nix
-    ../../../modules/home-manager/gui
-    ./autostart.nix
-    ../../../scripts/switch.nix
-    ../../../scripts/dev.nix
+    ../../modules/registry.nix
+    ../../modules/terminal.nix
+    ../../modules/wayland-fixes.nix
+    ../../modules/gui
+    ../../modules/common.nix
+    ../../modules/anytype-fix.nix
   ];
 
-  lix.compositor = "niri";
+  programs.lim = {
+    enable = true;
+    devPath = "/home/lloyd/projects/lim";
+  };
 
   home.username = "lloyd";
   home.homeDirectory = "/home/lloyd";
   home.stateVersion = "24.11";
 
+  home.sessionVariables = {
+    NH_FLAKE = "path:" + lix.dir; # for nix helper to not require a path
+  };
+
   home.packages = with pkgs; [
+    # fuck ai
+    codex
+    gemini-cli
+    # claude-code
+
     # Utils
+    nh # Nix helper
+    pkgs.lix.dev
+    kdePackages.filelight # disk usage gui
     unzip
     atool
     httpie
@@ -25,10 +42,10 @@
     scrcpy
     btop
     openvpn
-    codex
-    nautilus # Might want to get rid of thunar and just have nautilus?
+    nautilus
     bottles
     piper
+    acpi
 
     # Dev
     # oxcaml.oxcaml
@@ -47,7 +64,7 @@
     cmake
     jdk21
     gradle
-    nodejs_24
+    nodejs
     pnpm_9
     bun
 
@@ -62,12 +79,15 @@
     audacity
     spotify
     vlc
+    google-chrome
+    zen-browser
 
     # Documents
     geeqie
     zathura
     xournalpp
     typst
+    onlyoffice-desktopeditors
 
     # Latex
     texlive.combined.scheme-full
@@ -83,7 +103,23 @@
     prismlauncher
 
     # Misc
-    neofetch
+    fastfetch
     cmatrix
   ];
+
+  # default apps
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      # set firefox as default browser
+      "text/html" = ["firefox.desktop"];
+      "x-scheme-handler/http" = ["firefox.desktop"];
+      "x-scheme-handler/https" = ["firefox.desktop"];
+
+      "application/pdf" = ["firefox.desktop"];
+    };
+  };
+
+  xdg.configFile."mimeapps.list".force = true;
+  xdg.dataFile."applications/mimeapps.list".force = true;
 }
