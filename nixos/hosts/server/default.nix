@@ -6,8 +6,6 @@
     ../../modules/users/lloyd.nix
   ];
 
-  lix.host = "server";
-
   services.tailscale.enable = true;
 
   system.stateVersion = "24.11";
