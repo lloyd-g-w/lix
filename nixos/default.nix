@@ -23,5 +23,6 @@ in {
   flake.nixosConfigurations = {
     desktop = mkHost "x86_64-linux" [./hosts/desktop];
     laptop = mkHost "x86_64-linux" [./hosts/laptop];
+    server = mkHost "x86_64-linux" [./hosts/server];
   };
 }
