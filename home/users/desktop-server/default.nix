@@ -33,7 +33,7 @@
     cmake
     jdk21
     gradle
-    nodejs_24
+    nodejs
     pnpm_9
   ];
 
