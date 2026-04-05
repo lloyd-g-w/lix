@@ -29,7 +29,7 @@
     # fuck ai
     codex
     gemini-cli
-    claude-code
+    # claude-code
 
     # Utils
     nh # Nix helper
@@ -64,7 +64,7 @@
     cmake
     jdk21
     gradle
-    nodejs_24
+    nodejs
     pnpm_9
     bun
 
