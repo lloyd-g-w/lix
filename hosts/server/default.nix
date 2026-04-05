@@ -47,7 +47,7 @@
   # run NPM as a declarative OCI container
   virtualisation.oci-containers.containers.nginx-proxy-manager = {
     image = "jc21/nginx-proxy-manager:latest";
-    ports = ["80:80" "81:81" "443:443"];
+    ports = ["80:80" "81:81" "443:443" "25580:25580"];
     autoRemoveOnStop = false;
     volumes = [
       "/var/lib/nginx-proxy-manager/data:/data"
@@ -88,6 +88,6 @@
     "net.ipv6.conf.all.forwarding" = true;
   };
 
-  networking.firewall.allowedTCPPorts = [443 2020 80 81 5173 7070];
+  networking.firewall.allowedTCPPorts = [443 2020 80 81 5173 7070 25580];
   programs.zsh.enable = true;
 }
