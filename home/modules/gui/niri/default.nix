@@ -23,7 +23,7 @@ in {
   home.file.".config/niri/config.kdl".source = pkgs.replaceVars ./config.kdl {
     SCREENSHOT = "${../scripts/screenshot.sh}";
     BACKGROUND = "swaybg -i ${../background.jpg} -m fill";
-    BROWSER = "firefox";
+    BROWSER = "google-chrome";
     TERMINAL = "kitty";
     MONITORS = monitors;
     MENU = "walker";
