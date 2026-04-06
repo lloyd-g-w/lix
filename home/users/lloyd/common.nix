@@ -111,12 +111,10 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      # set firefox as default browser
-      "text/html" = ["firefox.desktop"];
-      "x-scheme-handler/http" = ["firefox.desktop"];
-      "x-scheme-handler/https" = ["firefox.desktop"];
-
-      "application/pdf" = ["firefox.desktop"];
+      "text/html" = ["google-chrome.desktop"];
+      "x-scheme-handler/http" = ["google-chrome.desktop"];
+      "x-scheme-handler/https" = ["google-chrome.desktop"];
+      "application/pdf" = ["google-chrome.desktop"];
     };
   };
 
