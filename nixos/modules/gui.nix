@@ -66,8 +66,8 @@
       ];
 
       config.niri = {
-        "org.freedesktop.impl.portal.ScreenCast" = ["gtk"];
-        "org.freedesktop.impl.portal.Screenshot" = ["gtk"];
+        "org.freedesktop.impl.portal.ScreenCast" = ["wlr"];
+        "org.freedesktop.impl.portal.Screenshot" = ["wlr"];
         "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
       };
     };
