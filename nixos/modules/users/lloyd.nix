@@ -18,6 +18,7 @@ in {
       "docker"
       "libvirtd"
       "kvm"
+      "dialout"
     ];
     shell = pkgs.zsh;
     packages = [home-manager.packages.${pkgs.stdenv.hostPlatform.system}.home-manager];
