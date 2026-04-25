@@ -54,5 +54,23 @@
       # Fucking electron on wayland
       ELECTRON_DISABLE_GPU = "1";
     };
+
+    # Portals for streaming etc.
+    xdg.portal = {
+      enable = true;
+      xdgOpenUsePortal = true;
+      wlr.enable = true;
+
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+      ];
+
+      config.niri = {
+        "org.freedesktop.impl.portal.ScreenCast" = ["wlr"];
+        "org.freedesktop.impl.portal.Screenshot" = ["wlr"];
+        "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
+      };
+    };
+    #
   };
 }
