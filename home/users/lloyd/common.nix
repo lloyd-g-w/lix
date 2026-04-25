@@ -43,7 +43,7 @@
     btop
     openvpn
     nautilus
-    bottles
+    # bottles
     piper
     acpi
 
