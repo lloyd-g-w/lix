@@ -1,6 +1,7 @@
 {
   pkgs,
   lix,
+  lib,
   ...
 }: {
   config = {
@@ -58,17 +59,20 @@
     # Portals for streaming etc.
     xdg.portal = {
       enable = true;
-      xdgOpenUsePortal = true;
       wlr.enable = true;
 
       extraPortals = with pkgs; [
         xdg-desktop-portal-gtk
+        xdg-desktop-portal-wlr
       ];
 
-      config.niri = {
-        "org.freedesktop.impl.portal.ScreenCast" = ["wlr"];
-        "org.freedesktop.impl.portal.Screenshot" = ["wlr"];
-        "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
+      config = {
+        common.default = lib.mkForce ["gtk"];
+        niri = {
+          default = lib.mkForce ["gtk"];
+          "org.freedesktop.impl.portal.ScreenCast" = lib.mkForce ["wlr"];
+          "org.freedesktop.impl.portal.Screenshot" = lib.mkForce ["wlr"];
+        };
       };
     };
     #
