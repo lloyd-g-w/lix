@@ -6,7 +6,8 @@
     ../../modules/users/lloyd.nix
   ];
 
-  services.tailscale.enable = true;
+  # services.tailscale.enable = true;
+  services.netbird.enable = true;
 
   system.stateVersion = "24.11";
   networking.hostName = "server";

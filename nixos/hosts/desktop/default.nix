@@ -8,7 +8,8 @@
     ../../modules/users/lloyd.nix
   ];
 
-  services.tailscale.enable = true;
+  # services.tailscale.enable = true;
+  services.netbird.enable = true;
 
   # For nfs
   services.rpcbind.enable = true;

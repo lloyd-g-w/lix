@@ -11,7 +11,8 @@
   system.stateVersion = "24.11";
   networking.hostName = "laptop";
 
-  services.tailscale.enable = true;
+  # services.tailscale.enable = true;
+  services.netbird.enable = true;
 
   # Bootloader
   boot.loader.systemd-boot.enable = false;
