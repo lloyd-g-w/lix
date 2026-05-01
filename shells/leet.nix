@@ -5,10 +5,10 @@
       clang
       gdb
       git
-      nixfmt-rfc-style
     ];
 
     shellHook = ''
+      exec zsh
       export CC=gcc
       export CXX=g++
       echo "CXX=$CXX"
