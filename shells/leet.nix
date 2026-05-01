@@ -5,13 +5,15 @@
       clang
       gdb
       git
+      zsh
     ];
 
     shellHook = ''
-      exec zsh
       export CC=gcc
       export CXX=g++
       echo "CXX=$CXX"
+
+      exec zsh
     '';
   };
 }
