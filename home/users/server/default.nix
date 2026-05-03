@@ -25,6 +25,7 @@
     evtest
     btop
     openvpn
+    nh # Nix helper
 
     # Dev
     git
