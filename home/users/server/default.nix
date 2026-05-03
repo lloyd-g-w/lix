@@ -1,20 +1,25 @@
 {
   pkgs,
   lib,
+  lix,
   ...
 }: {
   imports = [
-    ../../../modules/home-manager/common.nix
-    ../../../modules/home-manager/terminal.nix
-    ../../../scripts/switch.nix
+    ../../modules/common.nix
+    ../../modules/terminal.nix
   ];
+
+  programs.lim = {
+    enable = true;
+  };
 
   home.username = "lloyd";
   home.homeDirectory = "/home/lloyd";
   home.stateVersion = "24.11";
 
-  lix.user = "server";
-  lix.host = "server";
+  home.sessionVariables = {
+    NH_FLAKE = "path:" + lix.dir; # for nix helper to not require a path
+  };
 
   home.packages = with pkgs; [
     # Utils
