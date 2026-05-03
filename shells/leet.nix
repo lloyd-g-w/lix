@@ -13,7 +13,7 @@
       export CXX=g++
       echo "CXX=$CXX"
 
-      exec zsh
+      # exec zsh
       dev leetcode.nvim # Open leetcode plugin in nvim with custom dev program. See pkgs/dev
     '';
   };
