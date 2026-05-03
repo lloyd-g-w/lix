@@ -171,10 +171,14 @@
   #Zsh
   programs.starship = {
     enable = true;
-    settings = builtins.fromTOML (builtins.readFile (builtins.fetchurl {
-      url = "https://starship.rs/presets/toml/nerd-font-symbols.toml";
-      sha256 = "sha256:1v4cda5zf5a9wirgxc1in6c40wrsa7pbjphb9ihkrgkwgp8jhj5q";
-    }));
+
+    settings =
+      removeAttrs
+      (fromTOML (builtins.readFile (builtins.fetchurl {
+        url = "https://starship.rs/presets/toml/nerd-font-symbols.toml";
+        sha256 = "sha256:1v4cda5zf5a9wirgxc1in6c40wrsa7pbjphb9ihkrgkwgp8jhj5q";
+      })))
+      ["maven"];
   };
 
   programs.zsh = {
