@@ -59,22 +59,24 @@
     # Portals for streaming etc.
     xdg.portal = {
       enable = true;
-      wlr.enable = true;
+
+      # Don't use the wlroots portal for niri screencasting.
+      wlr.enable = false;
 
       extraPortals = with pkgs; [
+        xdg-desktop-portal-gnome
         xdg-desktop-portal-gtk
-        xdg-desktop-portal-wlr
       ];
 
       config = {
-        common.default = lib.mkForce ["gtk"];
+        common.default = lib.mkForce ["gnome"];
+
         niri = {
-          default = lib.mkForce ["gtk"];
-          "org.freedesktop.impl.portal.ScreenCast" = lib.mkForce ["wlr"];
-          "org.freedesktop.impl.portal.Screenshot" = lib.mkForce ["wlr"];
+          default = lib.mkForce ["gnome"];
+          "org.freedesktop.impl.portal.ScreenCast" = lib.mkForce ["gnome"];
+          "org.freedesktop.impl.portal.Screenshot" = lib.mkForce ["gnome"];
         };
       };
-    };
-    #
+    }; #
   };
 }
