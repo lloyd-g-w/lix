@@ -95,6 +95,11 @@
         # Window titles
         set -g window-status-format "#[fg=#5a5b5e]#I:#(basename #{pane_current_path})"
         set -g window-status-current-format "#[fg=#618c4d,bold]#I:#(basename #{pane_current_path})"
+
+        # For image.nvim
+        set -gq allow-passthrough on
+        set -g visual-activity off
+        set-option -g focus-events on
     '';
   };
 
