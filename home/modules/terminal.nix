@@ -31,7 +31,9 @@
       set -sg escape-time 50
       set -g default-terminal "screen-256color"
       set -as terminal-features ",xterm-256color:RGB"
-      set-option -g default-shell "''${SHELL}"
+
+      set-option -g default-shell ${pkgs.zsh}/bin/zsh
+      set-option -g default-command ${pkgs.zsh}/bin/zsh
 
       # Set new panes to open in current directory
       bind c new-window -c "#{pane_current_path}"
