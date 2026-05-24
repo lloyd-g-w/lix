@@ -33,7 +33,17 @@
   };
 
   virtualisation.podman.enable = false;
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+
+    daemon.settings = {
+      dns = [
+        "1.1.1.1"
+        "8.8.8.8"
+      ];
+    };
+  };
+
   virtualisation.oci-containers.backend = "docker";
   users.users.lloyd.extraGroups = ["docker"];
 
