@@ -30,9 +30,20 @@
       bind-key l select-pane -R
 
 
-      # alt left, right moves windows around
-      bind-key -n M-Left swap-window -t -1 \; select-window -t -1
-      bind-key -n M-Right swap-window -t +1 \; select-window -t +1
+      # Enter "move window" mode with prefix + m
+      bind-key m switch-client -T move-window \; display-message "Move window: Alt+← / Alt+→, Esc to exit"
+
+      # While in move-window mode, Alt+Left moves current window left
+      bind-key -T move-window M-Left swap-window -t -1 \; select-window -t -1 \; switch-client -T move-window
+
+      # While in move-window mode, Alt+Right moves current window right
+      bind-key -T move-window M-Right swap-window -t +1 \; select-window -t +1 \; switch-client -T move-window
+
+      # Exit move-window mode
+      bind-key -T move-window Escape display-message "Exited move-window mode"
+      bind-key -T move-window q display-message "Exited move-window mode"
+
+
 
       set -sg escape-time 50
       set -g default-terminal "screen-256color"
