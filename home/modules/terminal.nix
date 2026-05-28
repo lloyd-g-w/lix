@@ -22,11 +22,17 @@
     extraConfig = ''
       set -g @continuum-save-interval '15'   # autosave every 15 minutes
       set -g @continuum-restore 'on'         # auto-restore on tmux start
+      set -g renumber-windows on #makes deleting a window renumber the following windows!
 
       bind-key h select-pane -L
       bind-key j select-pane -D
       bind-key k select-pane -U
       bind-key l select-pane -R
+
+
+      # alt left, right moves windows around
+      bind-key -n M-Left swap-window -t -1 \; select-window -t -1
+      bind-key -n M-Right swap-window -t +1 \; select-window -t +1
 
       set -sg escape-time 50
       set -g default-terminal "screen-256color"
