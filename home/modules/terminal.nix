@@ -31,7 +31,7 @@
 
 
       # Enter "move window" mode with prefix + m
-      bind-key m switch-client -T move-window \; display-message "Move window: Alt+← / Alt+→, Esc to exit"
+      bind-key m switch-client -T move-window \; display-message "Move window: h / j, Esc to exit"
 
       # Move current window left
       bind-key -T move-window h swap-window -t -1 \; select-window -t -1 \; switch-client -T move-window
