@@ -33,11 +33,11 @@
       # Enter "move window" mode with prefix + m
       bind-key m switch-client -T move-window \; display-message "Move window: Alt+← / Alt+→, Esc to exit"
 
-      # While in move-window mode, Alt+Left moves current window left
-      bind-key -T move-window M-Left swap-window -t -1 \; select-window -t -1 \; switch-client -T move-window
+      # Move current window left
+      bind-key -T move-window h swap-window -t -1 \; select-window -t -1 \; switch-client -T move-window
 
-      # While in move-window mode, Alt+Right moves current window right
-      bind-key -T move-window M-Right swap-window -t +1 \; select-window -t +1 \; switch-client -T move-window
+      # Move current window right
+      bind-key -T move-window l swap-window -t +1 \; select-window -t +1 \; switch-client -T move-window
 
       # Exit move-window mode
       bind-key -T move-window Escape display-message "Exited move-window mode"
