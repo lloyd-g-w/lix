@@ -35,28 +35,39 @@
   };
 
   virtualisation.podman.enable = false;
-  virtualisation.docker.enable = true;
+
+  virtualisation.docker = {
+    enable = true;
+
+    daemon.settings = {
+      dns = [
+        "1.1.1.1"
+        "8.8.8.8"
+      ];
+    };
+  };
+
   virtualisation.oci-containers.backend = "docker";
   users.users.lloyd.extraGroups = ["docker"];
 
   # make persistent dirs for volumes
-  systemd.tmpfiles.rules = [
-    "d /var/lib/nginx-proxy-manager 0755 root root - -"
-    "d /var/lib/nginx-proxy-manager/data 0755 root root - -"
-    "d /var/lib/nginx-proxy-manager/letsencrypt 0755 root root - -"
-  ];
+  # systemd.tmpfiles.rules = [
+  #   "d /var/lib/nginx-proxy-manager 0755 root root - -"
+  #   "d /var/lib/nginx-proxy-manager/data 0755 root root - -"
+  #   "d /var/lib/nginx-proxy-manager/letsencrypt 0755 root root - -"
+  # ];
 
   # run NPM as a declarative OCI container
-  virtualisation.oci-containers.containers.nginx-proxy-manager = {
-    image = "jc21/nginx-proxy-manager:latest";
-    ports = ["80:80" "81:81" "443:443" "25580:25580"];
-    autoRemoveOnStop = false;
-    volumes = [
-      "/var/lib/nginx-proxy-manager/data:/data"
-      "/var/lib/nginx-proxy-manager/letsencrypt:/etc/letsencrypt"
-    ];
-    extraOptions = ["--restart=unless-stopped"];
-  };
+  # virtualisation.oci-containers.containers.nginx-proxy-manager = {
+  #   image = "jc21/nginx-proxy-manager:latest";
+  #   ports = ["80:80" "81:81" "443:443" "25580:25580"];
+  #   autoRemoveOnStop = false;
+  #   volumes = [
+  #     "/var/lib/nginx-proxy-manager/data:/data"
+  #     "/var/lib/nginx-proxy-manager/letsencrypt:/etc/letsencrypt"
+  #   ];
+  #   extraOptions = ["--restart=unless-stopped"];
+  # };
 
   # set up wireguard server
   networking.wireguard = {
