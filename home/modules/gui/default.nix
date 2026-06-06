@@ -22,6 +22,7 @@
     dconf
     networkmanagerapplet
     networkmanager-openvpn
+    openvpn
 
     # Notif manager
     swaynotificationcenter
