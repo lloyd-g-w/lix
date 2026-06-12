@@ -33,7 +33,6 @@
     # Set display manager
     services.displayManager.gdm = {
       enable = true;
-      wayland = true;
       autoSuspend = false;
     };
 
@@ -59,8 +58,9 @@
     # Portals for streaming etc.
     xdg.portal = {
       enable = true;
+      xdgOpenUsePortal = true;
 
-      # Don't use the wlroots portal for niri screencasting.
+      # GNOME portal handles screencast for niri
       wlr.enable = false;
 
       extraPortals = with pkgs; [
