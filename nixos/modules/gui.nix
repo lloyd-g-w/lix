@@ -60,12 +60,12 @@
       enable = true;
       xdgOpenUsePortal = true;
 
-      # GNOME portal handles screencast for niri
-      wlr.enable = false;
+      wlr.enable = true;
 
       extraPortals = with pkgs; [
         xdg-desktop-portal-gnome
         xdg-desktop-portal-gtk
+        xdg-desktop-portal-wlr
       ];
 
       config = {
@@ -73,7 +73,10 @@
 
         niri = {
           default = lib.mkForce ["gnome"];
-          "org.freedesktop.impl.portal.ScreenCast" = lib.mkForce ["gnome"];
+
+          # fallback: avoid GNOME/niri PipeWire path for Discord
+          "org.freedesktop.impl.portal.ScreenCast" = lib.mkForce ["wlr"];
+
           "org.freedesktop.impl.portal.Screenshot" = lib.mkForce ["gnome"];
         };
       };
