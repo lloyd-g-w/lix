@@ -1,5 +1,11 @@
 {pkgs, ...}: let
   anytype-fix = pkgs.anytype.overrideAttrs (old: {
+    preBuild =
+      (old.preBuild or "")
+      + ''
+        export NODE_OPTIONS="--max-old-space-size=8192"
+      '';
+
     postFixup =
       (old.postFixup or "")
       + ''
