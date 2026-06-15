@@ -5,6 +5,9 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    old-nixpkgs.url = "github:NixOS/nixpkgs/25.11";
+
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -17,7 +20,7 @@
 
     lim = {
       url = "github:lloyd-g-w/lim";
-      # inputs.nixpkgs.follows = "nixpkgs"; # Dont actually want to do this as there are some broken packages currently with unstable
+      inputs.nixpkgs.follows = "old-nixpkgs";
     };
 
     latus = {
