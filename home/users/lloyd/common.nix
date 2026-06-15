@@ -86,7 +86,7 @@
     geeqie
     zathura
     xournalpp
-    # typst
+    typst
     onlyoffice-desktopeditors
 
     # Latex
