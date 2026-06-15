@@ -1,12 +1,12 @@
 if [ -z "$TMUX" ]; then
     # 1. Determine the command string
     if [ $# -eq 0 ]; then
-        # No args? Just run nvim
-        CMD="nvim"
+        # No args? Just run lim
+        CMD="lim"
     else
         # Args exist? Escape them safely
         ARGS=$(printf " %q" "$@")
-        CMD="nvim $ARGS"
+        CMD="lim $ARGS"
     fi
 
     # 2. Create a new detached session (starts your default shell)
