@@ -17,7 +17,7 @@
 
     lim = {
       url = "github:lloyd-g-w/lim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs"; # Dont actually want to do this as there are some broken packages currently with unstable
     };
 
     latus = {
