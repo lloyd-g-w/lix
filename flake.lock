@@ -146,11 +146,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1781523968,
-        "narHash": "sha256-3OHFJctDzMJVvxyBXJRcBUXVDh392HRz/1zrabqrYd4=",
+        "lastModified": 1781527912,
+        "narHash": "sha256-jPnqC1KzVAJfGyHZZPB4MWm0ZGXqvCV+q1BOHAy7jog=",
         "owner": "lloyd-g-w",
         "repo": "lim",
-        "rev": "c8060c2429f241fb082f9f930c832646646af266",
+        "rev": "0080ab398b70db4dbd264094537b09fdbae566b9",
         "type": "github"
       },
       "original": {
