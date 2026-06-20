@@ -8,6 +8,6 @@ in {
     latus = inputs.latus.packages.${prev.stdenv.hostPlatform.system}.default;
     lix.dev = self.packages.${prev.stdenv.hostPlatform.system}.dev;
     zen-browser = inputs.zen-browser.packages.${prev.stdenv.hostPlatform.system}.default;
-    typst_15 = import ./typst_15;
+    typst_15 = final.callPackage ./typst_15.nix {};
   };
 }

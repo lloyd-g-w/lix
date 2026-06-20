@@ -86,6 +86,7 @@
     geeqie
     zathura
     xournalpp
+    # typst
     typst_15
     onlyoffice-desktopeditors
 
