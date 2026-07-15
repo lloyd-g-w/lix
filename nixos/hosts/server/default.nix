@@ -2,7 +2,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/common.nix
-    ../../modules/nvidia.nix
+    # ../../modules/nvidia.nix
     ../../modules/users/lloyd.nix
   ];
 
