@@ -82,5 +82,19 @@
     kitty
   ];
 
+  # connect to my nfs through netbird ip
+  fileSystems."/mnt/truenas/server-nfs" = {
+    device = "100.87.55.150:/mnt/main/server-nfs";
+    fsType = "nfs";
+    options = [
+      "nfsvers=4"
+      "_netdev"
+      "nofail"
+      "noauto"
+      "x-systemd.automount"
+      "x-systemd.idle-timeout=600"
+    ];
+  };
+
   system.stateVersion = "24.11";
 }
