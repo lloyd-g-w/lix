@@ -41,7 +41,7 @@
     jdk21
     gradle
     nodejs
-    pnpm_9
+    pnpm
   ];
 
   programs.tmux = {

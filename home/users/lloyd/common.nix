@@ -65,7 +65,7 @@
     jdk21
     gradle
     nodejs
-    pnpm_9
+    pnpm
     bun
 
     zig
@@ -90,7 +90,7 @@
     onlyoffice-desktopeditors
 
     # Latex
-    texlive.combined.scheme-full
+    texliveSmall
     # Minted code block deps
     python3Packages.latexrestricted
     python3Packages.latex2pydata
