@@ -75,7 +75,8 @@
           default = lib.mkForce ["gnome"];
 
           # fallback: avoid GNOME/niri PipeWire path for Discord
-          "org.freedesktop.impl.portal.ScreenCast" = lib.mkForce ["wlr"];
+          # "org.freedesktop.impl.portal.ScreenCast" = lib.mkForce ["wlr"];
+          "org.freedesktop.impl.portal.ScreenCast" = lib.mkForce ["gnome"];
 
           "org.freedesktop.impl.portal.Screenshot" = lib.mkForce ["gnome"];
         };

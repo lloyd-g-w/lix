@@ -10,7 +10,7 @@
     ../../modules/gui
     ../../modules/common.nix
     ../../modules/anytype-fix.nix
-    ../../modules/gammashift.nix
+    # ../../modules/gammashift.nix
   ];
 
   programs.lim = {
