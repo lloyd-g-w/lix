@@ -18,6 +18,8 @@
   #   devPath = "/home/lloyd/projects/lim";
   # };
 
+  programs.lixvim.enable = true;
+
   home.username = "lloyd";
   home.homeDirectory = "/home/lloyd";
   home.stateVersion = "24.11";
@@ -27,8 +29,6 @@
   };
 
   home.packages = with pkgs; [
-    lixvim
-
     # fuck ai
     codex
     gemini-cli

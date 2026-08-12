@@ -63,6 +63,7 @@
       lix.home.sharedModules = [
         inputs.walker.homeManagerModules.default
         inputs.lim.homeManagerModules.default
+        inputs.lixvim.homeManagerModules.default
       ];
 
       lix.os.sharedModules = [
