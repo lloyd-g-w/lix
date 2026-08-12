@@ -210,11 +210,11 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1786528003,
-        "narHash": "sha256-SgvKHaq7zZ0E2kkMteCuyyiinwEm5XATpRKzeD46m4w=",
+        "lastModified": 1786528341,
+        "narHash": "sha256-TPVYS0yJvdNqaUW/RRFErC8+WPEup6lKYMqw5y4MarI=",
         "owner": "lloyd-g-w",
         "repo": "lixvim",
-        "rev": "56dd2b51e169f3572948c7d3ad8b5211771090ca",
+        "rev": "55aeca723cade69efacfde21b4f907134f596509",
         "type": "github"
       },
       "original": {
