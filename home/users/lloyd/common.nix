@@ -13,10 +13,10 @@
     # ../../modules/gammashift.nix
   ];
 
-  programs.lim = {
-    enable = true;
-    devPath = "/home/lloyd/projects/lim";
-  };
+  # programs.lim = {
+  #   enable = true;
+  #   devPath = "/home/lloyd/projects/lim";
+  # };
 
   home.username = "lloyd";
   home.homeDirectory = "/home/lloyd";

@@ -23,6 +23,11 @@
       inputs.nixpkgs.follows = "old-nixpkgs";
     };
 
+    lixvim = {
+      url = "github:lloyd-g-w/lixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     latus = {
       url = "github:lloyd-g-w/latus";
       inputs.nixpkgs.follows = "nixpkgs";
