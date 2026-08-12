@@ -27,6 +27,8 @@
   };
 
   home.packages = with pkgs; [
+    lixvim
+
     # fuck ai
     codex
     gemini-cli
