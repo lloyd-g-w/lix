@@ -32,7 +32,7 @@
     # fuck ai
     codex
     gemini-cli
-    # claude-code
+    claude-code
 
     # Utils
     nh # Nix helper
