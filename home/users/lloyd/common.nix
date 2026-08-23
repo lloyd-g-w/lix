@@ -18,8 +18,6 @@
     repo = "/home/lloyd/projects/lim2";
   };
 
-  programs.lixvim.enable = true;
-
   home.username = "lloyd";
   home.homeDirectory = "/home/lloyd";
   home.stateVersion = "24.11";
