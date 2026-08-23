@@ -23,4 +23,6 @@ in {
     shell = pkgs.zsh;
     packages = [home-manager.packages.${pkgs.stdenv.hostPlatform.system}.home-manager];
   };
+
+  services.netbird.enable = true;
 }
