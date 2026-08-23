@@ -13,10 +13,10 @@
     # ../../modules/gammashift.nix
   ];
 
-  # programs.lim = {
-  #   enable = true;
-  #   devPath = "/home/lloyd/projects/lim";
-  # };
+  programs.lim = {
+    enable = true;
+    repo = "/home/lloyd/projects/lim2";
+  };
 
   programs.lixvim.enable = true;
 

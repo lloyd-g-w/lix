@@ -19,12 +19,7 @@
     };
 
     lim = {
-      url = "github:lloyd-g-w/lim";
-      inputs.nixpkgs.follows = "old-nixpkgs";
-    };
-
-    lixvim = {
-      url = "github:lloyd-g-w/lixvim";
+      url = "github:lloyd-g-w/lim2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
