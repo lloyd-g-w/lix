@@ -91,7 +91,16 @@
     onlyoffice-desktopeditors
 
     # Latex
-    texliveFull
+    (pkgs.texlive.withPackages (ps:
+      with ps; [
+        scheme-medium
+        latexmk
+        biber
+        collection-latexextra
+        tcolorbox
+        minted
+      ]))
+
     # Minted code block deps
     python3Packages.latexrestricted
     python3Packages.latex2pydata
