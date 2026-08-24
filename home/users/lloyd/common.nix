@@ -91,6 +91,7 @@
     onlyoffice-desktopeditors
 
     # Latex
+    (lib.hiPrio pkgs.latexminted)
     (pkgs.texlive.withPackages (ps:
       with ps; [
         scheme-medium
