@@ -91,7 +91,7 @@
     onlyoffice-desktopeditors
 
     # Latex
-    texliveSmall
+    texliveMedium
     # Minted code block deps
     python3Packages.latexrestricted
     python3Packages.latex2pydata
