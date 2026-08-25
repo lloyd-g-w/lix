@@ -18,8 +18,8 @@
     046d:c547
 
     [main]
-    stopcd = f19
-    mute = f20
+    stopcd = C-A-S-f23
+    mute = C-A-S-f24
   '';
 
   # Add symlink to /dev/input of keyd virtual keyboard
