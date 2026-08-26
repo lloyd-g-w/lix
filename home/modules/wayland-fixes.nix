@@ -2,37 +2,30 @@
   waylandPushToTalkFix = pkgs.stdenv.mkDerivation {
     pname = "wayland-push-to-talk-fix";
     version = "unstable";
-
     src = pkgs.fetchFromGitHub {
       owner = "Rush";
       repo = "wayland-push-to-talk-fix";
       rev = "490f43054453871fe18e7d7e9041cfbd0f1d9b7d";
       sha256 = "11zbqz9zznzncf84jrvd5hl2iig6i1cpx6pwv02x2dg706ns0535";
     };
-
-    nativeBuildInputs = [pkgs.pkg-config pkgs.libX11];
-    buildInputs = [pkgs.libevdev pkgs.xdotool];
+    nativeBuildInputs = [pkgs.pkg-config];
+    buildInputs = [pkgs.libevdev pkgs.xdotool pkgs.libX11];
     installPhase = ''
-      # Create the directory structure under $out
-      mkdir -p $out/bin $out/share/applications
-
-      # Copy the built binary
+      mkdir -p $out/bin
       cp push-to-talk $out/bin/push-to-talk
     '';
   };
+  ptt = "${waylandPushToTalkFix}/bin/push-to-talk";
 in {
   home.packages = [waylandPushToTalkFix];
 
-  xdg.autostart.enable = true;
-
-  home.file.".config/autostart/discord-push-to-talk.desktop".text = ''
-        [Desktop Entry]
-        Type=Application
-        Terminal=false
-        Name=Discord Push-to-Talk
-        GenericName=Discord Push-to-Talk
-        Comment=A workaround app that allows using push-to-talk keybinding in Discord on Wayland
-        Exec=sh -c "push-to-talk /dev/input/keyd-kbd -k KEY_UNKNOWN -n XF86Launch1 & \
-    push-to-talk /dev/input/keyd-kbd -k KEY_MACRO -n XF86Launch2 &"
+  xdg.configFile."autostart/discord-push-to-talk.desktop".text = ''
+    [Desktop Entry]
+    Type=Application
+    Terminal=false
+    Name=Discord Push-to-Talk
+    GenericName=Discord Push-to-Talk
+    Comment=A workaround app that allows using push-to-talk keybinding in Discord on Wayland
+    Exec=${pkgs.bash}/bin/bash -c "${ptt} /dev/input/keyd-kbd -k KEY_UNKNOWN -n XF86Launch1 & exec ${ptt} /dev/input/keyd-kbd -k KEY_MACRO -n XF86Launch2"
   '';
 }
