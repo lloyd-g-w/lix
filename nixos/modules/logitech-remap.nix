@@ -18,8 +18,8 @@
     046d:c547
 
     [main]
-    stopcd = prog1
-    mute = prog2
+    stopcd = unknown
+    mute = macro
   '';
 
   # Add symlink to /dev/input of keyd virtual keyboard

@@ -227,7 +227,10 @@
     };
     # nixd function for having nix shells
     # use the current shell
+    # note first list is for ocaml
     initContent = ''
+      eval "$(opam env --shell=zsh)"
+
       nixd() {
         command nix develop "$@" -c "$SHELL"
       }
