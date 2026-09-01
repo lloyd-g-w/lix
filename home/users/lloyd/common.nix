@@ -54,6 +54,7 @@
     # oxcaml.ocaml-lsp
     docker
     opam
+    autoconf
     dune_3
     autoconf
     python3
