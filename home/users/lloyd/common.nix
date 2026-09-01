@@ -53,9 +53,12 @@
     # oxcaml.ocamlformat
     # oxcaml.ocaml-lsp
     docker
+
     opam
     autoconf
+    which
     dune_3
+
     autoconf
     python3
     vscode
