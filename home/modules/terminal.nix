@@ -245,6 +245,10 @@
 
       source ${pkgs.fzf}/share/fzf/completion.zsh
       source ${pkgs.fzf}/share/fzf/key-bindings.zsh
+
+      nd() {
+          nix develop -c "$SHELL"
+      }
     '';
 
     oh-my-zsh = {
