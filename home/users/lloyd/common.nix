@@ -56,8 +56,8 @@
 
     opam
     autoconf
+    gmp
     which
-    dune_3
 
     autoconf
     python3
