@@ -148,11 +148,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788578842,
-        "narHash": "sha256-a0jKNSiw0yIWnue16z66kZZx6SMbwus1NcAYp0l80TU=",
+        "lastModified": 1788584168,
+        "narHash": "sha256-7prGkdBV1fVPkhWTkswm0PHP19XBBk+OsVNN09I9HVA=",
         "owner": "lloyd-g-w",
         "repo": "lim2",
-        "rev": "8f43d7abf2ddb6ffb66a99b46c80f74e3772f886",
+        "rev": "c8eaa2339443edee29de48458f4153dafa721420",
         "type": "github"
       },
       "original": {
