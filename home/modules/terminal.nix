@@ -125,7 +125,7 @@
   # Kitty
   programs.kitty.enable = true;
   xdg.configFile."kitty/kitty.conf".text = ''
-    font_family      family="JetBrainsMono Nerd Font"
+    font_family      family="JetBrainsMonoNL Nerd Font"
     bold_font        auto
     italic_font      auto
     bold_italic_font auto
