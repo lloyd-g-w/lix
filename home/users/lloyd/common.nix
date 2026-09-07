@@ -29,7 +29,6 @@
   home.packages = with pkgs; [
     # fuck ai
     codex
-    gemini-cli
     claude-code
 
     # Utils
