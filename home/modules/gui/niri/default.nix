@@ -26,7 +26,7 @@ in {
     BROWSER = "google-chrome";
     TERMINAL = "kitty";
     MONITORS = monitors;
-    MENU = "walker";
+    MENU = "vicinae open";
     DEFAULT_AUDIO_SINK = null;
     DEFAULT_AUDIO_SOURCE = null;
   };
