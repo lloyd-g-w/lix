@@ -9,7 +9,7 @@
     ../../modules/wayland-fixes.nix
     ../../modules/gui
     ../../modules/common.nix
-    ../../modules/anytype-fix.nix
+    # ../../modules/anytype-fix.nix
     # ../../modules/gammashift.nix
   ];
 

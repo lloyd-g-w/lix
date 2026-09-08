@@ -52,18 +52,14 @@ in {
     home.packages = fonts ++ environment ++ tools;
 
     # Application launcher
-    programs.walker = {
-      enable = true;
-      runAsService = true;
-
-      config = {
-        search.placeholder = "Search";
-        ui.fullscreen = true;
-        list = {
-          height = 200;
+    programs.vicinae = {
+      enable = true; # default: false
+      systemd = {
+        enable = true; # default: false
+        autoStart = true; # default: true (if systemd.enable is true)
+        environment = {
+          USE_LAYER_SHELL = 1;
         };
-        websearch.prefix = "?";
-        switcher.prefix = "/";
       };
     };
 

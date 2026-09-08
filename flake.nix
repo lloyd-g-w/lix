@@ -1,6 +1,11 @@
 {
   description = "Lix--A NixOS and Home Manager Configuration";
 
+  nixConfig = {
+    extra-substituters = ["https://vicinae.cachix.org"];
+    extra-trusted-public-keys = ["vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="];
+  };
+
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
 
@@ -11,12 +16,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    elephant.url = "github:abenz1267/elephant";
-
-    walker = {
-      url = "github:abenz1267/walker";
-      inputs.elephant.follows = "elephant";
-    };
+    vicinae.url = "github:vicinaehq/vicinae";
 
     lim = {
       url = "github:lloyd-g-w/lim2";
@@ -56,7 +56,7 @@
         );
 
       lix.home.sharedModules = [
-        inputs.walker.homeManagerModules.default
+        inputs.vicinae.homeManagerModules.default
         inputs.lim.homeManagerModules.default
       ];
 
