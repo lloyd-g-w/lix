@@ -119,6 +119,7 @@
     # Misc
     fastfetch
     cmatrix
+    artisan
   ];
 
   # default apps
