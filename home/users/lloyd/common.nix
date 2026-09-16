@@ -53,7 +53,7 @@
     # oxcaml.ocaml-lsp
     docker
 
-    opam
+    # opam
     autoconf
     gmp
     which
