@@ -229,9 +229,11 @@
     # use the current shell
     # note first list is for ocaml
     initContent = ''
-      eval "$(opam env --shell=zsh)"
+      if (( $+commands[opam] )); then
+        eval "$(opam env --shell=zsh)"
+      fi
 
-      nixd() {
+      nd() {
         command nix develop "$@" -c "$SHELL"
       }
       set -o vi
@@ -245,10 +247,6 @@
 
       source ${pkgs.fzf}/share/fzf/completion.zsh
       source ${pkgs.fzf}/share/fzf/key-bindings.zsh
-
-      nd() {
-          nix develop -c "$SHELL"
-      }
     '';
 
     oh-my-zsh = {
