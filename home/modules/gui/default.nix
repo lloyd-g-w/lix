@@ -41,7 +41,7 @@
   compositors = ["niri" "mango"];
 
   make_if_compositor = compositor:
-    lib.mkIf (lix.compositor == compositor)
+    lib.mkIf (builtins.elem compositor lix.compositors)
     (import ./${compositor} {inherit config lib pkgs system inputs lix;});
 
   import_list = builtins.map make_if_compositor compositors;

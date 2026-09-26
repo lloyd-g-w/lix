@@ -1,4 +1,33 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  lix,
+  ...
+}: let
+  # Translate lix.home.monitors into mango `monitorrule` entries.
+  # Mango matches name as a regex, so anchor it for an exact match.
+  monitorRule = m: let
+    opt = k: v: lib.optional (v != null) "${k}:${toString v}";
+    params =
+      opt "name" (
+        if m.name != null
+        then "^${m.name}$"
+        else null
+      )
+      ++ opt "make" m.make
+      ++ opt "model" m.model
+      ++ opt "serial" m.serial
+      ++ lib.optionals (m.pos != null) ["x:${toString m.pos.x}" "y:${toString m.pos.y}"]
+      ++ ["scale:${toString m.scale}"]
+      ++ lib.optionals (m.mode != null) (
+        ["width:${toString m.mode.width}" "height:${toString m.mode.height}"]
+        ++ opt "refresh" m.mode.refresh
+      )
+      ++ lib.optional m.vrr "vrr:1"
+      ++ lib.optional (m.mango.extraRule != "") m.mango.extraRule;
+  in
+    lib.concatStringsSep "," params;
+in {
   home.packages = [pkgs.latus];
 
   wayland.windowManager.mango = {
@@ -6,6 +35,8 @@
     systemd.xdgAutostart = true;
 
     settings = {
+      monitorrule = builtins.map monitorRule lix.home.monitors;
+
       # Use a traditional master-stack tiling layout on every tag.
       tagrule = ["id:*,layout_name:tile"];
       default_mfact = 0.5;

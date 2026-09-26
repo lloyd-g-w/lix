@@ -1,19 +1,23 @@
 {
-  lix.compositor = "niri";
+  lix.compositors = ["niri"];
   lix.host = "desktop";
   lix.user = "lloyd";
   lix.dir = "$HOME/projects/lix";
 
-  lix.home.niri.monitors = [
+  lix.home.monitors = [
     {
-      name = "Samsung Electric Company LC27G5xT HNAW600500";
+      make = "Samsung Electric Company";
+      model = "LC27G5xT";
+      serial = "HNAW600500";
       pos = {
         x = 0;
         y = 0;
       };
     }
     {
-      name = "PNP(BNQ) BenQ XL2411Z C6F00870SL0";
+      make = "PNP(BNQ)";
+      model = "BenQ XL2411Z";
+      serial = "C6F00870SL0";
     }
   ];
 }

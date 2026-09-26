@@ -3,7 +3,9 @@
   lix,
   lib,
   ...
-}: {
+}: let
+  hasCompositor = c: builtins.elem c lix.compositors;
+in {
   config = {
     environment.systemPackages = with pkgs; [
       swaylock
@@ -15,9 +17,9 @@
     ];
 
     programs.mango = {
-      enable = lix.compositor == "mango";
+      enable = hasCompositor "mango";
       # Install mango.desktop so GDM can start the selected compositor.
-      addLoginEntry = lix.compositor == "mango";
+      addLoginEntry = hasCompositor "mango";
     };
 
     # For file manager
@@ -43,9 +45,9 @@
     };
 
     # Enable display manager
-    programs.niri.enable = lix.compositor == "niri";
+    programs.niri.enable = hasCompositor "niri";
 
-    services.displayManager.defaultSession = lix.compositor;
+    services.displayManager.defaultSession = builtins.head lix.compositors;
 
     # Swaylock
     programs.xss-lock.enable = true;
