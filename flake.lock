@@ -148,11 +148,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781614753,
-        "narHash": "sha256-nIdVLR5QIGZAk6zpa4OF7L/QXT9El35+zWHOMiY9L+A=",
+        "lastModified": 1790421526,
+        "narHash": "sha256-b4vvI1UVA56x46xWYHYtHZOZccQsMhqwAw3poJIEI3U=",
         "owner": "lloyd-g-w",
         "repo": "latus",
-        "rev": "7efe6f5ab301f22c0525b6a4737f25db4b446f9c",
+        "rev": "be83415c54dda4b4e9886d0e3e0b3f2470693b43",
         "type": "github"
       },
       "original": {
