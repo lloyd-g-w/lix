@@ -14,6 +14,12 @@
       pavucontrol
     ];
 
+    programs.mango = {
+      enable = lix.compositor == "mango";
+      # Install mango.desktop so GDM can start the selected compositor.
+      addLoginEntry = lix.compositor == "mango";
+    };
+
     # For file manager
     services.gvfs.enable = true;
 

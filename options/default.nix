@@ -59,9 +59,9 @@ in {
       };
 
       compositor = mkOption {
-        type = types.enum ["niri"];
+        type = types.enum ["niri" "mango"];
         default = "niri";
-        description = "The compositor for lix (currently only niri).";
+        description = "The compositor for lix.";
       };
 
       host = mkOption {

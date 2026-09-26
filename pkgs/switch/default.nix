@@ -9,11 +9,11 @@
 in {
   packages = {
     ns = pkgs.writeShellScriptBin "ns" ''
-      nh os switch ${dir}#${host}
+      nh os switch "path:${dir}#${host}"
     '';
 
     hs = pkgs.writeShellScriptBin "hs" ''
-      nh home switch ${dir}#${user}@${host}
+      nh home switch "path:${dir}#${user}@${host}"
     '';
   };
 }

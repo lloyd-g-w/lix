@@ -18,6 +18,11 @@
 
     vicinae.url = "github:vicinaehq/vicinae";
 
+    mangowm = {
+      url = "github:mangowm/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     lim = {
       url = "github:lloyd-g-w/lim2";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -58,9 +63,11 @@
       lix.home.sharedModules = [
         inputs.vicinae.homeManagerModules.default
         inputs.lim.homeManagerModules.default
+        inputs.mangowm.hmModules.mango
       ];
 
       lix.os.sharedModules = [
+        inputs.mangowm.nixosModules.mango
       ];
     };
 }
