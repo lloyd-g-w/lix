@@ -65,6 +65,8 @@ in {
       animation_duration_close = 150;
       animation_duration_tag = 150;
 
+      circle_layout = "tile,scroller";
+
       bind = [
         "SUPER,Return,spawn,kitty"
         "SUPER,e,spawn,google-chrome"
@@ -131,6 +133,8 @@ in {
         "SUPER+SHIFT,s,spawn,${../scripts/screenshot.sh}"
         "SUPER+SHIFT,e,quit"
         "CTRL+ALT,Delete,quit"
+
+        "SUPER+SHIFT,r,switch_layout"
 
         "NONE,XF86AudioRaiseVolume,spawn,wpctl set-volume @DEFAULT_SINK@ 5%+"
         "NONE,XF86AudioLowerVolume,spawn,wpctl set-volume @DEFAULT_SINK@ 5%-"
