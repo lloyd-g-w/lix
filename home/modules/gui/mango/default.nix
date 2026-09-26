@@ -35,7 +35,7 @@ in {
     systemd.xdgAutostart = true;
 
     settings = {
-      monitorrule = builtins.map monitorRule lix.home.monitors;
+      monitorrule = map monitorRule lix.home.monitors;
 
       # Use a traditional master-stack tiling layout on every tag.
       tagrule = ["id:*,layout_name:tile"];
@@ -82,19 +82,19 @@ in {
         "SUPER,Up,focusdir,up"
         "SUPER,Right,focusdir,right"
 
-        "SUPER+CTRL,h,exchange_client,left"
-        "SUPER+CTRL,j,exchange_client,down"
-        "SUPER+CTRL,k,exchange_client,up"
-        "SUPER+CTRL,l,exchange_client,right"
-        "SUPER+CTRL,Left,exchange_client,left"
-        "SUPER+CTRL,Down,exchange_client,down"
-        "SUPER+CTRL,Up,exchange_client,up"
-        "SUPER+CTRL,Right,exchange_client,right"
+        "SUPER+SHIFT,h,exchange_client,left"
+        "SUPER+SHIFT,j,exchange_client,down"
+        "SUPER+SHIFT,k,exchange_client,up"
+        "SUPER+SHIFT,l,exchange_client,right"
+        "SUPER+SHIFT,Left,exchange_client,left"
+        "SUPER+SHIFT,Down,exchange_client,down"
+        "SUPER+SHIFT,Up,exchange_client,up"
+        "SUPER+SHIFT,Right,exchange_client,right"
 
-        "SUPER+SHIFT,h,focusmon,left"
-        "SUPER+SHIFT,j,focusmon,down"
-        "SUPER+SHIFT,k,focusmon,up"
-        "SUPER+SHIFT,l,focusmon,right"
+        "SUPER+CTRL,h,focusmon,left"
+        "SUPER+CTRL,j,focusmon,down"
+        "SUPER+CTRL,k,focusmon,up"
+        "SUPER+CTRL,l,focusmon,right"
         "SUPER+CTRL+SHIFT,h,tagmon,left"
         "SUPER+CTRL+SHIFT,j,tagmon,down"
         "SUPER+CTRL+SHIFT,k,tagmon,up"
