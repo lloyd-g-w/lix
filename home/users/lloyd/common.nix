@@ -60,7 +60,6 @@
 
     autoconf
     python3
-    vscode
     git
     gnumake
     gcc
