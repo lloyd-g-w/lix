@@ -19,6 +19,7 @@ in {
       "libvirtd"
       "kvm"
       "dialout"
+      "adbusers"
     ];
     shell = pkgs.zsh;
     packages = [home-manager.packages.${pkgs.stdenv.hostPlatform.system}.home-manager];
