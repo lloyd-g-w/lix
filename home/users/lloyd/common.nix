@@ -46,6 +46,7 @@
     # bottles
     piper
     acpi
+    orca-slicer
 
     # Dev
     # oxcaml.oxcaml
