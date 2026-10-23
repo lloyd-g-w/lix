@@ -46,6 +46,7 @@
     # bottles
     piper
     acpi
+    orca-slicer
 
     # Dev
     # oxcaml.oxcaml
@@ -60,7 +61,6 @@
 
     autoconf
     python3
-    vscode
     git
     gnumake
     gcc

@@ -4,6 +4,7 @@
     ../../modules/common.nix
     # ../../modules/nvidia.nix
     ../../modules/users/lloyd.nix
+    ../../modules/portainer.nix
   ];
 
   system.stateVersion = "24.11";
