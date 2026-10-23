@@ -80,7 +80,7 @@
 
     # Media / Audio
     easyeffects
-    audacity
+    # audacity
     spotify
     vlc
     google-chrome
