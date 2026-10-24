@@ -30,6 +30,7 @@
     # fuck ai
     codex
     claude-code
+    prigh
 
     # Utils
     nh # Nix helper

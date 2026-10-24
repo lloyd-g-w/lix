@@ -2,8 +2,11 @@
   description = "Lix--A NixOS and Home Manager Configuration";
 
   nixConfig = {
-    extra-substituters = ["https://vicinae.cachix.org"];
-    extra-trusted-public-keys = ["vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="];
+    extra-substituters = ["https://vicinae.cachix.org" "https://prigh.cachix.org"];
+    extra-trusted-public-keys = [
+      "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
+      "prigh.cachix.org-1:1kHKoGOetNmpzJg8lJ1nvQzwzTL0XiOs5GInELMgSoI="
+    ];
   };
 
   inputs = {
@@ -35,6 +38,11 @@
 
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    prigh = {
+      url = "github:evan-a-w/prigh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
