@@ -54,6 +54,7 @@
     # oxcaml.ocamlformat
     # oxcaml.ocaml-lsp
     docker
+    gh
 
     # opam
     autoconf
