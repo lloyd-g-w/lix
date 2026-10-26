@@ -43,7 +43,6 @@
 
     prigh = {
       url = "github:evan-a-w/prigh";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
