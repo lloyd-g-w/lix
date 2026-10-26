@@ -474,6 +474,22 @@
     },
     "nixpkgs_3": {
       "locked": {
+        "lastModified": 1789684949,
+        "narHash": "sha256-ZKhUe/2IJUq1JhKxKMu8rbkgSGmPP2ZCqlIPn40aGCM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "e554fab72f81915600f3f449b786fd9af40439a5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_4": {
+      "locked": {
         "lastModified": 1751792365,
         "narHash": "sha256-J1kI6oAj25IG4EdVlg2hQz8NZTBNYvIS0l4wpr9KcUo=",
         "owner": "nixos",
@@ -488,7 +504,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_5": {
       "locked": {
         "lastModified": 1792094642,
         "narHash": "sha256-zp8ToDMnqZcu4o4IH9pdwXFXGp7yLm/M0dEnNWnyd7I=",
@@ -547,7 +563,7 @@
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils_3",
         "mirage-opam-overlays": "mirage-opam-overlays",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "nixpkgs-llvm17": "nixpkgs-llvm17",
         "nixpkgs-python38": "nixpkgs-python38",
         "nixpkgs-python39": "nixpkgs-python39",
@@ -659,19 +675,17 @@
     "prigh": {
       "inputs": {
         "flake-utils": "flake-utils_2",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
+        "nixpkgs": "nixpkgs_3",
         "opam-nix": "opam-nix",
         "opam-repository": "opam-repository_2",
         "ox-opam-repository": "ox-opam-repository"
       },
       "locked": {
-        "lastModified": 1792925540,
-        "narHash": "sha256-tU/Mtr/LidEbd86+196SvXdO8eMP+X3HTnJEDURdyDE=",
+        "lastModified": 1792977386,
+        "narHash": "sha256-ZCBlifK1hWWtR6eXySUAnjz4srJrIaK6t4n+UhE2+5I=",
         "owner": "evan-a-w",
         "repo": "prigh",
-        "rev": "6ed231be6697cdd894c883e5affe2849b289a148",
+        "rev": "cc3060e05a0040a8e5747db4f4e9d7ea05272c3c",
         "type": "github"
       },
       "original": {
@@ -816,7 +830,7 @@
     },
     "vicinae": {
       "inputs": {
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_5",
         "numen": "numen",
         "soulver-cpp": "soulver-cpp",
         "systems": "systems_5"
