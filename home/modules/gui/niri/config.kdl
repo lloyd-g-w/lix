@@ -562,3 +562,7 @@ gestures {
         off
     }
 }
+
+debug {
+    wait-for-frame-completion-before-queueing
+}
