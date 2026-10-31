@@ -6,7 +6,7 @@
     wants = ["network-online.target"];
     path = [pkgs.prigh "/run/wrappers" "/run/current-system/sw" "/etc/profiles/per-user/laptopserver"];
     serviceConfig = {
-      User = "laptopserver";
+      User = "lloyd";
       EnvironmentFile = "/etc/prigh-worker.env"; # PRIGH_TOKEN=...
       Restart = "always";
       RestartSec = 10;
