@@ -42,6 +42,7 @@
     gradle
     nodejs
     pnpm
+    prigh
   ];
 
   programs.tmux = {
