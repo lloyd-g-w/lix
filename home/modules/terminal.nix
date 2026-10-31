@@ -181,8 +181,9 @@
   '';
 
   xdg.configFile."kitty/themes/catppuccin-macchiato.conf".source = builtins.fetchurl {
-    url = "https://raw.githubusercontent.com/catppuccin/kitty/main/themes/macchiato.conf";
-    sha256 = "sha256:1givl76kzc0ya70r4bvj5dnh01n7n4d2543xbmigwwdmd7879wfm";
+    # pinned to a commit: fetching from `main` breaks the hash whenever upstream changes
+    url = "https://raw.githubusercontent.com/catppuccin/kitty/43098316202b84d6a71f71aaf8360f102f4d3f1a/themes/macchiato.conf";
+    sha256 = "sha256:099zisqq5ngr3skxivaki3sjz1j9iykxma4zafiqhlyxgp22j7m3";
   };
 
   # Ghostty (pkg already added above)
