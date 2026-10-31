@@ -19,10 +19,14 @@
         modules
         ++ config.lix.os.sharedModules;
     };
+
+  # { "server-<folder>" = module; } from ./hosts/servers
+  servers = builtins.mapAttrs (_: module: mkHost "x86_64-linux" [module]) (import ./hosts/servers);
 in {
-  flake.nixosConfigurations = {
-    desktop = mkHost "x86_64-linux" [./hosts/desktop];
-    laptop = mkHost "x86_64-linux" [./hosts/laptop];
-    server = mkHost "x86_64-linux" [./hosts/server];
-  };
+  flake.nixosConfigurations =
+    {
+      desktop = mkHost "x86_64-linux" [./hosts/desktop];
+      laptop = mkHost "x86_64-linux" [./hosts/laptop];
+    }
+    // servers;
 }

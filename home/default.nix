@@ -24,10 +24,16 @@
       # adds lix sharedModules to config
       modules = modules ++ config.lix.home.sharedModules;
     };
+
+  # one home config per server host (see nixos/hosts/servers)
+  servers = inputs.nixpkgs.lib.mapAttrs' (host: _:
+    inputs.nixpkgs.lib.nameValuePair "lloyd@${host}" (mkHome "x86_64-linux" [./users/server]))
+  (import ../nixos/hosts/servers);
 in {
-  flake.homeConfigurations = {
-    "lloyd@desktop" = mkHome "x86_64-linux" [./users/lloyd/desktop.nix];
-    "lloyd@laptop" = mkHome "x86_64-linux" [./users/lloyd/laptop.nix];
-    "lloyd@server" = mkHome "x86_64-linux" [./users/server];
-  };
+  flake.homeConfigurations =
+    {
+      "lloyd@desktop" = mkHome "x86_64-linux" [./users/lloyd/desktop.nix];
+      "lloyd@laptop" = mkHome "x86_64-linux" [./users/lloyd/laptop.nix];
+    }
+    // servers;
 }
