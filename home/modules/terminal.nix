@@ -136,8 +136,8 @@
   '';
 
   xdg.configFile."kitty/themes/gruvbox-material-dark-soft.conf".source = builtins.fetchurl {
-    url = "https://raw.githubusercontent.com/kovidgoyal/kitty-themes/refs/heads/master/themes/GruvboxMaterialDarkSoft.conf";
-    sha256 = "04azpbiv3vkqm0af0nl6ij9i0j2i95ij1rxxr2bb2cr3hh78x8yh";
+    url = "https://raw.githubusercontent.com/kovidgoyal/kitty-themes/d1ec0b8ac13f43d4cdeb0a6a3c144dd0d1b08ee3/themes/GruvboxMaterialDarkSoft.conf";
+    sha256 = "1hl7lbwd6a0y33v0ac94d4f6wabp5lkx7pdi375dkq6wiq3747ya";
   };
 
   xdg.configFile."kitty/themes/onedark.conf".source = builtins.fetchurl {
