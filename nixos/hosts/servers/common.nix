@@ -31,7 +31,9 @@ in {
     ports = [143];
     settings = {
       UseDns = true;
+      # key-only login: both must be off, keyboard-interactive is a password prompt via PAM
       PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
     };
   };
 
