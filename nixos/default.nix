@@ -17,7 +17,8 @@
       # adds lix sharedModules to config
       modules =
         modules
-        ++ config.lix.os.sharedModules;
+        ++ config.lix.os.sharedModules
+        ++ [{nixpkgs.overlays = [self.overlays.default];}];
     };
 
   # { "server-<folder>" = module; } from ./hosts/servers
