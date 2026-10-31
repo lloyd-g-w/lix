@@ -75,6 +75,7 @@
 
       listenPort = 51820;
       privateKeyFile = "/etc/wireguard/server.key";
+      generatePrivateKeyFile = true;
       peers = [
         {
           publicKey = "tG3q4W+UJtJ1o5aNtJP30XE9RohPo3DuPy0mDUF/dQE=";
