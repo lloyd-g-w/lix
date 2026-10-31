@@ -1,6 +1,6 @@
 # Shared config for all servers: a function of the server name (a folder in
 # this directory) returning a NixOS module. Used by ./default.nix.
-name: {lib, ...}: let
+name: {...}: let
   dir = ./. + "/${name}";
 in {
   imports =
@@ -16,11 +16,7 @@ in {
   system.stateVersion = "24.11";
   networking.hostName = "server-${name}";
 
-  # Bootloader.
-  # (defaults; override in ./<name>/default.nix if the hardware differs)
-  boot.loader.grub.enable = lib.mkDefault true;
-  boot.loader.grub.device = lib.mkDefault "/dev/sda";
-  boot.loader.grub.useOSProber = lib.mkDefault true;
+  # Bootloader is per machine: set it in ./<name>/default.nix
 
   nix.settings.trusted-users = [
     "root"
@@ -94,7 +90,8 @@ in {
 
   networking.nat = {
     enable = true;
-    externalInterface = lib.mkDefault "ens18";
+    # externalInterface left unset (null): masquerade wg0 traffic out of
+    # whatever interface the route uses, so this works on any machine
     internalInterfaces = ["wg0"];
   };
   networking.firewall.allowedUDPPorts = [51820];
