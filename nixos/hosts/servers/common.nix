@@ -72,6 +72,44 @@ in {
   #   extraOptions = ["--restart=unless-stopped"];
   # };
 
+<<<<<<< HEAD
+=======
+  # set up wireguard server
+  networking.wireguard = {
+    enable = true;
+
+    interfaces.wg0 = {
+      ips = ["10.0.0.1/24"];
+
+      listenPort = 51820;
+      privateKeyFile = "/etc/wireguard/server.key";
+      generatePrivateKeyFile = true;
+      peers = [
+        {
+          publicKey = "tG3q4W+UJtJ1o5aNtJP30XE9RohPo3DuPy0mDUF/dQE=";
+          allowedIPs = ["10.0.0.2/32"];
+        }
+      ];
+    };
+  };
+
+  networking.nat = {
+    enable = true;
+    # externalInterface left unset (null): masquerade wg0 traffic out of
+    # whatever interface the route uses, so this works on any machine
+    internalInterfaces = ["wg0"];
+  };
+  networking.firewall.allowedUDPPorts = [51820];
+  networking.firewall.extraForwardRules = ''
+    iifname "wg0" oifname "eth0" accept
+    iifname "eth0" oifname "wg0" accept
+  '';
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = true;
+    "net.ipv6.conf.all.forwarding" = true;
+  };
+
+>>>>>>> 80bf38e141994991c455a00d03b25c6bedbb8fab
   networking.firewall.allowedTCPPorts = [443 2020 80 81 5173 7070 25580];
   programs.zsh.enable = true;
 }
