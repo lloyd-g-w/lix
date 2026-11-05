@@ -31,6 +31,11 @@
     options = ["nofail" "x-systemd.device-timeout=10s" "uid=1000" "gid=100" "umask=022"];
   };
 
+  # Save video memory across suspend and run NVIDIA's suspend/resume hooks.
+  # Desktop only: on the laptop (PRIME, RTX 3050) it makes suspend fail
+  # instantly with "NVRM: PM suspend notifier failed: 0x62".
+  hardware.nvidia.powerManagement.enable = true;
+
   boot.loader.systemd-boot.enable = false;
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "nodev";

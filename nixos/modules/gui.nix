@@ -90,6 +90,11 @@ in {
     # starts clean. (tmux etc. started from the session die too.)
     services.logind.settings.Login.KillUserProcesses = true;
 
+    # tiny_power_button makes the power button signal init directly
+    # (SIGRTMIN+4 = power off), bypassing logind. Pressing it to wake from
+    # suspend then shut the machine down. logind handles the button instead.
+    boot.blacklistedKernelModules = ["tiny_power_button"];
+
     # Set environment variables
     environment.sessionVariables = {
       WLR_NO_HARDWARE_CURSORS = "1";
