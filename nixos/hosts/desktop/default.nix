@@ -47,6 +47,9 @@
 
   system.stateVersion = "24.11";
   networking.hostName = "desktop";
+
+  # Compressed swap in RAM (no swap partition on this machine)
+  zramSwap.enable = true;
   hardware.logitech.wireless.enable = true;
 
   nix.settings.trusted-users = ["@wheel"]; # Allow all wheel group users extra nix perms

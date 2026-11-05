@@ -11,6 +11,9 @@
   system.stateVersion = "24.11";
   networking.hostName = "laptop";
 
+  # Compressed swap in RAM (no swap partition on this machine)
+  zramSwap.enable = true;
+
   # Bootloader
   boot.loader.systemd-boot.enable = false;
   boot.loader.grub.enable = true;
@@ -38,8 +41,9 @@
   };
 
   hardware.nvidia.prime = {
-    intelBusId = "PCI:64:0:0";
-    nvidiaBusId = "PCI:1:0:0";
+    # Bus IDs are decimal; lspci shows hex (AMD iGPU is 0000:64:00.0 -> 0x64 = 100)
+    amdgpuBusId = "PCI:100:0:0"; # AMD Radeon iGPU (HawkPoint)
+    nvidiaBusId = "PCI:1:0:0"; # RTX 3050 Laptop
   };
 
   virtualisation.docker = {
