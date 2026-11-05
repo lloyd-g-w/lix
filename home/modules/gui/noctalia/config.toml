@@ -32,7 +32,7 @@ label_source = "name"
 
 [dock]
 enabled = true
-position = "right"
+position = "bottom"
 icon_size = 30
 active_monitor_only = true
 reserve_space = false
