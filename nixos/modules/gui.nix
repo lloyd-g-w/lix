@@ -1,10 +1,37 @@
 {
+  config,
   pkgs,
   lix,
   lib,
   ...
 }: let
   hasCompositor = c: builtins.elem c lix.compositors;
+
+  # Give users a GDM session only if they have none yet, or theirs no longer
+  # exists (e.g. a removed compositor). Otherwise GDM's memory of the last
+  # session picked is left alone.
+  defaultSession = builtins.head lix.compositors;
+  sessions = config.services.displayManager.sessionData.desktops;
+  normalUsers = builtins.attrNames (lib.filterAttrs (_: u: u.isNormalUser) config.users.users);
+  busctl = "${pkgs.systemd}/bin/busctl --system";
+  ensureUserSessions = ''
+    for user in ${lib.escapeShellArgs normalUsers}; do
+      path=$(${busctl} call org.freedesktop.Accounts /org/freedesktop/Accounts \
+        org.freedesktop.Accounts FindUserByName s "$user" | cut -d'"' -f2) || continue
+      current=$(${busctl} get-property org.freedesktop.Accounts "$path" \
+        org.freedesktop.Accounts.User Session | cut -d'"' -f2) || continue
+      if [ -n "$current" ] &&
+        { [ -e "${sessions}/share/wayland-sessions/$current.desktop" ] ||
+          [ -e "${sessions}/share/xsessions/$current.desktop" ]; }; then
+        continue
+      fi
+      echo "Setting GDM session for $user to ${defaultSession} (was '$current')"
+      ${busctl} call org.freedesktop.Accounts "$path" \
+        org.freedesktop.Accounts.User SetSession s ${defaultSession} || true
+      ${busctl} call org.freedesktop.Accounts "$path" \
+        org.freedesktop.Accounts.User SetSessionType s wayland || true
+    done
+  '';
 in {
   config = {
     environment.systemPackages = with pkgs; [
@@ -48,7 +75,13 @@ in {
     # Installs the "hyprland" GDM session and xdg-desktop-portal-hyprland.
     programs.hyprland.enable = hasCompositor "hyprland";
 
-    services.displayManager.defaultSession = builtins.head lix.compositors;
+    # No defaultSession (the niri module sets one by default): with GDM it
+    # resets every user's last-used session whenever GDM starts (each boot),
+    # so GDM never remembered picking another compositor. ensureUserSessions
+    # covers new users instead (GDM would otherwise fall back to the missing
+    # gnome-session and loop at login).
+    services.displayManager.defaultSession = null;
+    systemd.services.display-manager.preStart = lib.mkAfter ensureUserSessions;
 
     # Locking (Super+Alt+L, and before suspend) is Noctalia's lock screen,
     # which authenticates with the "login" PAM service.

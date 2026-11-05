@@ -131,7 +131,7 @@ in {
       compositors = mkOption {
         type = types.nonEmptyListOf (types.enum ["niri" "mango" "hyprland"]);
         default = ["niri"];
-        description = "The compositors to enable for lix. The first one is the default login session.";
+        description = "The compositors to enable for lix. GDM remembers the session each user last picked; the first one is the default for users without one.";
       };
 
       host = mkOption {
