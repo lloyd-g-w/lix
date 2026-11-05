@@ -17,6 +17,11 @@
     repo = "/home/lloyd/projects/lim2";
   };
 
+  programs.prigh = {
+    enable = true;
+    desktop.enable = true;
+  };
+
   home.username = "lloyd";
   home.homeDirectory = "/home/lloyd";
   home.stateVersion = "24.11";
@@ -29,7 +34,6 @@
     # fuck ai
     codex
     claude-code
-    prigh
 
     # Utils
     nh # Nix helper

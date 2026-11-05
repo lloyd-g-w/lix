@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   waylandPushToTalkFix = pkgs.stdenv.mkDerivation {
     pname = "wayland-push-to-talk-fix";
     version = "unstable";
@@ -16,16 +20,20 @@
     '';
   };
   ptt = "${waylandPushToTalkFix}/bin/push-to-talk";
+  # Discord push-to-talk workaround: one service per key, started with the
+  # session and restarted if it dies (e.g. when Xwayland restarts).
+  pttServices = {
+    ptt-launch1 = "${ptt} /dev/input/keyd-kbd -k KEY_UNKNOWN -n XF86Launch1";
+    ptt-launch2 = "${ptt} /dev/input/keyd-kbd -k KEY_MACRO -n XF86Launch2";
+  };
 in {
   home.packages = [waylandPushToTalkFix];
 
-  xdg.configFile."autostart/discord-push-to-talk.desktop".text = ''
-    [Desktop Entry]
-    Type=Application
-    Terminal=false
-    Name=Discord Push-to-Talk
-    GenericName=Discord Push-to-Talk
-    Comment=A workaround app that allows using push-to-talk keybinding in Discord on Wayland
-    Exec=${pkgs.bash}/bin/bash -c "${ptt} /dev/input/keyd-kbd -k KEY_UNKNOWN -n XF86Launch1 & exec ${ptt} /dev/input/keyd-kbd -k KEY_MACRO -n XF86Launch2"
-  '';
+  lix.gui.autostart = pttServices;
+
+  # Wait between restarts so a slow Xwayland restart doesn't hit the start limit
+  systemd.user.services = lib.mapAttrs (_: _: {
+    Unit.StartLimitIntervalSec = 0;
+    Service.RestartSec = 2;
+  }) pttServices;
 }

@@ -83,7 +83,7 @@ in {
     services.displayManager.defaultSession = null;
     systemd.services.display-manager.preStart = lib.mkAfter ensureUserSessions;
 
-    # Locking (Super+Alt+L, and before suspend) is Noctalia's lock screen,
+    # Locking (Super+Alt+L, Super+Escape on Hyprland, and before suspend) is Noctalia's lock screen,
     # which authenticates with the "login" PAM service.
 
     # Kill everything left in the login session on logout, so the next login

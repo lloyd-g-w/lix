@@ -78,6 +78,7 @@
         inputs.vicinae.homeManagerModules.default
         inputs.lim.homeManagerModules.default
         inputs.mangowm.hmModules.mango
+        inputs.prigh.homeManagerModules.default
       ];
 
       lix.os.sharedModules = [

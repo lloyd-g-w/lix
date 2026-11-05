@@ -97,7 +97,7 @@ end
 bind("RETURN", hl.dsp.exec_cmd(terminal))
 bind("E", hl.dsp.exec_cmd(browser))
 bind("D", hl.dsp.exec_cmd(menu))
-bind("ALT + L", hl.dsp.exec_cmd("noctalia msg session lock"))
+bind("Escape", hl.dsp.exec_cmd("noctalia msg session lock"))
 
 local locked = { locked = true }
 local lockedRepeat = { locked = true, repeating = true }
@@ -113,16 +113,21 @@ hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"
 
 bind("Q", hl.dsp.window.close())
 
--- Focus / move windows (vim keys and arrows)
+-- Focus / move / resize windows (vim keys and arrows)
+local resize_step = 50
 local dirs = {
-    { "LEFT", "H", "l", "left" },
-    { "DOWN", "J", "d", "down" },
-    { "UP", "K", "u", "up" },
-    { "RIGHT", "L", "r", "right" },
+    { "LEFT", "H", "l", "left", -1, 0 },
+    { "DOWN", "J", "d", "down", 0, 1 },
+    { "UP", "K", "u", "up", 0, -1 },
+    { "RIGHT", "L", "r", "right", 1, 0 },
 }
 for _, d in ipairs(dirs) do
-    local arrow, vim, short, long = d[1], d[2], d[3], d[4]
+    local arrow, vim, short, long, dx, dy = d[1], d[2], d[3], d[4], d[5], d[6]
     for _, key in ipairs({ arrow, vim }) do
+        bind("ALT + " .. key, hl.dsp.window.resize({
+            x = dx * resize_step, y = dy * resize_step, relative = true,
+        }), { repeating = true })
+
         bind(key, hl.dsp.focus({ direction = long }))
         bind("SHIFT + " .. key, hl.dsp.window.move({ direction = long }))
 
