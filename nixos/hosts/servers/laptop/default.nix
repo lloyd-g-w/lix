@@ -9,6 +9,9 @@
   boot.loader.grub.device = "nodev";
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.efiSupport = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # Install GRUB to the fallback path (EFI/BOOT/BOOTX64.EFI) so firmware always
+  # finds it, even after a BIOS update wipes the NVRAM boot entries.
+  boot.loader.grub.efiInstallAsRemovable = true;
+  boot.loader.efi.canTouchEfiVariables = false;
   boot.loader.efi.efiSysMountPoint = "/boot";
 }
