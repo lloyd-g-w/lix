@@ -14,6 +14,11 @@
   # Compressed swap in RAM (no swap partition on this machine)
   zramSwap.enable = true;
 
+  # Battery info (UPower) and power profiles for Noctalia's battery widget
+  # and control center
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
+
   # Bootloader
   boot.loader.systemd-boot.enable = false;
   boot.loader.grub.enable = true;

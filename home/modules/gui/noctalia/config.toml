@@ -20,6 +20,12 @@ left = "exec vicinae toggle"
 [widget.clock]
 format = "{:%-I:%M:%S %p}"
 
+[widget.brightness]
+enabled = false
+
+[widget.clipboard]
+enabled = false
+
 [widget.workspaces]
 # Hyprland workspaces are named 1..10 per monitor (see hyprland.lua)
 label_source = "name"
