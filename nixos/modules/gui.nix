@@ -47,6 +47,9 @@ in {
     # Enable display manager
     programs.niri.enable = hasCompositor "niri";
 
+    # Installs the "hyprland" GDM session and xdg-desktop-portal-hyprland.
+    programs.hyprland.enable = hasCompositor "hyprland";
+
     services.displayManager.defaultSession = builtins.head lix.compositors;
 
     # Swaylock
@@ -87,6 +90,14 @@ in {
           "org.freedesktop.impl.portal.ScreenCast" = lib.mkForce ["gnome"];
 
           "org.freedesktop.impl.portal.Screenshot" = lib.mkForce ["gnome"];
+        };
+
+        # The GNOME portal's screencast/screenshot only work on mutter-like
+        # compositors, so use Hyprland's own portal there and GTK for the rest.
+        hyprland = lib.mkIf (hasCompositor "hyprland") {
+          default = lib.mkForce ["hyprland" "gtk"];
+          "org.freedesktop.impl.portal.ScreenCast" = lib.mkForce ["hyprland"];
+          "org.freedesktop.impl.portal.Screenshot" = lib.mkForce ["hyprland"];
         };
       };
     }; #

@@ -38,7 +38,7 @@
 
   system = pkgs.stdenv.hostPlatform.system;
 
-  compositors = ["niri" "mango"];
+  compositors = ["niri" "mango" "hyprland"];
 
   make_if_compositor = compositor:
     lib.mkIf (builtins.elem compositor lix.compositors)

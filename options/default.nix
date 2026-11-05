@@ -88,6 +88,12 @@ in {
                 description = "Enable variable refresh rate on this monitor.";
               };
 
+              hdr = mkOption {
+                type = types.bool;
+                default = false;
+                description = "Enable HDR (10-bit, HDR colour management) on this monitor. Only Hyprland supports this; niri and mango ignore it.";
+              };
+
               niri.extraConfig = mkOption {
                 type = types.lines;
                 default = "";
@@ -98,6 +104,13 @@ in {
                 type = types.str;
                 default = "";
                 description = "Extra comma-separated parameters appended to this monitor's mango monitorrule (e.g. \"rr:1,hdr:1\").";
+              };
+
+              hyprland.extraSettings = mkOption {
+                type = types.attrsOf (types.oneOf [types.str types.int types.float types.bool]);
+                default = {};
+                example = {sdrbrightness = 1.2;};
+                description = "Extra fields merged into this monitor's Hyprland hl.monitor rule.";
               };
             };
           });
@@ -116,7 +129,7 @@ in {
       };
 
       compositors = mkOption {
-        type = types.nonEmptyListOf (types.enum ["niri" "mango"]);
+        type = types.nonEmptyListOf (types.enum ["niri" "mango" "hyprland"]);
         default = ["niri"];
         description = "The compositors to enable for lix. The first one is the default login session.";
       };
