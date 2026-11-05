@@ -45,6 +45,8 @@ enabled = false
 
 [shell]
 font_family = "JetBrainsMono Nerd Font Mono"
+# Password prompts for apps that need admin rights (no other agent runs)
+polkit_agent = true
 
 [shell.panel]
 control_center_placement = "floating"

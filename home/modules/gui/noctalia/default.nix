@@ -17,6 +17,15 @@
     SCREENSHOT_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
   };
 
+  # networkmanagerapplet stays installed (nixos/modules/gui.nix) for
+  # nm-connection-editor, but its tray applet is Noctalia's network panel now.
+  xdg.configFile."autostart/nm-applet.desktop".text = ''
+    [Desktop Entry]
+    Type=Application
+    Name=Network
+    Hidden=true
+  '';
+
   # Palette "lix": OneDark (warmer) kitty theme + niri accent green.
   xdg.configFile."noctalia/palettes/lix.json".source = ./palettes/lix.json;
 }

@@ -11,22 +11,15 @@
   environment = with pkgs; [
     brightnessctl
     playerctl
-
-    wlogout
   ];
 
   tools = with pkgs; [
     dconf
-    networkmanagerapplet
     networkmanager-openvpn
     openvpn
 
-    # Notif manager
-    swaynotificationcenter
-
-    # Screenshots
-    grim
-    slurp
+    # Notifications, screenshots, session menu, network/bluetooth panels and
+    # night light are all Noctalia's (see ./noctalia)
   ];
 
   cursorName = "phinger-cursors-light";

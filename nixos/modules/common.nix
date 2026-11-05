@@ -15,7 +15,7 @@
   # Bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-  services.blueman.enable = true;
+  # No blueman: Noctalia's Bluetooth panel handles pairing
 
   # Printing
   services.printing.enable = true;
@@ -52,6 +52,18 @@
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
+  ];
+
+  # Binary caches for vicinae and prigh, so they download instead of compiling.
+  # (flake.nix's nixConfig lists them too, but Nix ignores that without
+  # --accept-flake-config.) Merged with the default cache.nixos.org.
+  nix.settings.substituters = [
+    "https://vicinae.cachix.org"
+    "https://prigh.cachix.org"
+  ];
+  nix.settings.trusted-public-keys = [
+    "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
+    "prigh.cachix.org-1:1kHKoGOetNmpzJg8lJ1nvQzwzTL0XiOs5GInELMgSoI="
   ];
 
   # Set time zone.
