@@ -28,11 +28,11 @@
   in
     lib.concatStringsSep "," params;
 in {
-  home.packages = [pkgs.latus];
-
   wayland.windowManager.mango = {
     enable = true;
-    systemd.xdgAutostart = true;
+    # The session (env import, targets, XDG autostart) is lix-session's job:
+    # see ../autostart and autostart_sh below.
+    systemd.enable = false;
 
     settings = {
       monitorrule = map monitorRule lix.home.monitors;
@@ -71,7 +71,7 @@ in {
         "SUPER,Return,spawn,kitty"
         "SUPER,e,spawn,google-chrome"
         "SUPER,d,spawn,vicinae toggle"
-        "SUPER+ALT,l,spawn,swaylock"
+        "SUPER+ALT,l,spawn,noctalia msg session lock"
         "SUPER,q,killclient"
         "SUPER,o,toggleoverview"
 
@@ -130,7 +130,7 @@ in {
         "SUPER,f,togglemaximizescreen"
         "SUPER+SHIFT,f,togglefullscreen"
         "SUPER,v,togglefloating"
-        "SUPER+SHIFT,s,spawn,${../scripts/screenshot.sh}"
+        "SUPER+SHIFT,s,spawn,noctalia msg screenshot-region"
         "SUPER+SHIFT,e,quit"
         "CTRL+ALT,Delete,quit"
 
@@ -157,10 +157,9 @@ in {
       ];
     };
 
+    # Starts the shared session (bar etc.): ../autostart
     autostart_sh = ''
-      latus &
-      swaybg -i ${../background.jpg} -m fill &
-      playerctld daemon &
+      lix-session start
     '';
   };
 }

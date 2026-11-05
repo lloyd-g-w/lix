@@ -132,6 +132,10 @@
 
     font_size 16.0
 
+    # Don't restore the last window's size/state: a kitty closed while
+    # maximized made every new kitty open maximized.
+    remember_window_size no
+
     include themes/onedark-warmer.conf
   '';
 

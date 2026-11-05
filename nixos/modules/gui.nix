@@ -8,8 +8,6 @@
 in {
   config = {
     environment.systemPackages = with pkgs; [
-      swaylock
-      xss-lock
       xwayland
       wl-clipboard
       networkmanagerapplet
@@ -52,10 +50,12 @@ in {
 
     services.displayManager.defaultSession = builtins.head lix.compositors;
 
-    # Swaylock
-    programs.xss-lock.enable = true;
-    programs.xss-lock.lockerCommand = "${pkgs.swaylock}/bin/swaylock";
-    security.pam.services.swaylock = {};
+    # Locking (Super+Alt+L, and before suspend) is Noctalia's lock screen,
+    # which authenticates with the "login" PAM service.
+
+    # Kill everything left in the login session on logout, so the next login
+    # starts clean. (tmux etc. started from the session die too.)
+    services.logind.settings.Login.KillUserProcesses = true;
 
     # Set environment variables
     environment.sessionVariables = {

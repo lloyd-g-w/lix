@@ -44,6 +44,13 @@
     prigh = {
       url = "github:evan-a-w/prigh";
     };
+
+    # Per-monitor workspaces for hyprland (a lua library, used by
+    # home/modules/gui/hyprland)
+    hyprsplit = {
+      url = "github:shezdy/hyprsplit";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:

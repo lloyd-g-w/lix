@@ -2,16 +2,22 @@
   pkgs,
   lix,
   lib,
+  inputs,
   ...
 }: let
+  # A monitor's connector name, or its description "Make Model Serial".
+  monitorId = m:
+    if m.name != null
+    then m.name
+    else
+      lib.concatStringsSep " "
+      (builtins.filter (x: x != null) [m.make m.model m.serial]);
+
   # Hyprland matches outputs by connector name or by "desc:Make Model Serial".
   outputName = m:
     if m.name != null
     then m.name
-    else
-      "desc:"
-      + lib.concatStringsSep " "
-      (builtins.filter (x: x != null) [m.make m.model m.serial]);
+    else "desc:" + monitorId m;
 
   monitorRule = m:
     {
@@ -42,17 +48,21 @@
     lib.concatMapStringsSep "\n"
     (m: "hl.monitor(${lib.generators.toLua {multiline = false;} (monitorRule m)})")
     lix.home.monitors;
+
+  # hyprsplit gives monitors workspace blocks in this order (1-10, 11-20, ...).
+  monitorPriority =
+    lib.generators.toLua {multiline = false;}
+    (map monitorId lix.home.monitors);
 in {
-  home.packages = [
-    pkgs.latus # Custom status bar app
-  ];
+  # Loaded with require("hyprsplit") in hyprland.lua
+  home.file.".config/hypr/hyprsplit/init.lua".source = "${inputs.hyprsplit}/init.lua";
 
   home.file.".config/hypr/hyprland.lua".source = pkgs.replaceVars ./hyprland.lua {
-    SCREENSHOT = "${../scripts/screenshot.sh}";
-    BACKGROUND = "swaybg -i ${../background.jpg} -m fill";
+    SCREENSHOT = "noctalia msg screenshot-region";
     BROWSER = "google-chrome";
     TERMINAL = "kitty";
     MONITORS = monitors;
+    MONITOR_PRIORITY = monitorPriority;
     MENU = "vicinae toggle";
     DEFAULT_AUDIO_SINK = null;
     DEFAULT_AUDIO_SOURCE = null;

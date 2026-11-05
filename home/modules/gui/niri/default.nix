@@ -34,12 +34,10 @@ in {
   home.packages = with pkgs; [
     niri
     xwayland-satellite
-    latus # Custom status bar app
   ];
 
   home.file.".config/niri/config.kdl".source = pkgs.replaceVars ./config.kdl {
-    SCREENSHOT = "${../scripts/screenshot.sh}";
-    BACKGROUND = "swaybg -i ${../background.jpg} -m fill";
+    SCREENSHOT = "noctalia msg screenshot-region";
     BROWSER = "google-chrome";
     TERMINAL = "kitty";
     MONITORS = monitors;

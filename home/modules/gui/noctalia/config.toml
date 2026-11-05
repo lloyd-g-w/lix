@@ -1,0 +1,71 @@
+# Noctalia (v5) config, linked to ~/.config/noctalia/config.toml.
+# Changes made in Noctalia's settings GUI go to
+# ~/.local/state/noctalia/settings.toml and override this file; copy them
+# here and delete that file to keep this the source of truth.
+# Check with: noctalia config validate ./config.toml
+
+[bar]
+order = ["main"]
+
+[bar.main]
+margin_ends = 0
+panel_overlap = 0
+radius = 0
+start = ["launcher", "workspaces"]
+
+[widget.launcher.actions]
+# Use vicinae instead of Noctalia's own launcher
+left = "exec vicinae toggle"
+
+[widget.clock]
+format = "{:%-I:%M:%S %p}"
+
+[widget.workspaces]
+# Hyprland workspaces are named 1..10 per monitor (see hyprland.lua)
+label_source = "name"
+
+[dock]
+enabled = true
+position = "right"
+icon_size = 30
+active_monitor_only = true
+reserve_space = false
+show_dots = true
+show_instance_count = false
+smart_auto_hide = true
+
+[calendar]
+enabled = true
+
+[location]
+auto_locate = true
+
+[lockscreen_widgets]
+enabled = false
+
+[shell]
+font_family = "JetBrainsMono Nerd Font Mono"
+
+[shell.panel]
+control_center_placement = "floating"
+open_near_click_control_center = true
+
+[shell.screenshot]
+# Super+Shift+S runs `noctalia msg screenshot-region` in every compositor;
+# it saves here and copies to the clipboard.
+annotate = true
+directory = "@SCREENSHOT_DIR@"
+
+[wallpaper]
+enabled = true
+
+[wallpaper.default]
+path = "@WALLPAPER@" # home/modules/gui/background.jpg
+
+[theme]
+mode = "dark"
+source = "custom"
+custom_palette = "lix" # palettes/lix.json
+
+[theme.templates]
+builtin_ids = ["hyprland", "kitty"]

@@ -20,13 +20,9 @@ hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "auto" 
 ---- AUTOSTART ----
 -------------------
 
+-- Starts the shared session (bar etc.): home/modules/gui/autostart
 hl.on("hyprland.start", function()
-    hl.exec_cmd("systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE")
-    -- This is for discord to recognize portals when launched with walker
-    hl.exec_cmd("dbus-update-activation-environment --systemd --all")
-    hl.exec_cmd("latus")
-    hl.exec_cmd("@BACKGROUND@")
-    hl.exec_cmd("playerctld daemon")
+    hl.exec_cmd("lix-session start")
 end)
 
 -----------------------
@@ -42,8 +38,7 @@ hl.config({
             active_border = "rgb(618c4d)",
             inactive_border = "rgb(5a5b5e)",
         },
-        -- niri-like scrollable tiling
-        layout = "scrolling",
+        layout = "dwindle",
     },
 
     decoration = {
@@ -52,17 +47,11 @@ hl.config({
         blur = { enabled = false },
     },
 
-    scrolling = {
-        column_width = 0.5,
-        explicit_column_widths = "0.33333, 0.5, 0.66667",
-        fullscreen_on_one_column = false,
-        -- center-focused-column "never": only scroll enough to fit the column
-        focus_fit_method = 1,
-        wrap_focus = false,
-        wrap_swapcol = false,
+    dwindle = {
+        preserve_split = true,
     },
 
-    animations = { enabled = true },
+    animations = { enabled = false },
 
     misc = {
         force_default_wallpaper = 0,
@@ -71,18 +60,13 @@ hl.config({
         -- Wake monitors after power-off-monitors on any input
         mouse_move_enables_dpms = true,
         key_press_enables_dpms = true,
+        -- A new window on a workspace with a maximized/fullscreen window opens
+        -- normally and the other window goes back to tiling, instead of the
+        -- new window taking over the maximized state (tested on 0.56.2: 0
+        -- and 2 both take over, 1 doesn't).
+        on_focus_under_fullscreen = 1,
     },
 })
-
-hl.curve("easeOutExpo", { type = "bezier", points = { { 0.16, 1 }, { 0.3, 1 } } })
-hl.curve("easeOutQuad", { type = "bezier", points = { { 0.25, 0.46 }, { 0.45, 0.94 } } })
-hl.curve("snappy", { type = "spring", mass = 1, stiffness = 800, dampening = 56.57 })
-
-hl.animation({ leaf = "windowsIn", enabled = true, speed = 1.5, bezier = "easeOutExpo", style = "popin 90%" })
-hl.animation({ leaf = "windowsOut", enabled = true, speed = 1.5, bezier = "easeOutQuad", style = "popin 90%" })
-hl.animation({ leaf = "windowsMove", enabled = true, speed = 3, spring = "snappy" })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 2, bezier = "easeOutExpo", style = "slidevert" })
-hl.animation({ leaf = "fade", enabled = true, speed = 1.5, bezier = "easeOutQuad" })
 
 ---------------
 ---- INPUT ----
@@ -110,14 +94,10 @@ local function bind(keys, dispatcher, opts)
     hl.bind(keys == "" and mod or mod .. " + " .. keys, dispatcher, opts)
 end
 
-local function layout(msg)
-    return hl.dsp.layout(msg)
-end
-
 bind("RETURN", hl.dsp.exec_cmd(terminal))
 bind("E", hl.dsp.exec_cmd(browser))
 bind("D", hl.dsp.exec_cmd(menu))
-bind("ALT + L", hl.dsp.exec_cmd("swaylock"))
+bind("ALT + L", hl.dsp.exec_cmd("noctalia msg session lock"))
 
 local locked = { locked = true }
 local lockedRepeat = { locked = true, repeating = true }
@@ -133,7 +113,7 @@ hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"
 
 bind("Q", hl.dsp.window.close())
 
--- Focus columns / windows (vim keys and arrows)
+-- Focus / move windows (vim keys and arrows)
 local dirs = {
     { "LEFT", "H", "l", "left" },
     { "DOWN", "J", "d", "down" },
@@ -143,65 +123,76 @@ local dirs = {
 for _, d in ipairs(dirs) do
     local arrow, vim, short, long = d[1], d[2], d[3], d[4]
     for _, key in ipairs({ arrow, vim }) do
-        bind(key, layout("focus " .. short))
-
-        -- Left/right moves the whole column, up/down moves the window within it
-        if short == "l" or short == "r" then
-            bind("SHIFT + " .. key, layout("swapcol " .. short))
-        else
-            bind("SHIFT + " .. key, hl.dsp.window.move({ direction = long }))
-        end
+        bind(key, hl.dsp.focus({ direction = long }))
+        bind("SHIFT + " .. key, hl.dsp.window.move({ direction = long }))
 
         bind("CTRL + " .. key, hl.dsp.focus({ monitor = short }))
         bind("SHIFT + CTRL + " .. key, hl.dsp.window.move({ monitor = short }))
     end
 end
 
--- Workspaces (niri's are vertical: down = next)
-for _, key in ipairs({ "Page_Down", "U" }) do
-    bind(key, hl.dsp.focus({ workspace = "r+1" }))
-    bind("CTRL + " .. key, hl.dsp.window.move({ workspace = "r+1" }))
-end
-for _, key in ipairs({ "Page_Up", "I" }) do
-    bind(key, hl.dsp.focus({ workspace = "r-1" }))
-    bind("CTRL + " .. key, hl.dsp.window.move({ workspace = "r-1" }))
+-- Workspaces are per monitor, like niri, using hyprsplit: each monitor gets
+-- its own 10 workspaces and these binds act on the focused monitor's ones.
+-- Monitors get blocks (1-10, 11-20, ...) in lix.home.monitors order.
+local hs = require("hyprsplit")
+local num_workspaces = 10
+local monitor_priority = @MONITOR_PRIORITY@
+hs.config({ num_workspaces = num_workspaces })
+hs.monitor_priority(monitor_priority)
+
+-- Name every workspace by its position on its monitor (11 -> "1", 12 -> "2",
+-- ...) so bars that show workspace names number each monitor 1..10.
+-- One extra block covers a monitor not listed in lix.home.monitors.
+for block = 0, #monitor_priority do
+    for i = 1, num_workspaces do
+        hl.workspace_rule({
+            workspace = tostring(block * num_workspaces + i),
+            default_name = tostring(i),
+        })
+    end
 end
 
-for i = 1, 9 do
-    bind(tostring(i), hl.dsp.focus({ workspace = i }))
-    bind("CTRL + " .. i, hl.dsp.window.move({ workspace = i }))
+-- niri's are vertical: down = next
+for _, key in ipairs({ "Page_Down", "U", "mouse_down" }) do
+    bind(key, hs.dsp.focus({ workspace = "+1" }))
+    bind("CTRL + " .. key, hs.dsp.window.move({ workspace = "+1" }))
 end
+for _, key in ipairs({ "Page_Up", "I", "mouse_up" }) do
+    bind(key, hs.dsp.focus({ workspace = "-1" }))
+    bind("CTRL + " .. key, hs.dsp.window.move({ workspace = "-1" }))
+end
+
+for i = 1, 10 do
+    local key = tostring(i % 10) -- 10 is the 0 key
+    bind(key, hs.dsp.focus({ workspace = i }))
+    bind("CTRL + " .. key, hs.dsp.window.move({ workspace = i }))
+end
+
+-- Pull in windows stranded on a workspace of an unplugged monitor
+bind("SHIFT + G", hs.dsp.grab_rogue_windows())
 
 -- Mouse wheel
-bind("mouse_down", hl.dsp.focus({ workspace = "r+1" }))
-bind("mouse_up", hl.dsp.focus({ workspace = "r-1" }))
-bind("CTRL + mouse_down", hl.dsp.window.move({ workspace = "r+1" }))
-bind("CTRL + mouse_up", hl.dsp.window.move({ workspace = "r-1" }))
-bind("mouse_right", layout("focus r"))
-bind("mouse_left", layout("focus l"))
-bind("CTRL + mouse_right", layout("swapcol r"))
-bind("CTRL + mouse_left", layout("swapcol l"))
-bind("SHIFT + mouse_down", layout("focus r"))
-bind("SHIFT + mouse_up", layout("focus l"))
-bind("CTRL + SHIFT + mouse_down", layout("swapcol r"))
-bind("CTRL + SHIFT + mouse_up", layout("swapcol l"))
+bind("mouse_right", hl.dsp.focus({ direction = "right" }))
+bind("mouse_left", hl.dsp.focus({ direction = "left" }))
+bind("CTRL + mouse_right", hl.dsp.window.move({ direction = "right" }))
+bind("CTRL + mouse_left", hl.dsp.window.move({ direction = "left" }))
+bind("SHIFT + mouse_down", hl.dsp.focus({ direction = "right" }))
+bind("SHIFT + mouse_up", hl.dsp.focus({ direction = "left" }))
+bind("CTRL + SHIFT + mouse_down", hl.dsp.window.move({ direction = "right" }))
+bind("CTRL + SHIFT + mouse_up", hl.dsp.window.move({ direction = "left" }))
 
 -- Move/resize windows with mod + LMB/RMB drag
 bind("mouse:272", hl.dsp.window.drag(), { mouse = true })
 bind("mouse:273", hl.dsp.window.resize(), { mouse = true })
 
--- Consume or expel the window into the neighbouring column
-bind("COMMA", layout("consume_or_expel prev"))
-bind("PERIOD", layout("consume_or_expel next"))
+-- Flip the split direction of the focused window (dwindle)
+bind("COMMA", hl.dsp.layout("togglesplit"))
 
--- Column sizing
-bind("R", layout("colresize +conf"))
+-- Sizing
 bind("F", hl.dsp.window.fullscreen({ mode = "maximized" }))
 bind("SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
-bind("CTRL + F", layout("fit expand"))
-bind("C", layout("center"))
-bind("MINUS", layout("colresize -0.1"))
-bind("EQUAL", layout("colresize +0.1"))
+bind("MINUS", hl.dsp.window.resize({ x = -100, y = 0, relative = true }))
+bind("EQUAL", hl.dsp.window.resize({ x = 100, y = 0, relative = true }))
 bind("SHIFT + MINUS", hl.dsp.window.resize({ x = 0, y = -100, relative = true }))
 bind("SHIFT + EQUAL", hl.dsp.window.resize({ x = 0, y = 100, relative = true }))
 

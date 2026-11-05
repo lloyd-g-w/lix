@@ -223,15 +223,8 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 
-// This line starts latus my custom status bar
-spawn-at-startup "systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-spawn-at-startup "latus"
-spawn-sh-at-startup "@BACKGROUND@"
-spawn-sh-at-startup "playerctld daemon"
-
-
-// This is for discord to recognize portals when launched with walker
-spawn-at-startup "dbus-update-activation-environment --systemd --all"
+// Starts the shared session (bar etc.): home/modules/gui/autostart
+spawn-at-startup "lix-session" "start"
 
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
@@ -312,7 +305,7 @@ binds {
     Mod+Return hotkey-overlay-title="Open a Terminal: @TERMINAL@" { spawn "@TERMINAL@"; }
     Mod+E hotkey-overlay-title="Open a browser: @BROWSER@" { spawn "@BROWSER@"; }
     Mod+D hotkey-overlay-title="Run an Application: @MENU@" { spawn "sh" "-c" "@MENU@"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "noctalia" "msg" "session" "lock"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument in the end.
@@ -536,7 +529,7 @@ binds {
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
 
-    Mod+Shift+S { spawn "@SCREENSHOT@"; }
+    Mod+Shift+S { spawn-sh "@SCREENSHOT@"; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here

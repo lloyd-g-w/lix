@@ -12,10 +12,7 @@
     brightnessctl
     playerctl
 
-    swaylock
     wlogout
-
-    swaybg
   ];
 
   tools = with pkgs; [
@@ -44,24 +41,12 @@
     lib.mkIf (builtins.elem compositor lix.compositors)
     (import ./${compositor} {inherit config lib pkgs system inputs lix;});
 
-  import_list = builtins.map make_if_compositor compositors;
+  import_list = map make_if_compositor compositors;
 in {
-  imports = import_list;
+  imports = import_list ++ [./autostart ./noctalia];
 
   config = {
     home.packages = fonts ++ environment ++ tools;
-
-    # Application launcher
-    programs.vicinae = {
-      enable = true; # default: false
-      systemd = {
-        enable = true; # default: false
-        autoStart = true; # default: true (if systemd.enable is true)
-        environment = {
-          USE_LAYER_SHELL = 1;
-        };
-      };
-    };
 
     # Fonts
     fonts.fontconfig.enable = true;

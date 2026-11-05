@@ -10,5 +10,9 @@
 
   hardware.nvidia.open = true;
 
+  # Save video memory across suspend (to /var/tmp) and run NVIDIA's
+  # suspend/resume hooks. Without this, resume hung and needed a hard reset.
+  hardware.nvidia.powerManagement.enable = true;
+
   nixpkgs.config.allowUnfree = true; # required for proprietary drivers
 }
