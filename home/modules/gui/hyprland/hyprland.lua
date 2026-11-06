@@ -82,6 +82,9 @@ hl.config({
             tap_to_click = true,
             tap_and_drag = false,
             natural_scroll = true,
+            -- two-finger click = right click, three = middle
+            clickfinger_behavior = true,
+            disable_while_typing = true,
         },
     },
 })
@@ -175,6 +178,35 @@ end
 
 -- Pull in windows stranded on a workspace of an unplugged monitor
 bind("SHIFT + G", hs.dsp.grab_rogue_windows())
+
+------------------
+---- GESTURES ----
+------------------
+
+-- Function actions run once at the end of the swipe. Workspace swipes go
+-- through hyprsplit so they stay in the monitor's block (the built-in
+-- "workspace" action would cross into other monitors' blocks).
+local function dsp(d)
+    return function() hl.dispatch(d) end
+end
+
+-- 3 fingers up/down: next/prev workspace (vertical, like niri / mod+U/I)
+hl.gesture({ fingers = 3, direction = "up", action = hs.dsp.focus({ workspace = "+1" }) })
+hl.gesture({ fingers = 3, direction = "down", action = hs.dsp.focus({ workspace = "-1" }) })
+
+-- 3 fingers left/right: focus the window to the right/left
+hl.gesture({ fingers = 3, direction = "left", action = dsp(hl.dsp.focus({ direction = "right" })) })
+hl.gesture({ fingers = 3, direction = "right", action = dsp(hl.dsp.focus({ direction = "left" })) })
+
+-- 4 fingers: drag the window, following the fingers
+hl.gesture({ fingers = 4, direction = "swipe", action = "move" })
+
+-- Pinch out: maximize; pinch in: toggle floating
+hl.gesture({ fingers = 3, direction = "pinchout", action = "fullscreen", mode = "maximized" })
+hl.gesture({ fingers = 3, direction = "pinchin", action = "float" })
+
+-- mod + 3-finger swipe: resize
+hl.gesture({ fingers = 3, direction = "swipe", mods = mod, action = "resize" })
 
 -- Mouse wheel
 bind("mouse_right", hl.dsp.focus({ direction = "right" }))
