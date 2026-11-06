@@ -2,10 +2,15 @@
   description = "Lix--A NixOS and Home Manager Configuration";
 
   nixConfig = {
-    extra-substituters = ["https://vicinae.cachix.org" "https://prigh.cachix.org"];
+    extra-substituters = [
+      "https://vicinae.cachix.org"
+      "https://prigh.cachix.org"
+      "https://cache.nixos-cuda.org"
+    ];
     extra-trusted-public-keys = [
       "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
       "prigh.cachix.org-1:1kHKoGOetNmpzJg8lJ1nvQzwzTL0XiOs5GInELMgSoI="
+      "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
     ];
   };
 

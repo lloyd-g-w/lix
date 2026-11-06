@@ -9,6 +9,7 @@
       pkgs = import inputs.nixpkgs {
         inherit system;
         config.allowUnfree = true;
+        nixpkgs.config.cudaSupport = true;
 
         overlays = [
           self.overlays.default

@@ -1,11 +1,19 @@
 {
   pkgs,
   lix,
+  config,
   ...
 }: {
   environment.sessionVariables = {
     LIX_DIR = toString lix.dir;
   };
+
+  # For obs virtual camera
+  boot.extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
+  boot.kernelModules = ["v4l2loopback"];
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=1 video_nr=1 card_label="OBS Virtual Camera" exclusive_caps=1
+  '';
 
   # Keep SSH socket so I can use SSH for nixos switch as su
   security.sudo.extraConfig = ''
