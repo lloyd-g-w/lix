@@ -56,6 +56,7 @@
     piper
     acpi
     orca-slicer
+    blueman
 
     # Dev
     # oxcaml.oxcaml
