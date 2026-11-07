@@ -11,14 +11,21 @@ order = ["main"]
 margin_ends = 0
 panel_overlap = 0
 radius = 0
-start = ["launcher", "workspaces"]
+start = ["clock", "spacer_2", "taskbar"]
+center = ["workspaces"]
 
 [widget.launcher.actions]
 # Use vicinae instead of Noctalia's own launcher
 left = "exec vicinae toggle"
 
 [widget.clock]
-format = "{:%-I:%M:%S %p}"
+format = "%-I:%M:%S %p %-d/%-m/%Y"
+
+[widget.spacer_2]
+type = "spacer"
+
+[widget.taskbar]
+group_single_icon_per_app = true
 
 [widget.brightness]
 enabled = false
