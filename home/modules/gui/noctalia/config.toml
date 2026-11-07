@@ -38,14 +38,7 @@ enabled = false
 label_source = "name"
 
 [dock]
-enabled = true
-position = "bottom"
-icon_size = 30
-active_monitor_only = true
-reserve_space = false
-show_dots = true
-show_instance_count = false
-smart_auto_hide = true
+enabled = false
 
 [calendar]
 enabled = true
