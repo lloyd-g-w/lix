@@ -697,11 +697,11 @@
         "ox-opam-repository": "ox-opam-repository"
       },
       "locked": {
-        "lastModified": 1794011226,
-        "narHash": "sha256-0wR5cF1GtMvViloqEnE2fIMqcJgwB+DvAjap5sjjhK4=",
+        "lastModified": 1794012717,
+        "narHash": "sha256-PaiYCqdYejFppQkBr2VK+TzirWup5nLwcLP7cNiqVus=",
         "owner": "evan-a-w",
         "repo": "prigh",
-        "rev": "67435f902d4fc4d0c6f96b9474c4062b6f1f9fd1",
+        "rev": "467ed38de043ec512a2369e34e27c3dedbd49bed",
         "type": "github"
       },
       "original": {
