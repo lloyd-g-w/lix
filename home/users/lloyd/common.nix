@@ -129,7 +129,17 @@
     # Misc
     fastfetch
     cmatrix
-    artisan
+    # nixpkgs' appimageTools dropped libgpg-error from the FHS env;
+    # artisan's bundled libgcrypt needs it (crashes silently on launch otherwise)
+    (artisan.override {
+      appimageTools = appimageTools // {
+        wrapType2 = f:
+          appimageTools.wrapType2 (fa: let
+            a = if builtins.isFunction f then f fa else f;
+          in
+            a // {extraPkgs = p: (a.extraPkgs or (_: [])) p ++ [p.libgpg-error];});
+      };
+    })
   ];
 
   # default apps
