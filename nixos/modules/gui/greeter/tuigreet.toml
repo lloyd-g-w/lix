@@ -1,0 +1,44 @@
+# tuigreet config (https://github.com/NotAShelf/tuigreet, contrib/example.config.toml).
+# Placeholders (at-signs) are filled in by ./default.nix.
+
+[session]
+sessions_dirs = ["@SESSIONS_DIR@"]
+
+[remember]
+username = true # pre-fill the last user
+user_session = true # and their last session
+
+[display]
+show_time = true
+time_format = "%A %-d %B  ·  %H:%M"
+greeting = "@HOSTNAME@"
+show_title = false
+align_greeting = "center"
+
+[secret]
+mode = "characters"
+characters = "•"
+
+[layout]
+width = 44
+window_padding = 1
+container_padding = 2
+prompt_padding = 1
+
+[layout.widgets.status_bar]
+show_command = false # free-form commands: not needed
+show_background = false
+
+# The console has 16 colours, so these name console colour slots; ./default.nix
+# sets the slots to the lix palette (console.colors).
+[theme]
+border = "darkgray" # outline, like Hyprland's inactive border
+container = "black" # same as the screen: a floating box
+text = "gray"
+time = "darkgray"
+greet = "green" # lix primary
+title = "green"
+prompt = "darkgray"
+input = "white"
+action = "darkgray"
+button = "green"

@@ -3,7 +3,7 @@
     ./hardware-configuration.nix
     ../../modules/common.nix
     ../../modules/nvidia.nix
-    ../../modules/gui.nix
+    ../../modules/gui
     ../../modules/logitech-remap.nix
     ../../modules/users/lloyd.nix
   ];
