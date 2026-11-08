@@ -59,6 +59,9 @@
   boot.loader.grub.device = "nodev";
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.efiSupport = true;
+  # /boot is only 512M and each initrd is ~110M (NVIDIA driver in the
+  # initrd), so keep only the last 3 generations in the boot menu.
+  boot.loader.grub.configurationLimit = 3;
   # Install GRUB to the fallback path (EFI/BOOT/BOOTX64.EFI) so firmware always
   # finds it, even after a BIOS update wipes the NVRAM boot entries.
   boot.loader.grub.efiInstallAsRemovable = true;

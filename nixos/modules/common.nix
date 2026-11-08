@@ -89,6 +89,18 @@
     "root"
   ];
 
+  # Weekly `nh clean all`: deletes old system and home-manager generations
+  # (keeping the last 3, and any from the past week), then garbage-collects
+  # the store.
+  programs.nh = {
+    enable = true;
+    clean = {
+      enable = true;
+      dates = "weekly";
+      extraArgs = "--keep 3 --keep-since 7d";
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     vim
     wget
