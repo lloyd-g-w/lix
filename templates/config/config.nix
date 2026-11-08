@@ -3,8 +3,8 @@
 {
   lix = {
     # Compositors to install; each gets a session in the login screen
-    # (tuigreet). It remembers the one you last picked; the first is the
-    # default for a new user.
+    # (Noctalia Greeter). It remembers the one you last picked; the first is
+    # the default until you pick one.
     # One or more of: "niri" "hyprland" "mango"
     compositors = ["niri"];
     # compositors = ["niri" "hyprland"];
@@ -44,6 +44,10 @@
         };
 
         vrr = false; # variable refresh rate (default false)
+
+        # Show the login screen only on this monitor (at most one; without
+        # one it shows on every monitor).
+        primary = true;
 
         # HDR output (Hyprland only; niri and mango ignore it).
         hdr = true;

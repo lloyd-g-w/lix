@@ -46,6 +46,8 @@
     SUBSYSTEM=="drm", KERNEL=="card[0-9]*", ENV{ID_PATH}=="pci-0000:01:00.0", SYMLINK+="dri/nvidia-card"
   '';
   environment.sessionVariables.AQ_DRM_DEVICES = "/dev/dri/nvidia-card";
+  # Same for wlroots compositors: the login screen (Noctalia Greeter) and mango.
+  environment.sessionVariables.WLR_DRM_DEVICES = "/dev/dri/nvidia-card";
 
   # Save video memory across suspend and run NVIDIA's suspend/resume hooks.
   # Desktop only: on the laptop (PRIME, RTX 3050) it makes suspend fail

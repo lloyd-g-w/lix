@@ -7,7 +7,7 @@
 }: let
   hasCompositor = c: builtins.elem c lix.compositors;
 in {
-  # Login screen (greetd + tuigreet)
+  # Login screen (greetd + Noctalia Greeter)
   imports = [./greeter];
 
   config = {

@@ -88,6 +88,12 @@ in {
                 description = "Enable variable refresh rate on this monitor.";
               };
 
+              primary = mkOption {
+                type = types.bool;
+                default = false;
+                description = "Show the login screen only on this monitor (at most one). Without a primary monitor it shows on all of them.";
+              };
+
               hdr = mkOption {
                 type = types.bool;
                 default = false;
@@ -131,7 +137,7 @@ in {
       compositors = mkOption {
         type = types.nonEmptyListOf (types.enum ["niri" "mango" "hyprland"]);
         default = ["niri"];
-        description = "The compositors to enable for lix. The login screen (tuigreet) remembers the session each user last picked; the first one is the default for users without one.";
+        description = "The compositors to enable for lix. The login screen (Noctalia Greeter) remembers the session last picked; the first one is the default until one is picked.";
       };
 
       host = mkOption {

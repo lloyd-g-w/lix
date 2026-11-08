@@ -1,0 +1,26 @@
+# Noctalia Greeter settings (greeter.toml).
+# Reference: https://docs.noctalia.dev/greeter/configuration/
+# ./default.nix adds the generated parts on top: the lix palette, wallpaper,
+# cursor and the primary monitor ([output]).
+
+[appearance]
+scheme = "Synced" # the lix palette from ./default.nix
+theme_mode = "dark"
+font_family = "JetBrainsMono Nerd Font"
+password_style = "default"
+hide_logo = true
+scheme_selector_position = "hidden"
+power_buttons_position = "bottom-right"
+
+[clock]
+position = "above-panel"
+time_format = "%-I:%M %p" # 2:36 PM
+date_format = "%A %-d %B" # Sunday 8 November
+
+[output]
+# Only what is declared here and in ./default.nix: no layout or scale
+# copied over from the desktop session.
+use_synced_settings = false
+
+[idle]
+timeout = 300 # blank the screen after 5 minutes at the login screen
