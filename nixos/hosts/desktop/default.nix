@@ -31,6 +31,22 @@
     options = ["nofail" "x-systemd.device-timeout=10s" "uid=1000" "gid=100" "umask=022"];
   };
 
+  # Early KMS: load the NVIDIA driver in the initrd, so it always registers
+  # before the Ryzen iGPU (amdgpu). They used to race, which changed the
+  # connector names (HDMI-A-1 vs HDMI-A-2, DP-1.. vs DP-4..) from boot to
+  # boot. NVIDIA first means its connectors are HDMI-A-1 and DP-1..3.
+  boot.initrd.kernelModules = ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"];
+  hardware.nvidia.modesetting.enable = true;
+
+  # All monitors are on the RTX 4080; keep Hyprland (aquamarine) off the
+  # unused iGPU instead of running multi-GPU. AQ_DRM_DEVICES is a
+  # colon-separated list, so it cannot take the by-path name (which has
+  # colons): give the card a stable name of its own.
+  services.udev.extraRules = ''
+    SUBSYSTEM=="drm", KERNEL=="card[0-9]*", ENV{ID_PATH}=="pci-0000:01:00.0", SYMLINK+="dri/nvidia-card"
+  '';
+  environment.sessionVariables.AQ_DRM_DEVICES = "/dev/dri/nvidia-card";
+
   # Save video memory across suspend and run NVIDIA's suspend/resume hooks.
   # Desktop only: on the laptop (PRIME, RTX 3050) it makes suspend fail
   # instantly with "NVRM: PM suspend notifier failed: 0x62".

@@ -2,8 +2,9 @@
 # Every option is listed (with descriptions) in options/default.nix.
 {
   lix = {
-    # Compositors to install; each gets a login session in GDM. GDM remembers
-    # the one you last picked; the first is the default for a new user.
+    # Compositors to install; each gets a session in the login screen
+    # (tuigreet). It remembers the one you last picked; the first is the
+    # default for a new user.
     # One or more of: "niri" "hyprland" "mango"
     compositors = ["niri"];
     # compositors = ["niri" "hyprland"];
