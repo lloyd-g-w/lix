@@ -1,5 +1,9 @@
 # laptop-specific config (imported by ../common.nix)
-{...}: {
+{
+  config,
+  lib,
+  ...
+}: {
   imports = [../../../modules/nvidia.nix];
 
   # Bootloader: GRUB in UEFI mode, installed to the EFI partition at /boot,
@@ -14,4 +18,9 @@
   boot.loader.grub.efiInstallAsRemovable = false;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
+
+  # GTX 1060 (Pascal): no open modules, and only the 580 legacy branch
+  # supports it (595+ ignores the GPU).
+  hardware.nvidia.open = lib.mkForce false;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
 }
