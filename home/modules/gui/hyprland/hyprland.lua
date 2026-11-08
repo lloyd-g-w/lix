@@ -53,6 +53,13 @@ hl.config({
 
     animations = { enabled = false },
 
+    render = {
+        -- Don't switch a monitor into HDR when a fullscreen window plays HDR
+        -- video (it turned the 1440p Samsung HDR). The Odyssey's HDR comes
+        -- from its monitor rule (hdr = true in config.nix), not from this.
+        cm_auto_hdr = 0,
+    },
+
     misc = {
         force_default_wallpaper = 0,
         disable_hyprland_logo = true,
