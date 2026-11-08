@@ -15,7 +15,7 @@
 
   # Bluetooth
   hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
+  hardware.bluetooth.powerOnBoot = false;
   # No blueman: Noctalia's Bluetooth panel handles pairing
 
   # Printing
