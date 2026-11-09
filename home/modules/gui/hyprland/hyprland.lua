@@ -177,10 +177,15 @@ for _, key in ipairs({ "Page_Up", "I", "mouse_up" }) do
     bind("CTRL + " .. key, hs.dsp.window.move({ workspace = "-1" }))
 end
 
+-- Keep each monitor's workspaces gap-free and clamp mod+N to the slot after
+-- the last one in use, like niri: compact_workspaces.lua
+local cw = require("compact_workspaces")
+cw.setup({ hyprsplit = hs, num_workspaces = num_workspaces })
+
 for i = 1, 10 do
     local key = tostring(i % 10) -- 10 is the 0 key
-    bind(key, hs.dsp.focus({ workspace = i }))
-    bind("CTRL + " .. key, hs.dsp.window.move({ workspace = i }))
+    bind(key, cw.dsp.focus(i))
+    bind("CTRL + " .. key, cw.dsp.move(i))
 end
 
 -- Pull in windows stranded on a workspace of an unplugged monitor

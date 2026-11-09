@@ -56,6 +56,8 @@
 in {
   # Loaded with require("hyprsplit") in hyprland.lua
   home.file.".config/hypr/hyprsplit/init.lua".source = "${inputs.hyprsplit}/init.lua";
+  # Loaded with require("compact_workspaces") in hyprland.lua
+  home.file.".config/hypr/compact_workspaces/init.lua".source = ./compact_workspaces.lua;
 
   home.file.".config/hypr/hyprland.lua".source = pkgs.replaceVars ./hyprland.lua {
     SCREENSHOT = "noctalia msg screenshot-region";
