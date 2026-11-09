@@ -50,6 +50,11 @@ in {
     };
   };
 
+  # Let containers reach this host's own IPs (LAN or NetBird) on published
+  # ports. Docker answers those through the host, so they hit the host
+  # firewall; trust Docker's default bridge and compose networks (br-*).
+  networking.firewall.trustedInterfaces = ["docker0" "br-+"];
+
   virtualisation.oci-containers.backend = "docker";
   users.users.lloyd.extraGroups = ["docker"];
 
