@@ -10,6 +10,7 @@ in {
       # ../../modules/nvidia.nix
       ../../modules/users/lloyd.nix
       ../../modules/portainer.nix
+      ../../modules/secrets.nix
     ]
     ++ builtins.filter builtins.pathExists [(dir + "/default.nix")];
 

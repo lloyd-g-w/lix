@@ -56,6 +56,12 @@
       url = "github:shezdy/hyprsplit";
       flake = false;
     };
+
+    # Private repo
+    lec = {
+      url = "git+ssh://git@github.com/lloyd-g-w/lec";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {flake-parts, ...}:

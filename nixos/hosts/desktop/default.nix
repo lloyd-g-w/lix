@@ -6,6 +6,7 @@
     ../../modules/gui
     ../../modules/logitech-remap.nix
     ../../modules/users/lloyd.nix
+    ../../modules/secrets.nix
   ];
 
   # For nfs
