@@ -14,6 +14,7 @@
   shares = {
     "/mnt/truenas/configs" = "/mnt/main/configs";
     "/mnt/truenas/media" = "/mnt/main/media";
+    "/mnt/truenas/stacks" = "/mnt/main/stacks";
   };
 in {
   # "netbird.service started" does not mean the tunnel is up: mounting right
