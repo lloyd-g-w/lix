@@ -55,6 +55,10 @@
     "flakes"
   ];
 
+  # Use flake.nix's nixConfig (its extra caches) without passing
+  # --accept-flake-config every time.
+  nix.settings.accept-flake-config = true;
+
   # Binary caches for vicinae and prigh, so they download instead of compiling.
   # (flake.nix's nixConfig lists them too, but Nix ignores that without
   # --accept-flake-config.) Merged with the default cache.nixos.org.
