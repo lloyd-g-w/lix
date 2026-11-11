@@ -15,7 +15,8 @@ in {
       "plugdev"
       "audio"
       "video"
-      "docker"
+      # Not "docker": it is as good as root (it can read every secret), so
+      # Docker goes through sudo.
       "libvirtd"
       "kvm"
       "dialout"

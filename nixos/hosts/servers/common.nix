@@ -57,7 +57,9 @@ in {
   networking.firewall.trustedInterfaces = ["docker0" "br-+"];
 
   virtualisation.oci-containers.backend = "docker";
-  users.users.lloyd.extraGroups = ["docker"];
+  # lloyd is not in the docker group: it is as good as root, and would let
+  # anything running as lloyd (agents included) read every secret. Docker
+  # goes through sudo instead (lost does that itself).
 
   # make persistent dirs for volumes
   # systemd.tmpfiles.rules = [

@@ -45,7 +45,7 @@
   };
 
   virtualisation.oci-containers.backend = "docker";
-  users.users.lloyd.extraGroups = ["docker"];
+  # No docker group for lloyd: see ../servers/common.nix.
 
   # make persistent dirs for volumes
   # systemd.tmpfiles.rules = [
