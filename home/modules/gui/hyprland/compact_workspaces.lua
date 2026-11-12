@@ -6,6 +6,8 @@
 --   windows keep their layout.
 -- * Clamped goto: focusing/moving to workspace N past the last one in use
 --   goes to the slot just after it instead (only 1 in use: mod+4 -> 2).
+-- * Trailing empty workspace: the slot after the last one in use is kept
+--   alive (empty and persistent), so bars show it too (1, 2 in use -> 1, 2, 3).
 --
 -- Usage (after hyprsplit is configured):
 --   local cw = require("compact_workspaces")
@@ -39,6 +41,36 @@ local function block_workspaces(range)
     return list
 end
 
+-- Trailing empty workspace per monitor: monitor name -> workspace id whose
+-- persistent rule is enabled.
+local trailing = {}
+-- Persistent workspace rules, created on first use and then only toggled:
+-- "monitor|id" -> HL.WorkspaceRule. The rule's workspace is written with a
+-- leading 0 ("03" for 3): it still names workspace 3, but hl.workspace_rule
+-- would otherwise merge it into the enabled default_name rule for "3" (in
+-- hyprland.lua), and disabling it would then disable the name too.
+local rules = {}
+
+local function set_persistent(monitor_name, id, on)
+    local key = monitor_name .. "|" .. id
+    local rule = rules[key]
+    if rule then
+        rule:set_enabled(on)
+    elseif on then
+        rules[key] = hl.workspace_rule({
+            workspace = "0" .. id,
+            monitor = monitor_name,
+            persistent = true,
+        })
+    end
+end
+
+-- The monitor's trailing workspace, while it is still the empty spare
+-- (not when a window has been opened on it).
+local function is_spare(m, ws)
+    return ws.id == trailing[m.name] and ws.windows == 0
+end
+
 -- Shift every monitor's workspaces down into gaps in its block.
 function M.compact()
     for _, m in ipairs(hl.get_monitors()) do
@@ -46,6 +78,11 @@ function M.compact()
             local range = hs.MonitorRange:new(m)
             local slot = range.min
             for _, ws in ipairs(block_workspaces(range)) do
+                local active = m.active_workspace and m.active_workspace.id == ws.id
+                -- Leave the spare where it is: update_trailing moves it.
+                if is_spare(m, ws) and not active then
+                    goto continue
+                end
                 -- Ascending order, so every id below ws.id that is still in
                 -- use is already at or below slot: slot is free.
                 if ws.id > slot then
@@ -59,7 +96,49 @@ function M.compact()
                     log("%s: workspace %d -> %d", m.name, old, slot)
                 end
                 slot = slot + 1
+                ::continue::
             end
+        end
+    end
+end
+
+-- Keep one empty workspace after the last one in use on every monitor (none
+-- if the last one is already empty, e.g. you are on a fresh one).
+function M.update_trailing()
+    local present = {}
+    for _, m in ipairs(hl.get_monitors()) do
+        if valid_monitor(m) then
+            present[m.name] = true
+            local range = hs.MonitorRange:new(m)
+            local last
+            for _, ws in ipairs(block_workspaces(range)) do
+                if not is_spare(m, ws) then
+                    last = ws
+                end
+            end
+            local want
+            if last == nil then
+                want = range.min
+            elseif last.windows > 0 and last.id < range.max then
+                want = last.id + 1
+            end
+            local have = trailing[m.name]
+            if want ~= have then
+                if have then
+                    set_persistent(m.name, have, false)
+                end
+                if want then
+                    set_persistent(m.name, want, true)
+                end
+                trailing[m.name] = want
+            end
+        end
+    end
+    -- Unplugged monitors
+    for name, id in pairs(trailing) do
+        if not present[name] then
+            set_persistent(name, id, false)
+            trailing[name] = nil
         end
     end
 end
@@ -75,6 +154,7 @@ local function schedule_compact()
     hl.timer(function()
         pending = false
         M.compact()
+        M.update_trailing()
     end, { timeout = 50, type = "oneshot" })
 end
 
@@ -87,15 +167,19 @@ local function clamp(n, moving)
         return n, false
     end
     local range = hs.MonitorRange:new(mon)
-    local used = #block_workspaces(range)
-    local limit = used + 1
-    -- If the last workspace is the active one and would be left empty (moving
-    -- its only window, or focusing away from it while empty), a "new one
-    -- after it" would just collapse back into the same slot; stay put.
+    local list = block_workspaces(range)
+    local used = #list
+    -- An empty last workspace (the trailing spare, or a fresh one you are
+    -- on) is the slot after the ones in use: go no further than it.
+    local last = list[used]
+    local trailing_empty = last ~= nil and last.windows == 0
+    local last_used = trailing_empty and used - 1 or used
+    local limit = trailing_empty and used or used + 1
+    -- Moving the only window of the last workspace in use to the slot after
+    -- it would leave the same layout one slot along; stay put.
     local active = mon.active_workspace
-    local left_over = active and (active.windows - (moving and 1 or 0)) or 1
-    if active and active.id == range.min + used - 1 and left_over <= 0 then
-        limit = used
+    if moving and active and active.id == range.min + last_used - 1 and active.windows <= 1 then
+        limit = last_used
     end
     local target = math.max(1, math.min(n, limit, num_workspaces))
     local is_active = active ~= nil and active.id == range.min + target - 1
@@ -142,6 +226,19 @@ function M.setup(opts)
     num_workspaces = opts.num_workspaces or num_workspaces
 
     hl.on("workspace.removed", schedule_compact)
+    -- Anything that can change which workspaces are in use or empty
+    for _, ev in ipairs({
+        "workspace.created",
+        "workspace.active",
+        "window.open",
+        "window.close",
+        "window.destroy",
+        "window.move_to_workspace",
+        "monitor.added",
+        "monitor.removed",
+    }) do
+        hl.on(ev, schedule_compact)
+    end
     -- Clean up gaps left from before (e.g. after a config reload).
     hl.on("config.reloaded", schedule_compact)
     hl.on("hyprland.start", schedule_compact)
