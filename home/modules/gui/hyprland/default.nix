@@ -49,6 +49,21 @@
     (m: "hl.monitor(${lib.generators.toLua {multiline = false;} (monitorRule m)})")
     lix.home.monitors;
 
+  # Maps HDR textures to the monitor's SDR range (sdr_min/max_luminance) for
+  # screencopy, so screenshots (Noctalia's included) and screenshare of the
+  # HDR monitor get correct whites. Built against the same Hyprland it runs in.
+  hyprland-fix-hdr = pkgs.hyprlandPlugins.mkHyprlandPlugin {
+    pluginName = "hyprland-fix-hdr";
+    version = inputs.hyprland-fix-hdr.shortRev or "unstable";
+    src = inputs.hyprland-fix-hdr;
+    installPhase = ''
+      runHook preInstall
+      install -Dm755 hyprland-fix-hdr.so -t $out/lib
+      runHook postInstall
+    '';
+    meta.description = "HDR alpha blending and SDR capture corrections for Hyprland";
+  };
+
   # hyprsplit gives monitors workspace blocks in this order (1-10, 11-20, ...).
   monitorPriority =
     lib.generators.toLua {multiline = false;}
@@ -65,6 +80,7 @@ in {
     TERMINAL = "kitty";
     MONITORS = monitors;
     MONITOR_PRIORITY = monitorPriority;
+    HDR_PLUGIN = "${hyprland-fix-hdr}/lib/hyprland-fix-hdr.so";
     MENU = "vicinae toggle";
     DEFAULT_AUDIO_SINK = null;
     DEFAULT_AUDIO_SOURCE = null;

@@ -17,6 +17,13 @@ hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "auto" 
 @MONITORS@
 
 -------------------
+----- PLUGINS -----
+-------------------
+
+-- hyprland-fix-hdr: correct SDR screenshots/screenshare of the HDR monitor
+hl.plugin.load("@HDR_PLUGIN@")
+
+-------------------
 ---- AUTOSTART ----
 -------------------
 

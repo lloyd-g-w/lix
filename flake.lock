@@ -235,6 +235,22 @@
         "type": "github"
       }
     },
+    "hyprland-fix-hdr": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794066442,
+        "narHash": "sha256-iONfOlQp++7S9TjKrFdQ7ffb/HyW+S7Qgg8gEdAzxa8=",
+        "owner": "yayuuu",
+        "repo": "hyprland-fix-hdr",
+        "rev": "8471dce4a3825a55d939dad5eaf9db77b9842164",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yayuuu",
+        "repo": "hyprland-fix-hdr",
+        "type": "github"
+      }
+    },
     "hyprsplit": {
       "flake": false,
       "locked": {
@@ -757,6 +773,7 @@
       "inputs": {
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
+        "hyprland-fix-hdr": "hyprland-fix-hdr",
         "hyprsplit": "hyprsplit",
         "latus": "latus",
         "lec": "lec",

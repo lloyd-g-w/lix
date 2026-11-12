@@ -6,6 +6,8 @@
 --   windows keep their layout.
 -- * Clamped goto: focusing/moving to workspace N past the last one in use
 --   goes to the slot just after it instead (only 1 in use: mod+4 -> 2).
+--   Going to the workspace you are already on does nothing (no back and
+--   forth).
 -- * Trailing empty workspace: the slot after the last one in use is kept
 --   alive (empty and persistent), so bars show it too (1, 2 in use -> 1, 2, 3).
 --
@@ -186,13 +188,13 @@ local function clamp(n, moving)
     return target, is_active
 end
 
--- Clamping onto the active workspace means "already as far as it goes":
--- do nothing, rather than letting hyprsplit treat it as
--- workspace_back_and_forth. Pressing the active workspace's own number
--- still goes back and forth.
+-- Going to the active workspace (pressed directly, or clamped onto it) does
+-- nothing. hyprsplit would otherwise treat it as workspace_back_and_forth
+-- even with that option off: it tests hl.get_config(...) for truthiness,
+-- and 0 is truthy in Lua.
 local function clamped(n, moving)
     local target, is_active = clamp(n, moving)
-    if is_active and target ~= n then
+    if is_active then
         return nil
     end
     return target

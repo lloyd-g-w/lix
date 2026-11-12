@@ -57,6 +57,13 @@
       flake = false;
     };
 
+    # Hyprland plugin: correct SDR screenshots/screenshare of HDR monitors
+    # (built in home/modules/gui/hyprland)
+    hyprland-fix-hdr = {
+      url = "github:yayuuu/hyprland-fix-hdr";
+      flake = false;
+    };
+
     # Private repo
     lec = {
       url = "git+ssh://git@github.com/lloyd-g-w/lec";
