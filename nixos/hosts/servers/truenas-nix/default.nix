@@ -8,6 +8,8 @@
     ../../../modules/nvidia.nix
     # Runs lost's arr-gpu stack, with its data on TrueNAS.
     ../../../modules/truenas-mounts.nix
+    # App configs/databases on a TrueNAS iSCSI LUN at /srv/appdata.
+    ../../../modules/truenas-block.nix
   ];
 
   # Bootloader: GRUB in UEFI mode, installed to the EFI partition at /boot,
