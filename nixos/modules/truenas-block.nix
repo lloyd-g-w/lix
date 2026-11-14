@@ -3,19 +3,33 @@
 # NFS is fine for media, but SQLite over NFS stalls: every lock and fsync is a
 # round trip to the NAS. A LUN is a block device, so ext4 runs on this host and
 # locks/metadata stay local, while the data still lives on TrueNAS
-# (zvol main/blocks/truenas-block, snapshotted there).
+# (a zvol under main/blocks, snapshotted there).
 #
-# Only ONE host may have the LUN logged in/mounted at a time, or ext4 gets
-# corrupted. To move it: stop the containers, `umount /srv/appdata`,
-# `iscsiadm -m node -U all`, then import this module on the new host and add
-# that host's initiator name (below) to the TrueNAS initiator group.
+# A function: call it with the block's details and import the result, e.g.
+#   imports = [
+#     (import ../../../modules/truenas-block.nix {
+#       name = "truenas-block";     # TrueNAS extent name = ext4 label
+#       mountPoint = "/srv/appdata";
+#     })
+#   ];
+#
+# TrueNAS side, per block: zvol main/blocks/<name>, an extent/target <name>,
+# and an initiator group allowing this host's initiator name:
+#   iqn.2026-11.co.caduc:<hostname>
+#
+# Only ONE host may have a LUN logged in/mounted at a time, or ext4 gets
+# corrupted. To move one: stop the containers, `umount <mountPoint>`,
+# `iscsiadm -m node -U all`, then import it on the new host and allow that
+# host's initiator name on TrueNAS.
 #
 # First-time setup (once, by hand, after checking the device in lsblk):
-#   mkfs.ext4 -L truenas-block /dev/sdX
-{config, ...}: let
+#   mkfs.ext4 -L <name> /dev/sdX
+{
+  name,
+  mountPoint ? "/srv/appdata",
   # TrueNAS's LAN IP, not NetBird: a block device should not depend on the tunnel.
-  portal = "192.168.86.33:3260";
-in {
+  portal ? "192.168.86.33:3260",
+}: {config, ...}: {
   services.openiscsi = {
     enable = true;
     # Must be allowed by the TrueNAS target's initiator group.
@@ -26,8 +40,8 @@ in {
     extraConfig = "node.startup = automatic";
   };
 
-  fileSystems."/srv/appdata" = {
-    device = "/dev/disk/by-label/truenas-block";
+  fileSystems.${mountPoint} = {
+    device = "/dev/disk/by-label/${name}";
     fsType = "ext4";
     options = [
       "_netdev"
@@ -39,5 +53,5 @@ in {
   };
 
   # Don't start containers against the empty mountpoint.
-  systemd.services.docker.unitConfig.RequiresMountsFor = ["/srv/appdata"];
+  systemd.services.docker.unitConfig.RequiresMountsFor = [mountPoint];
 }
