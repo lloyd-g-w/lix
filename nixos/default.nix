@@ -22,7 +22,9 @@
     };
 
   # { "server-<folder>" = module; } from ./hosts/servers
-  servers = builtins.mapAttrs (_: module: mkHost "x86_64-linux" [module]) (import ./hosts/servers);
+  # The architecture comes from each server's nixpkgs.hostPlatform (set in its
+  # hardware-configuration.nix), so x86 and ARM servers can sit side by side.
+  servers = builtins.mapAttrs (_: module: mkHost null [module]) (import ./hosts/servers);
 in {
   flake.nixosConfigurations =
     {
