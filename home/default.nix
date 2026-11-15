@@ -26,9 +26,11 @@
       modules = modules ++ config.lix.home.sharedModules;
     };
 
-  # one home config per server host (see nixos/hosts/servers)
+  # one home config per server host (see nixos/hosts/servers), for the same
+  # architecture as that host's NixOS config
   servers = inputs.nixpkgs.lib.mapAttrs' (host: _:
-    inputs.nixpkgs.lib.nameValuePair "lloyd@${host}" (mkHome "x86_64-linux" [./users/server]))
+    inputs.nixpkgs.lib.nameValuePair "lloyd@${host}"
+    (mkHome self.nixosConfigurations.${host}.pkgs.stdenv.hostPlatform.system [./users/server]))
   (import ../nixos/hosts/servers);
 in {
   flake.homeConfigurations =
