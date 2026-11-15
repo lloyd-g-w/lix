@@ -26,6 +26,12 @@
 
     vicinae.url = "github:vicinaehq/vicinae";
 
+    # Declarative disk layouts, for installing servers with nixos-anywhere
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     mangowm = {
       url = "github:mangowm/mango";
       inputs.nixpkgs.follows = "nixpkgs";
