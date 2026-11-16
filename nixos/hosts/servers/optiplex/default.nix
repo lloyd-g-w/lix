@@ -1,7 +1,13 @@
 # optiplex-specific config (imported by ../common.nix)
 {...}: {
   # Runs lost's arr-cpu stack, with its data on TrueNAS.
-  imports = [../../../modules/truenas-mounts.nix];
+  imports = [
+    ../../../modules/truenas-mounts.nix
+    (import ../../../modules/truenas-block.nix {
+      name = "optiplex-block";
+      mountPoint = "/srv/appdata";
+    })
+  ];
 
   # Bootloader.
   boot.loader.grub.enable = true;
