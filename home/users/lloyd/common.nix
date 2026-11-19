@@ -43,7 +43,7 @@
 
     # Utils
     nh # Nix helper
-    pkgs.lix.dev
+    pkgs.lix.edit
     kdePackages.filelight # disk usage gui
     unzip
     atool
