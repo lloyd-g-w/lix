@@ -37,9 +37,13 @@
   };
 
   home.packages = with pkgs; [
-    # fuck ai
     codex
     claude-code
+    antigravity-ide
+    pi-coding-agent
+    grok-cli
+    opencode
+    grok-cli
 
     # Utils
     nh # Nix helper
