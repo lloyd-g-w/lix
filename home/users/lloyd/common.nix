@@ -40,6 +40,7 @@
     codex
     claude-code
     antigravity-cli
+    antigravity-acp
     antigravity-hub
     pi-coding-agent
     grok-cli
