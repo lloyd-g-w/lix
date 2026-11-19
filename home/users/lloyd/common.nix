@@ -39,7 +39,8 @@
   home.packages = with pkgs; [
     codex
     claude-code
-    antigravity-acp
+    antigravity-cli
+    antigravity-hub
     pi-coding-agent
     grok-cli
     opencode
