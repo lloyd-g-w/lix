@@ -64,6 +64,7 @@
     acpi
     orca-slicer
     blueman
+    flatpak
 
     # Dev
     # oxcaml.oxcaml
