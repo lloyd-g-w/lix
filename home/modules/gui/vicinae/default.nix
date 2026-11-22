@@ -24,6 +24,32 @@
         opacity = 1.0; # no translucency
         material = "none"; # no blur behind the window
       };
+
+      # These override the app's settings UI. The Groq API key isn't here: vicinae
+      # stores it separately (enter it in the app).
+      providers = {
+        # Dictate with ctrl+space; pasting needs the input server from vicinae's
+        # NixOS module (flake.nix, lix.os.sharedModules)
+        dictation = {
+          preferences = {
+            model = "groq:whisper-large-v3";
+            language = "auto";
+            sound = true;
+            pauseMedia = false;
+            dictationAction = "paste";
+          };
+          entrypoints.dictate.shortcut = "ctrl+space";
+        };
+        ai.preferences = {
+          providers.groq.type = "groq";
+          enableTools = true;
+        };
+        clipboard.preferences.monitoring = true;
+        snippets.preferences = {
+          enabled = true;
+          undo = true;
+        };
+      };
     };
 
     # Written to ~/.local/share/vicinae/themes/lix.toml
