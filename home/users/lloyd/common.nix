@@ -28,10 +28,6 @@
     desktop.computerUse = true;
   };
 
-  # Dictation, toggled with ctrl+space in hyprland (Wayland apps can't grab
-  # global keys, so the in-app shortcut only works while Handy is focused)
-  lix.gui.autostart.handy = "${pkgs.handy}/bin/handy --start-hidden";
-
   home.username = "lloyd";
   home.homeDirectory = "/home/lloyd";
   home.stateVersion = "24.11";
@@ -69,9 +65,6 @@
     orca-slicer
     blueman
     flatpak
-    handy # dictation (see lix.gui.autostart.handy)
-    wtype # handy types text with these on Hyprland
-    wl-clipboard
 
     # Dev
     # oxcaml.oxcaml

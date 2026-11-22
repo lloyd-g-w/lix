@@ -256,9 +256,6 @@ bind("SHIFT + EQUAL", hl.dsp.window.resize({ x = 0, y = 100, relative = true }))
 bind("V", hl.dsp.window.float({ action = "toggle" }))
 bind("SHIFT + V", hl.dsp.window.cycle_next({ floating = true }))
 
--- Handy dictation: start/stop (autostarted in home/users/lloyd/common.nix)
-hl.bind("CTRL + SPACE", hl.dsp.exec_cmd("handy --toggle-transcription"))
-
 bind("SHIFT + S", hl.dsp.exec_cmd("@SCREENSHOT@"))
 
 bind("SHIFT + E", hl.dsp.exit())

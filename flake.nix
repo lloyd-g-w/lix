@@ -107,6 +107,8 @@
 
       lix.os.sharedModules = [
         inputs.mangowm.nixosModules.mango
+        # Setcap'd vicinae-input-server: lets vicinae paste (dictation, clipboard, emoji) and expand snippets
+        inputs.vicinae.nixosModules.default
       ];
     };
 }
