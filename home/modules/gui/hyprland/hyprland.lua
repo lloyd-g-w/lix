@@ -4,8 +4,7 @@
 local terminal = "@TERMINAL@"
 local browser = "@BROWSER@"
 local menu = "@MENU@"
--- Caps Lock is Hyper on Mod3 (kb_options below), so only Caps Lock is mod; Super is unbound.
-local mod = "MOD3"
+local mod = "SUPER"
 
 -------------------
 ---- MONITORS -----
@@ -90,8 +89,6 @@ hl.config({
 hl.config({
     input = {
         kb_layout = "au",
-        -- Caps Lock becomes Hyper on Mod3 (its own modifier, separate from Super's Mod4)
-        kb_options = "caps:hyper,hyper:mod3",
         numlock_by_default = true,
         -- focus-follows-mouse
         follow_mouse = 1,
