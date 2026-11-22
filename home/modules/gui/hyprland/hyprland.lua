@@ -256,8 +256,8 @@ bind("SHIFT + EQUAL", hl.dsp.window.resize({ x = 0, y = 100, relative = true }))
 bind("V", hl.dsp.window.float({ action = "toggle" }))
 bind("SHIFT + V", hl.dsp.window.cycle_next({ floating = true }))
 
--- OpenWhispr dictation: start/stop (the app must be running)
-bind("W", hl.dsp.exec_cmd("dbus-send --session --type=method_call --dest=com.openwhispr.App /com/openwhispr/App com.openwhispr.App.Toggle"))
+-- Handy dictation: start/stop (autostarted in home/users/lloyd/common.nix)
+hl.bind("CTRL + SPACE", hl.dsp.exec_cmd("handy --toggle-transcription"))
 
 bind("SHIFT + S", hl.dsp.exec_cmd("@SCREENSHOT@"))
 
