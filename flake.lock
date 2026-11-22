@@ -317,11 +317,11 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1795329838,
-        "narHash": "sha256-7zFaMMT85RtOkb7jjPhZTO1DRare6XNEFET1chXORQg=",
+        "lastModified": 1795330065,
+        "narHash": "sha256-SWsHfo1/dah8AShWY+DwnnWD5v8scTQWYVTG4TTQ4TI=",
         "ref": "refs/heads/main",
-        "rev": "466c2e3177f61f23bca9cb02788ef9c9a0d28d2f",
-        "revCount": 15,
+        "rev": "034da71f536af0752ced0ed4d947faa61d5fb8c7",
+        "revCount": 16,
         "type": "git",
         "url": "ssh://git@github.com/lloyd-g-w/lec"
       },
