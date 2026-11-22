@@ -56,6 +56,12 @@
       url = "github:evan-a-w/prigh";
     };
 
+    # Voice dictation (not in nixpkgs)
+    openwhispr = {
+      url = "github:OpenWhispr/openwhispr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Per-monitor workspaces for hyprland (a lua library, used by
     # home/modules/gui/hyprland)
     hyprsplit = {

@@ -9,5 +9,6 @@ in {
     lix.edit = self.packages.${prev.stdenv.hostPlatform.system}.edit;
     zen-browser = inputs.zen-browser.packages.${prev.stdenv.hostPlatform.system}.default;
     prigh = inputs.prigh.packages.${prev.stdenv.hostPlatform.system}.default;
+    openwhispr = inputs.openwhispr.packages.${prev.stdenv.hostPlatform.system}.default;
   };
 }

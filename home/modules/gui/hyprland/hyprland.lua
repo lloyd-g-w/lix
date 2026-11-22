@@ -256,8 +256,8 @@ bind("SHIFT + EQUAL", hl.dsp.window.resize({ x = 0, y = 100, relative = true }))
 bind("V", hl.dsp.window.float({ action = "toggle" }))
 bind("SHIFT + V", hl.dsp.window.cycle_next({ floating = true }))
 
--- Closest thing to niri's tabbed columns
-bind("W", hl.dsp.group.toggle())
+-- OpenWhispr dictation: start/stop (the app must be running)
+bind("W", hl.dsp.exec_cmd("dbus-send --session --type=method_call --dest=com.openwhispr.App /com/openwhispr/App com.openwhispr.App.Toggle"))
 
 bind("SHIFT + S", hl.dsp.exec_cmd("@SCREENSHOT@"))
 

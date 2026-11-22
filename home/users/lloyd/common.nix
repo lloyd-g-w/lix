@@ -65,6 +65,7 @@
     orca-slicer
     blueman
     flatpak
+    openwhispr # dictation, toggled with mod+W in hyprland
 
     # Dev
     # oxcaml.oxcaml

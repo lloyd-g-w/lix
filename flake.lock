@@ -751,6 +751,26 @@
         "type": "github"
       }
     },
+    "openwhispr": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1795184160,
+        "narHash": "sha256-TWmp3dTex5ZZ2qr/CMaMhV+izzfkY8zfiYmjPHRkyTQ=",
+        "owner": "OpenWhispr",
+        "repo": "openwhispr",
+        "rev": "007826d936af15e89291c1106042f1b280a75933",
+        "type": "github"
+      },
+      "original": {
+        "owner": "OpenWhispr",
+        "repo": "openwhispr",
+        "type": "github"
+      }
+    },
     "ox-opam-repository": {
       "flake": false,
       "locked": {
@@ -802,6 +822,7 @@
         "mangowm": "mangowm",
         "nixpkgs": "nixpkgs_2",
         "old-nixpkgs": "old-nixpkgs",
+        "openwhispr": "openwhispr",
         "prigh": "prigh",
         "vicinae": "vicinae",
         "zen-browser": "zen-browser"
