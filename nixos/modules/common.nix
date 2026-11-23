@@ -55,6 +55,14 @@
     "flakes"
   ];
 
+  programs.clash-verge = {
+    enable = true;
+    package = pkgs.clash-verge-rev;
+    tunMode = true;
+    serviceMode = true;
+    autoStart = false;
+  };
+
   # Use flake.nix's nixConfig (its extra caches) without passing
   # --accept-flake-config every time.
   nix.settings.accept-flake-config = true;
