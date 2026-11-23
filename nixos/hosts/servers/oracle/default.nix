@@ -4,7 +4,10 @@
 # lost's laefik (Traefik for every public site) and netbird (the NetBird
 # server). Installed with nixos-anywhere; see README.md in this folder.
 {inputs, ...}: let
-  sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAppeWlM3pu4osKgwEXu0LWIdGOVEqh+TJIwISc2afUk lloyd.williams1062@gmail.com";
+  sshKeys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAppeWlM3pu4osKgwEXu0LWIdGOVEqh+TJIwISc2afUk lloyd.williams1062@gmail.com"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKV6zGIza3ApBvryfV4cI+ADsns2HVht820SfqsIMC2t lloyd.williams1062@gmail.com"
+  ];
 in {
   imports = [
     inputs.disko.nixosModules.disko
@@ -32,8 +35,8 @@ in {
   # A fresh install has no passwords and no keys: without these, SSH (key-only)
   # would lock everyone out. Root is there to set lloyd's password once
   # (`ssh -p 143 root@... passwd lloyd`, needed for sudo).
-  users.users.lloyd.openssh.authorizedKeys.keys = [sshKey];
-  users.users.root.openssh.authorizedKeys.keys = [sshKey];
+  users.users.lloyd.openssh.authorizedKeys.keys = sshKeys;
+  users.users.root.openssh.authorizedKeys.keys = sshKeys;
 
   # traefik runs with host networking, so every port it listens on must be
   # open here (Docker only opens the ports it publishes itself). Keep in step
