@@ -317,11 +317,11 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1795331935,
-        "narHash": "sha256-qnNYcZVgYC7qRDIcWK3AZa37j9FMDSYK0RlvT5cUHYI=",
+        "lastModified": 1795481920,
+        "narHash": "sha256-1t+gEexgY4v2SsMmSKWUqoL7ZEfxU44RwcNG3VEb9aU=",
         "ref": "refs/heads/main",
-        "rev": "448ca107d77fd98cebf0a949e617abe4e2d9f2e9",
-        "revCount": 17,
+        "rev": "cf09ab7e4b49afef04be5532eb4d3b2149e622c2",
+        "revCount": 18,
         "type": "git",
         "url": "ssh://git@github.com/lloyd-g-w/lec"
       },
@@ -776,11 +776,11 @@
         "ox-opam-repository": "ox-opam-repository"
       },
       "locked": {
-        "lastModified": 1795399450,
-        "narHash": "sha256-oHTXeXDy07g2SBv7GVOuNfVMl4laF1N/8Wl9bMFqhP0=",
+        "lastModified": 1795431990,
+        "narHash": "sha256-cRL+Qs1X/uBNSyHg7B5szp13wBYQkh4CJm9rid0cGEQ=",
         "owner": "evan-a-w",
         "repo": "prigh",
-        "rev": "0588f89e79d2759f3a93af33b360c980685a7dd8",
+        "rev": "9c474bea5ad4fffeb8c3856693c6f6d46e05ca74",
         "type": "github"
       },
       "original": {
