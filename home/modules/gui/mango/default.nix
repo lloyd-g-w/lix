@@ -19,6 +19,7 @@
       ++ opt "serial" m.serial
       ++ lib.optionals (m.pos != null) ["x:${toString m.pos.x}" "y:${toString m.pos.y}"]
       ++ ["scale:${toString m.scale}"]
+      ++ lib.optional (m.rotation != 0) "rr:${toString (m.rotation / 90)}"
       ++ lib.optionals (m.mode != null) (
         ["width:${toString m.mode.width}" "height:${toString m.mode.height}"]
         ++ opt "refresh" m.mode.refresh

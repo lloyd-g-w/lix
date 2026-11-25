@@ -33,6 +33,7 @@
         then "${toString m.pos.x}x${toString m.pos.y}"
         else "auto";
       scale = toString m.scale;
+      transform = m.rotation / 90;
       vrr =
         if m.vrr
         then 1

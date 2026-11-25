@@ -17,6 +17,7 @@
       lib.optional (m.pos != null)
       "position x=${toString m.pos.x} y=${toString m.pos.y}"
       ++ ["scale ${toString m.scale}"]
+      ++ lib.optional (m.rotation != 0) ''transform "${toString m.rotation}"''
       ++ lib.optional (m.mode != null)
       ''mode "${toString m.mode.width}x${toString m.mode.height}${
         lib.optionalString (m.mode.refresh != null) "@${toString m.mode.refresh}"

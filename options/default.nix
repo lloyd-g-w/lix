@@ -82,6 +82,12 @@ in {
                 description = "Optional mode; when null, the compositor picks the preferred mode.";
               };
 
+              rotation = mkOption {
+                type = types.enum [0 90 180 270];
+                default = 0;
+                description = "Rotation in degrees counter-clockwise (the Wayland wl_output transform; 90 is Hyprland's transform 1). Position uses the rotated size.";
+              };
+
               vrr = mkOption {
                 type = types.bool;
                 default = false;
