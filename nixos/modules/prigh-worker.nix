@@ -1,10 +1,16 @@
 # prigh-worker.nix
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   systemd.services.prigh-worker = {
     wantedBy = ["multi-user.target"];
     after = ["network-online.target"];
     wants = ["network-online.target"];
-    path = [pkgs.prigh "/run/wrappers" "/run/current-system/sw" "/etc/profiles/per-user/laptopserver"];
+    path =
+      [pkgs.prigh "/run/wrappers" "/run/current-system/sw" "/etc/profiles/per-user/lloyd"]
+      ++ builtins.attrValues inputs.prigh.agentClis.${pkgs.stdenv.hostPlatform.system};
     serviceConfig = {
       User = "lloyd";
       EnvironmentFile = "/etc/prigh-worker.env"; # PRIGH_TOKEN=...
