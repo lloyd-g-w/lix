@@ -442,6 +442,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-agents": {
+      "locked": {
+        "lastModified": 1795234589,
+        "narHash": "sha256-f/VVvxf5RsQgWVhUtefoca5ktVg0DA2bnkMOcmSnozo=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "2786a2a72088ecf32aea5b3ec52099e6a7cff78f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1793504054,
@@ -771,16 +787,17 @@
       "inputs": {
         "flake-utils": "flake-utils_2",
         "nixpkgs": "nixpkgs_3",
+        "nixpkgs-agents": "nixpkgs-agents",
         "opam-nix": "opam-nix",
         "opam-repository": "opam-repository_2",
         "ox-opam-repository": "ox-opam-repository"
       },
       "locked": {
-        "lastModified": 1795698499,
-        "narHash": "sha256-lkSNoVybsHp9Z5Y9OOVRl0FrKRbidx/ta6WSd4vntB0=",
+        "lastModified": 1795702334,
+        "narHash": "sha256-ff4STq1SN7F4FsZ+/kksn2+s4pTod1URdkUPjFYnP5g=",
         "owner": "evan-a-w",
         "repo": "prigh",
-        "rev": "6d00698d98746c3275d80d3600bb83740a1b98c6",
+        "rev": "ed579b48c742ac2444e3eeae5a4cd69d522d24ac",
         "type": "github"
       },
       "original": {
